@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div id="times"></div>
+	<script type="text/javascript">
+		function times() {
+			var date1 = new Date();
+			var date2 = date1.toLocaleString();
+			var div1 = document.getElementById("times");
+			div1.innerHTML = date2;
+		}
+		setInterval("times()", 1000);
+	</script>
+</body>
+</html>

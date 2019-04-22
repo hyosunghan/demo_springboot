@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+ <head>
+  <title> New Document </title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script type="text/javascript" src="js/checkCode.js" charset="utf-8"></script>
+  <style type="text/css">
+     #checkCodeArea{
+	    width:160px;
+		height:40px;
+	 }
+  </style>
+ </head>
+
+ <body>
+   <h1>js验证码实例</h1>
+   <hr>
+   
+   <div id="checkCodeArea">
+   </div>
+   <script type="text/javascript">
+     var checkCodes=new CheckCode({
+           obj:document.getElementById('checkCodeArea'),
+           codesLen:4          //该参数可选，默认为4
+     });
+     checkCodes.render(); 
+
+     function changeCode()
+	 {
+	   checkCodes.refresh(); 
+	 }
+
+	 function getCodeValue()
+	 {
+	   var num = checkCodes.getCodes();
+	   alert(num);
+	 }
+   </script>
+
+   <BR>
+   <input type="button" value="换一张" onclick="changeCode();"/>
+   <input type="button" value="获取验证码值" onclick="getCodeValue();"/>
+
+ </body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+	<body>
+  行：<input type ="text" id="hang"/>
+  列：<input type ="text" id="lie"/>
+  <br/>
+  <input type="button" value="生成" onclick="add1()"/>
+  <div id="div1">
+  </div>
+  <script type="text/javascript">
+  function add1(){
+	  var hang = document.getElementById("hang").value;
+	  var lie = document.getElementById("lie").value;
+	  var tab = "<table border='1'>";
+	  var n = 1;
+	  for(var i=1;i<=hang;i++){
+		  tab += "<tr>";
+		  for(var j=1;j<=lie;j++){
+			  tab += "<td>第"+i+"行第"+j+"列</td>";
+			  n++;
+		  }
+		  tab += "</tr>";
+	  }
+	   tab += "</table>";
+	   var div1 = document.getElementById("div1");
+	   div1.innerHTML = tab;
+  }
+  </script>
+ </body>
+</html>

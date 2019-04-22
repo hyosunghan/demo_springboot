@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base target="_blank">
+<title>HomePage</title>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<style type="text/css">
+body {
+	background-image: url("img/timg.jpg");
+	background-attachment: fixed;
+	background-size: 100% 100%;
+}
+
+.btn {
+	font-family: fantasy;
+}
+
+.col-lg-7, .col-lg-7 a, input {
+	font-family: times;
+	font-size: 1;
+	color: #000000;
+}
+
+.col-lg-5 {
+	/* border-right: 1px solid; */
+	text-align: right;
+}
+
+a .glyphicon {
+	float: left;
+}
+
+.img-circle {
+	width: 40px;
+	height: 40px;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="carousel">
+				<img src="img/hyosunghan.gif" alt="error"
+					class="img-responsive center-block">
+			</div>
+		</div>
+		<div class="row">
+			<form class="col-lg-8 col-lg-offset-2" role="form" name="bdfm"
+				method="get" action="http://www.baidu.com/s?word">
+				<div class="input-group">
+					<div class="input-group-btn">
+						<button class="btn btn-lg btn-info" type="reset">
+							<span class="glyphicon glyphicon-repeat"></span>
+						</button>
+					</div>
+					<input type="text" class="form-control input-lg" id="focusedInput"
+						name="word" autofocus="autofocus" placeholder="The value of life, not with time, but with the depth to be measured.">
+					<div class="input-group-btn">
+						<button type="submit" class="btn btn-info btn-lg">
+							<span class="glyphicon glyphicon-search"></span>
+						</button>
+						<button type="submit" class="btn btn-info btn-lg dropdown-toggle"
+							data-toggle="dropdown">
+							<span class="caret"></span> <span class="sr-only"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="http://news.baidu.com/" class="btn btn-lg"><span
+									class="glyphicon glyphicon-globe"></span>新闻</a></li>
+							<li><a href="http://tieba.baidu.com/" class="btn btn-lg"><span
+									class="glyphicon glyphicon-file"></span>贴吧</a></li>
+							<li><a href="http://zhidao.baidu.com/" class="btn btn-lg"><span
+									class="glyphicon glyphicon-search"></span>知道</a></li>
+							<li><a href="http://music.baidu.com/" class="btn btn-lg"><span
+									class="glyphicon glyphicon-music"></span>音乐</a></li>
+							<li><a href="http://images.baidu.com/" class="btn btn-lg"><span
+									class="glyphicon glyphicon-picture"></span>图片</a></li>
+							<li><a href="http://v.baidu.com/" class="btn btn-lg"><span
+									class="glyphicon glyphicon-expand"></span>视频</a></li>
+							<li><a href="http://map.baidu.com/" class="btn btn-lg"><span
+									class="glyphicon glyphicon-map-marker"></span>地图</a></li>
+							<li><a href="http://wenku.baidu.com/" class="btn btn-lg"><span
+									class="glyphicon glyphicon-book"></span>文库</a></li>
+							<li class="divider"></li>
+							<li><a href="http://www.baidu.com/more/" class="btn btn-lg"><span
+									class="glyphicon glyphicon-th"></span>更多>></a></li>
+						</ul>
+					</div>
+				</div>
+			</form>
+		</div>
+		<br>
+		<div class="row">
+			<div
+				class="col-lg-2 col-md-3 col-sm-3 col-xs-6 col-lg-offset-2 btn-group">
+				<button class="btn btn-lg btn-block btn-primary dropdown-toggle"
+					data-toggle="dropdown">
+					腾讯<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<li><a href="http://www.qq.com/" class="btn btn-lg"><span
+							class="glyphicon glyphicon-home"></span>腾讯</a></li>
+					<li class="divider"></li>
+					<li><a href="http://wx.qq.com/" class="btn btn-lg"><span
+							class="glyphicon glyphicon-qrcode"></span>微信</a></li>
+					<li><a href="https://v.qq.com/" class="btn btn-lg"><span
+							class="glyphicon glyphicon-film"></span>视频</a></li>
+					<li><a href="https://qzone.qq.com/" class="btn btn-lg"><span
+							class="glyphicon glyphicon-star"></span>空间</a></li>
+					<li><a href="https://mail.qq.com/" class="btn btn-lg"><span
+							class="glyphicon glyphicon-envelope"></span>邮箱</a></li>
+				</ul>
+			</div>
+			<div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
+				<button class="btn btn-lg btn-block btn-warning dropdown-toggle"
+					data-toggle="dropdown">
+					新浪<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<li><a href="http://www.sina.com.cn/" class="btn btn-lg"><span
+							class="glyphicon glyphicon-home"></span>新浪</a></li>
+					<li class="divider"></li>
+					<li><a href="http://weibo.com/" class="btn btn-lg"><span
+							class="glyphicon glyphicon-fire"></span>微博</a></li>
+					<li><a href="http://blog.sina.com.cn/" class="btn btn-lg"><span
+							class="glyphicon glyphicon-bold"></span>博客</a></li>
+
+				</ul>
+			</div>
+			<div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
+				<button class="btn btn-lg btn-block btn-warning dropdown-toggle"
+					data-toggle="dropdown">
+					搜狐<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<li><a href="http://www.sohu.com/" class="btn btn-lg"><span
+							class="glyphicon glyphicon-home"></span>搜狐</a></li>
+					<li class="divider"></li>
+					<li><a href="http://www.sogou.com/" class="btn btn-lg"><span
+							class="glyphicon glyphicon-link"></span>搜狗</a></li>
+				</ul>
+			</div>
+			<div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
+				<button class="btn btn-lg btn-block btn-danger dropdown-toggle"
+					data-toggle="dropdown">
+					网易<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" aria-labelledby="dLabel">
+					<li><a href="http://www.163.com/" class="btn btn-lg"><span
+							class="glyphicon glyphicon-home"></span>网易</a></li>
+					<li class="divider"></li>
+					<li><a href="http://music.163.com/" class="btn btn-lg"><span
+							class="glyphicon glyphicon-cd"></span>音乐</a></li>
+					<li><a href="https://email.163.com/" class="btn btn-lg"><span
+							class="glyphicon glyphicon-envelope"></span>邮箱</a></li>
+				</ul>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div
+				class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group col-lg-offset-2">
+				<a href="http://www.taobao.com/"
+					class="btn btn-warning btn-lg btn-block">淘宝</a>
+			</div>
+			<div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
+				<a href="http://www.youku.com/"
+					class="btn btn-success btn-lg btn-block">优酷</a>
+			</div>
+			<div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
+				<a href="http://www.jd.com/" class="btn btn-danger btn-lg btn-block">京东</a>
+			</div>
+			<div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
+				<a href="http://www.iqiyi.com/"
+					class="btn btn-success btn-lg btn-block">爱奇艺</a>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div
+				class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group col-lg-offset-2">
+				<a href="http://www.zol.com.cn/"
+					class="btn btn-primary btn-lg btn-block">中关村</a>
+			</div>
+			<div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
+				<a href="http://www.douyu.com/"
+					class="btn btn-warning btn-lg btn-block">斗鱼直播</a>
+			</div>
+			<div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
+				<a href="http://www.zhaikexueyuan.com/"
+					class="btn btn-primary btn-lg btn-block">宅客学院</a>
+			</div>
+			<div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
+				<a href="http://www.xitongzhijia.net/"
+					class="btn btn-primary btn-lg btn-block">系统之家</a>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group col-lg-offset-2">
+				<a href="http://www.csdn.net/"
+					class="btn btn-danger btn-lg btn-block">CSDN</a>
+			</div>
+			<div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
+				<a href="http://www.w3cschool.cn"
+					class="btn btn-danger btn-lg btn-block">W3Cschool</a>
+			</div>
+			<div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
+				<a href="https://github.com/"
+					class="btn btn-success btn-lg btn-block">GitHub</a>
+			</div>
+			<div
+				class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
+				<a href="http://ipsapro.isoftstone.com/"
+					class="btn btn-danger btn-lg btn-block">IPSA</a>
+			</div>
+		</div>
+		<br> <br> <br> <br> <br>
+		<div class="row">
+			<div class="col-lg-5 col-md-4 col-ms-3 col-xs-2">
+				<img src="img/head.png" alt="error" class="img-circle">
+			</div>
+			<div class="col-lg-7 col-md-8 col-ms-9 col-xs-10">
+				<a href="#">Whistleblowing</a>&nbsp;&nbsp;&nbsp;<a href="#">Partnership</a>
+				&nbsp;&nbsp;&nbsp;<a href="#">About Us</a>
+				<br>Copyright&copy;Hyosung,All Rights Reserved.
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$("body").ready(load())
+		
+		// 页面加载
+		function load() {
+			var input = $("#focusedInput");
+			var random = Math.floor(Math.random() * 10);
+			var tip = readFile("resource.txt",random);
+			input.attr("placeholder", tip);
+		}
+		
+		// ActiveX读文件
+		function readFile(filename,number){
+			var fso = new ActiveXObject("Scripting.FileSystemObject");
+			var f = fso.OpenTextFile(filename,1);
+			
+			var s = "";
+			while (!f.AtEndOfStream && 0 != number){
+				s = f.ReadLine()+"\n";
+				number--;
+			}
+			f.Close();
+			return s;
+		}
+		
+		// ActiveX写文件
+		function writeFile(filename,filecontent){
+			var fso = new ActiveXObject("Scripting.FileSystemObject");
+			var f = fso.OpenTextFile(filename,8,true);
+			
+			f.WriteLine(filecontent);
+			f.Close();
+		}
+	</script>
+	<!-- <input type="text" id="in" name="in" />
+	<input type="button" value="Write!" onclick="writeFile('resource.txt',document.getElementById('in').value);"/><br><br>
+	<input type="button" value="Read!" onclick="document.getElementById('show').value=readFile('resource.txt');"/><br>
+	<textarea id="show" name="show" cols="100" rows="20" >
+	</textarea> -->
+</body>
+</html>

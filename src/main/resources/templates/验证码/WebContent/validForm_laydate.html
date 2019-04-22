@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bootstrap 登录模板</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Bootstrap -->
+<link href="css/reg.css" rel="stylesheet">
+<link href="css/validform.css" rel="stylesheet">
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+
+<link href="css/style.css" rel="stylesheet">
+
+<script type="text/javascript" src="js/laydate.js"></script>
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+        <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
+        <script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+	<div class="container">
+		<form class="form-horizontal" role="form" id="regForm" action="regok.html" method="post">
+			<div class="form-group">
+				<label for="username" class="col-sm-4 control-label">用户名：</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="username"
+						placeholder="请输入用户名" name="username" datatype="s5-16" errormsg="用户名至少5个字符，最多16个字符" >
+				    
+				</div>
+				<div class="col-sm-4"><span class="Validform_checktip"></span></div>
+			</div>
+			<div class="form-group">
+				<label for="password" class="col-sm-4 control-label">密码：</label>
+				<div class="col-sm-4">
+					<input type="password" class="form-control" id="password"
+						placeholder="请输入密码" name="password" datatype="*6-20" errormsg="密码范围在6~20位之间！">
+				</div>
+				<div class="col-sm-4"><span class="Validform_checktip"></span></div>
+			</div>
+			<div class="form-group">
+				<label for="confirmpass" class="col-sm-4 control-label">确认密码：</label>
+				<div class="col-sm-4">
+					<input type="password" class="form-control" id="confirmpass"
+						placeholder="确认密码" name="confirmpass" datatype="*" recheck="password" errormsg="您两次输入的密码不一致！" >
+				</div>
+				<div class="col-sm-4"><span class="Validform_checktip"></span></div>
+			</div>
+			<div class="form-group">
+				<label for="male" class="col-sm-4 control-label">性别：</label>
+				<div class="col-sm-4">
+					<label class="radio-inline"> <input type="radio"
+						name="gender" id="male" value="M" checked> 男
+					</label> <label class="radio-inline"> <input type="radio"
+						name="gender" id="female" value="F"> 女
+					</label>
+				</div>
+				<div class="col-sm-4"><span class="Validform_checktip"></span></div>
+			</div>
+			<div class="form-group">
+				<label for="email" class="col-sm-4 control-label">电子邮箱：</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="email"
+						placeholder="确认密码" name="email" datatype="e"  errormsg="电子邮箱格式非法！" >
+				</div>
+				<div class="col-sm-4"><span class="Validform_checktip"></span></div>
+			</div>
+			<div class="form-group">
+				<label for="male" class="col-sm-4 control-label">出生日期：</label>
+				<div class="col-sm-8">
+					<!-- 下面是bootstrap的日历控件 -->
+					<div class='input-group date' id='datetimepicker10'>
+						<input type='text' class="mydatepicker-form-control" name="birthday"  onclick="laydate()" readonly="readonly" datatype="*" /> 
+					</div>
+					
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="confirmpass" class="col-sm-4 control-label">学历：</label>
+				<div class="col-sm-4">
+					<select class="form-control">
+						<option value="-1">请选择</option>
+						<option value="0">小学</option>
+						<option value="1">高中</option>
+						<option value="2">大专</option>
+						<option value="3">本科</option>
+					</select>
+				</div>
+			</div>
+           <div class="form-group">
+				<label for="favorites" class="col-sm-4 control-label">爱好：</label>
+				<div class="col-sm-8">
+					<label class="checkbox-inline"> 
+					    <input type="checkbox"	name="favorites" id="favorites" value="eat" >吃
+					</label> 
+					<label class="checkbox-inline"> 
+					   <input type="checkbox"	name="favorites" id="favorites" value="drink">喝
+					</label>
+					<label class="checkbox-inline"> 
+					   <input type="checkbox"	name="favorites" id="favorites" value="play">玩
+					</label>
+					<label class="checkbox-inline"> 
+					   <input type="checkbox"	name="favorites" id="favorites" value="happy">乐
+					</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="introduce" class="col-sm-4 control-label">自我介绍：</label>
+				<div class="col-sm-4">
+					<textarea class="form-control" rows="3" id="introduce" name="introduce"></textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-4 col-sm-8">
+					<div class="checkbox">
+						<label> <input type="checkbox"> 请记住我
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-4 col-sm-4">
+					<button type="submit" class="btn btn-lg btn-primary btn-block">注册</button>
+				</div>
+			</div>
+		</form>
+
+	</div>
+	<!-- /container -->
+
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script type="text/javascript" src="js/jquery.js"
+		charset="UTF-8"></script>
+	<script type="text/javascript" src="js/Validform_v5.3.2_ncr_min.js" charset="UTF-8"></script>	
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$("#regForm").Validform({
+			tiptype:2
+		});
+	</script>
+</body>
+</html>
