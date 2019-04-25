@@ -275,6 +275,90 @@
         </div>
     </div>
     <br>
+
+    <!--折叠-->
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                       aria-expanded="true" aria-controls="collapseOne">
+                        Q技能
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    扔出一杆冰矛，冰矛会在命中一名敌人后碎裂，对该名敌人造成70/100/130/160/190(+0.7AP)魔法伤害，以及16/19/22/25/28%的减速效果，减速持续1.5秒。碎片会穿过目标，对被命中的其它敌人造成等量的伤害。<br>
+                    伤害：75/110/145/180/215<br>
+                    减速：16/19/22/25/28%<br>
+                    冷却时间：10/8.5/7/5.5/4秒<br>
+                    消耗：60/63/66/69/72法力<br>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingTwo">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                       href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        W技能
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body">
+                    对周围的敌人造成70/100/130/160/190(+0.3AP)魔法伤害和持续1.1/1.2/1.3/1.4/1.5秒的束缚效果。<br>
+                    伤害：70/110/150/190/230<br>
+                    束缚持续时间：1.1/1.2/1.3/1.4/1.5<br>
+                    冷却时间：14/13/12/11/10<br>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingThree">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                       href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        E技能
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                <div class="panel-body">
+                    放出一团寒冰魔爪，对命中的所有敌人造成70/115/160/205/250(+0.6AP)魔法伤害。再次激活这个技能，就能让丽桑卓传送到寒冰魔爪的当前位置。<br>
+                    伤害：70/115/160/205/250<br>
+                    冷却时间：24/21/18/15/12<br>
+                    法力消耗：40法力<br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--模态框-->
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        Launch demo modal
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script type="text/javascript">
     $("body").ready(load())
