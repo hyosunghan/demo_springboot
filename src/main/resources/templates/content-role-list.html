@@ -4,7 +4,7 @@
     <!-- 页面meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>用户管理</title>
+    <title>角色列表</title>
     <meta name="description" content="AdminLTE2定制版">
     <meta name="keywords" content="AdminLTE2定制版">
     <!-- Tell the browser to be responsive to screen width -->
@@ -67,14 +67,14 @@
         <!-- 内容头部 -->
         <section class="content-header">
             <h1>
-                用户管理 <small>全部用户</small>
+                角色管理 <small>全部角色</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="/index"><i
                         class="fa fa-dashboard"></i> 首页</a></li>
                 <li><a
-                        href="/users/findAll">用户管理</a></li>
-                <li class="active">全部用户</li>
+                        href="/role/findAll">角色管理</a></li>
+                <li class="active">全部角色</li>
             </ol>
         </section>
         <!-- 内容头部 /-->
@@ -91,12 +91,12 @@
                         <div class="pull-left">
                             <div class="form-group form-inline">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-default" title="新建"
-                                            onclick='location.href="/users/add"'>
+                                    <button type="button" class="btn btn-default" t
+                                            itle="新建" onclick="location.href='/pages/role-add.jsp'">
                                         <i class="fa fa-file-o"></i> 新建
                                     </button>
-                                    <button type="button" class="btn btn-default" title="刷新"
-                                            onclick='location.href="/users/findAll"'>
+                                    <button type="button" class="btn btn-default" t
+                                            itle="刷新">
                                         <i class="fa fa-refresh"></i> 刷新
                                     </button>
                                 </div>
@@ -105,7 +105,7 @@
                         <div class="box-tools pull-right">
                             <div class="has-feedback">
                                 <input type="text" class="form-control input-sm"
-                                       placeholder="搜索"><span
+                                       placeholder="搜索"> <span
                                     class="glyphicon glyphicon-search form-controlfeedback"></span>
                             </div>
                         </div>
@@ -119,26 +119,39 @@
                                         id="selall" type="checkbox" class="icheckbox_square-blue">
                                 </th>
                                 <th class="sorting_asc">ID</th>
-                                <th class="sorting_desc">用户名</th>
-                                <th class="sorting_asc sorting_asc_disabled">邮箱
-                                </th>
-                                <th class="sorting_desc sorting_desc_disabled">
-                                    联系电话</th>
-                                <th class="sorting">状态</th>
+                                <th class="sorting_desc">角色名称</th>
+                                <th class="sorting">角色描述</th>
                                 <th class="text-center">操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="users : ${usersList}">
+                            <tr>
                                 <td><input name="ids" type="checkbox"></td>
-                                <td th:text="${users.id}"></td>
-                                <td th:text="${users.username}"></td>
-                                <td th:text="${users.email}"></td>
-                                <td th:text="${users.phoneNum}"></td>
-                                <td th:text="${users.status}"></td>
+                                <td>1</td>
+                                <td>admin</td>
+                                <td>管理员权限</td>
                                 <td class="text-center">
-                                    <a th:href='@{/users/findById/1}' class
-                                            ="btn bg-olive btn-xs">详情</a>
+                                    <a href="/role/findRoleByIdAndAllPermission.do?id=1" class="btn bg-olive btn-xs">添加权限</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input name="ids" type="checkbox"></td>
+                                <td>2</td>
+                                <td>user</td>
+                                <td>普通用户</td>
+                                <td class="text-center">
+                                    <a href="/role/findRoleByIdAndAllPermission.do?id=2" class="btn bg-olive btn-xs">添加权限</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                62
+                                北京市昌平区建材城西路金燕龙办公楼一层 电话：400-618-9090
+                                <td><input name="ids" type="checkbox"></td>
+                                <td>3</td>
+                                <td>guest</td>
+                                <td>测试帐号</td>
+                                <td class="text-center">
+                                    <a href="/role/findRoleByIdAndAllPermission.do?id=3" class="btn bg-olive btn-xs">添加权限</a>
                                 </td>
                             </tr>
                             </tbody>
@@ -190,7 +203,6 @@
         </section>
         <!-- 正文区域 /-->
     </div>
-    <!-- @@close -->
     <!-- 内容区域 /-->
     <!-- 底部导航 -->
     <div th:replace="footer.html"></div>
@@ -221,14 +233,18 @@
 <script src="/plugins/treeTable/jquery.treetable.js"></script>
 <script src="/plugins/select2/select2.full.min.js"></script>
 <script src="/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-<script src="/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.zh-CN.js"></script>
+<script
+        src="/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.zh-CN.js"></script>
 <script src="/plugins/bootstrap-markdown/js/bootstrap-markdown.js"></script>
-<script src="/plugins/bootstrap-markdown/locale/bootstrap-markdown.zh.js"></script>
+<script
+        src="/plugins/bootstrap-markdown/locale/bootstrap-markdown.zh.js"></script
+>
 <script src="/plugins/bootstrap-markdown/js/markdown.js"></script>
 <script src="/plugins/bootstrap-markdown/js/to-markdown.js"></script>
 <script src="/plugins/ckeditor/ckeditor.js"></script>
 <script src="/plugins/input-mask/jquery.inputmask.js"></script>
-<script src="/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script
+        src="/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
 <script src="/plugins/input-mask/jquery.inputmask.extensions.js"></script>
 <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/plugins/datatables/dataTables.bootstrap.min.js"></script>

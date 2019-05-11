@@ -4,7 +4,7 @@
     <!-- 页面meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>用户管理</title>
+    <title>权限列表</title>
     <meta name="description" content="AdminLTE2定制版">
     <meta name="keywords" content="AdminLTE2定制版">
     <!-- Tell the browser to be responsive to screen width -->
@@ -67,14 +67,14 @@
         <!-- 内容头部 -->
         <section class="content-header">
             <h1>
-                用户管理 <small>全部用户</small>
+                权限管理 <small>全部权限</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="/index"><i
+                <li><a href="/index.jsp"><i
                         class="fa fa-dashboard"></i> 首页</a></li>
                 <li><a
-                        href="/users/findAll">用户管理</a></li>
-                <li class="active">全部用户</li>
+                        href="/user/findAll.do">权限管理</a></li>
+                <li class="active">全部权限</li>
             </ol>
         </section>
         <!-- 内容头部 /-->
@@ -91,12 +91,12 @@
                         <div class="pull-left">
                             <div class="form-group form-inline">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-default" title="新建"
-                                            onclick='location.href="/users/add"'>
+                                    <button type="button" class="btn btn-default" t
+                                            itle="新建" onclick='location.href="/pages/permission-add.jsp"'>
                                         <i class="fa fa-file-o"></i> 新建
                                     </button>
-                                    <button type="button" class="btn btn-default" title="刷新"
-                                            onclick='location.href="/users/findAll"'>
+                                    <button type="button" class="btn btn-default" t
+                                            itle="刷新">
                                         <i class="fa fa-refresh"></i> 刷新
                                     </button>
                                 </div>
@@ -105,7 +105,7 @@
                         <div class="box-tools pull-right">
                             <div class="has-feedback">
                                 <input type="text" class="form-control input-sm"
-                                       placeholder="搜索"><span
+                                       placeholder="搜索"> <span
                                     class="glyphicon glyphicon-search form-controlfeedback"></span>
                             </div>
                         </div>
@@ -119,26 +119,41 @@
                                         id="selall" type="checkbox" class="icheckbox_square-blue">
                                 </th>
                                 <th class="sorting_asc">ID</th>
-                                <th class="sorting_desc">用户名</th>
-                                <th class="sorting_asc sorting_asc_disabled">邮箱
+                                <th class="sorting_desc">权限名称</th>
+                                <th class="sorting_asc sorting_asc_disabled">URL
                                 </th>
-                                <th class="sorting_desc sorting_desc_disabled">
-                                    联系电话</th>
-                                <th class="sorting">状态</th>
                                 <th class="text-center">操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="users : ${usersList}">
+                            <tr>
                                 <td><input name="ids" type="checkbox"></td>
-                                <td th:text="${users.id}"></td>
-                                <td th:text="${users.username}"></td>
-                                <td th:text="${users.email}"></td>
-                                <td th:text="${users.phoneNum}"></td>
-                                <td th:text="${users.status}"></td>
+                                <td>1</td>
+                                <td>产品修改</td>
+                                <td>/product/update.do</td>
                                 <td class="text-center">
-                                    <a th:href='@{/users/findById/1}' class
-                                            ="btn bg-olive btn-xs">详情</a>
+                                    <a href="/permission/findById.do?id=1"
+                                       class="btn bg-olive btn-xs">详情</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input name="ids" type="checkbox"></td>
+                                <td>2</td>
+                                <td>产品详情</td>
+                                <td>/product/findById.do</td>
+                                <td class="text-center">
+                                    <a href="/permission/findById.do?id=2"
+                                       class="btn bg-olive btn-xs">详情</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input name="ids" type="checkbox"></td>
+                                <td>3</td>
+                                <td>订单详情</td>
+                                <td>/order/findById.do</td>
+                                <td class="text-center">
+                                    <a href="/permission/findById.do?id=3"
+                                       class="btn bg-olive btn-xs">详情</a>
                                 </td>
                             </tr>
                             </tbody>
@@ -212,23 +227,28 @@
 <script src="/plugins/daterangepicker/daterangepicker.js"></script>
 <script src="/plugins/daterangepicker/daterangepicker.zh-CN.js"></script>
 <script src="/plugins/datepicker/bootstrap-datepicker.js"></script>
-<script src="/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
-<script src="/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
-<script src="/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<script src="/plugins/fastclick/fastclick.js"></script>
+<script
+        src="/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
+<script
+        src="/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+    <script src="/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <script src="/plugins/fastclick/fastclick.js"></script>
 <script src="/plugins/iCheck/icheck.min.js"></script>
 <script src="/plugins/adminLTE/js/app.min.js"></script>
 <script src="/plugins/treeTable/jquery.treetable.js"></script>
 <script src="/plugins/select2/select2.full.min.js"></script>
 <script src="/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-<script src="/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.zh-CN.js"></script>
+<script
+        src="/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.zh-CN.js"></script>
 <script src="/plugins/bootstrap-markdown/js/bootstrap-markdown.js"></script>
-<script src="/plugins/bootstrap-markdown/locale/bootstrap-markdown.zh.js"></script>
+<script
+        src="/plugins/bootstrap-markdown/locale/bootstrap-markdown.zh.js"></script>
 <script src="/plugins/bootstrap-markdown/js/markdown.js"></script>
 <script src="/plugins/bootstrap-markdown/js/to-markdown.js"></script>
 <script src="/plugins/ckeditor/ckeditor.js"></script>
 <script src="/plugins/input-mask/jquery.inputmask.js"></script>
-<script src="/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script
+        src="/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
 <script src="/plugins/input-mask/jquery.inputmask.extensions.js"></script>
 <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/plugins/datatables/dataTables.bootstrap.min.js"></script>
@@ -265,8 +285,7 @@
                 $("#dataList td input[type='checkbox']")
                     .iCheck(
                         {
-                            checkboxClass : 'icheckbox_square-blue',
-                            increaseArea : '20%'
+                            checkboxClass : 'icheckbox_square-blue',increaseArea : '20%'
                         });
 // 全选操作
                 $("#selall")
@@ -291,3 +310,4 @@
 </script>
 </body>
 </html>
+2

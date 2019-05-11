@@ -14,6 +14,9 @@ public interface UsersMapper {
     @Select("select * from users where email=#{email}")
     Users findUsersByEmail(@Param("email") String email);
 
+    @Select("select * from users where id=#{id}")
+    Users findById(@Param("id") int id);
+
     @Select("select * from users")
     List<Users> findAll();
 

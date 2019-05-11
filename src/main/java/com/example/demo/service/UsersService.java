@@ -62,4 +62,10 @@ public class UsersService implements UserDetailsService {
         users.setPassword(encodePassword);
         usersMapper.save(users);
     }
+
+    public Users findById(int id) {
+        Users users = usersMapper.findById(id);
+        users.setRoleList(roleMapper.getListByUsersId(id));
+        return users;
+    }
 }

@@ -150,7 +150,8 @@
                                 <td th:text="${orders.peopleCount}"></td>
                                 <td th:text="${orders.payType}"></td>
                                 <td th:text="${orders.orderStatus}"></td>
-                                <td class="text-center"><a class="btn bg-olive btn-xs" href='/orders/findById/1'>详情</a>
+                                <td class="text-center"><a class="btn bg-olive btn-xs"
+                                                           th:href='@{/orders/findById/1}'>详情</a>
                                     <a class="btn bg-olive btn-xs"
                                        href='/orders/deleteById.do?id=2'>删除</a>
                                 </td>
