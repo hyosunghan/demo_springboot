@@ -1,10 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- 页面meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>数据 - AdminLTE2定制版</title>
+    <title>产品列表</title>
     <meta name="description" content="AdminLTE2定制版">
     <meta name="keywords" content="AdminLTE2定制版">
     <!-- Tell the browser to be responsive to screen width -->
@@ -59,111 +59,10 @@
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
     <!-- 页面头部 -->
-    <!-- 页面头部 -->
-    <header class="main-header"> <!-- Logo --> <a
-            href="all-admin-index.html" class="logo"> <!-- mini logo for sidebar mini 5
-0x50 pixels -->
-        <span class="logo-mini"><b>数据</b></span> <!-- logo for regular state and
-mobile devices -->
-        <span class="logo-lg"><b>数据</b>后台管理</span>
-    </a> <!-- Header Navbar: style can be found in header.less -->
-        <nav
-                class="navbar navbar-static-top"> <!-- Sidebar toggle button-->
-            <a href="#" class="sidebar-toggle" data-toggle="offcanvas"
-               role="button"> <span class="sr-only">Toggle navigation</span>
-            </a>
-            <div class="navbar-custom-menu">
-                <ul class="nav navbar-nav">
-                    <li class="dropdown user user-menu"><a href="#"
-                                                           class="dropdown-toggle" data-toggle="dropdown"> <img
-                            src="/img/user2-160x160.jpg"
-                            class="user-image" alt="User Image"> <span class="hidden-xs">黑马</span>
-                    </a>
-                        <ul class="dropdown-menu">
-                            <!-- User image -->
-                            <li class="user-header"><img
-                                    src="/img/user2-160x160.jpg"
-                                    class="img-circle" alt="User Image">
-                                <p>
-                                    黑马 - 数据管理员
-                                    <small>最后登录 11:20AM</small>
-                                </p>
-                            </li>
-                            <!-- Menu Footer-->
-                            <li class="user-footer">
-                                <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">修改密码</a
-                                    >
-                                </div>
-                                <div class="pull-right">
-                                    <a href="#" class="btn btn-default btn-flat">注销</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-    <!-- 页面头部 /-->
+    <div th:replace="header.html"></div>
     <!-- 页面头部 /-->
     <!-- 导航侧栏 -->
-    <aside class="main-sidebar">
-        <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar">
-            <!-- Sidebar user panel -->
-            <div class="user-panel">
-                <div class="pull-left image">
-                    <img src="/img/user2-160x160.jpg"
-                         class="img-circle" alt="User Image">
-                </div>
-                <div class="pull-left info">
-                    <p>黑马</p>
-                    <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
-                </div>
-            </div>
-            <!-- sidebar menu: : style can be found in sidebar.less -->
-            <ul class="sidebar-menu">
-                <li class="header">菜单</li>
-                <li id="admin-index"><a href="/pages/main.jsp"><i
-                        class="fa fa-dashboard"></i> <span>首页</span></a></li>
-                <li class="treeview"><a href="#"> <i class="fa fa-cogs"></i>
-                    <span>系统管理</span> <span class="pull-right-container"> <i
-                            class="fa fa-angle-left pull-right"></i></span>
-                </a>
-                    <ul class="treeview-menu">
-                        <li id="system-setting1"><a href="all-admin-userlist.html">
-                            <i class="fa fa-circle-o"></i> 用户管理
-                        </a></li>
-                        <li id="system-setting2"><a href="all-admin-rolelist.html">
-                            <i class="fa fa-circle-o"></i> 角色管理
-                        </a></li>
-                        <li id="system-setting3"><a href="all-admin-resourceslist.html">
-                            <i class="fa fa-circle-o"></i> 资源权限管理
-                        </a></li>
-                        <li id="system-setting4"><a href="all-admin-logslist.html">
-                            <i class="fa fa-circle-o"></i> 访问日志
-                        </a></li>
-                    </ul>
-                </li>
-                <li class="treeview"><a href="#"> <i class="fa fa-cube"></i>
-                    <span>基础数据</span> <span class="pull-right-container"> <i
-                            class="fa fa-angle-left pull-right"></i></span>
-                </a>
-                    <ul class="treeview-menu">
-                        <li id="system-setting5"><a href="/product/findAll">
-                            <i class="fa fa-circle-o"></i> 产品管理
-                        </a></li>
-                        <li id="system-setting6"><a
-                                href="../order/findAll.do?page=1&pageSize=3"> <i
-                                class="fa fa-circle-o"></i> 订单管理
-                        </a></li>
-                    </ul>
-                </li>
-            </ul>
-        </section>
-        <!-- /.sidebar -->
-    </aside>
+    <div th:replace="sidebar.html"></div>
     <!-- 导航侧栏 /-->
     <!-- 内容区域 -->
     <div class="content-wrapper">
@@ -174,10 +73,10 @@ mobile devices -->
                 <small>全部产品</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="../index.jsp"><i
+                <li><a href="/index"><i
                         class="fa fa-dashboard"></i> 首页</a></li>
                 <li><a
-                        href="../product/findAll.do">产品管理</a></li>
+                        href="/product/findAll">产品管理</a></li>
                 <li class="active">全部产品</li>
             </ol>
         </section>
@@ -185,9 +84,6 @@ mobile devices -->
         <!-- 正文区域 -->
         <section class="content"> <!-- .box-body -->
             <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">列表</h3>
-                </div>
                 <div class="box-body">
                     <!-- 数据表格 -->
                     <div class="table-box">
@@ -195,28 +91,23 @@ mobile devices -->
                         <div class="pull-left">
                             <div class="form-group form-inline">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-default" title=
-                                            "新建"
-                                            onclick='location.href="../pages/product-add.jsp"'>
+                                    <button type="button" class="btn btn-default" title="新建"
+                                            onclick='location.href="/product/add"'>
                                         <i class="fa fa-file-o"></i> 新建
                                     </button>
-                                    <button type="button" class="btn btn-default" title=
-                                            "删除"
+                                    <button type="button" class="btn btn-default" title="删除"
                                             onclick='confirm("你确认要删除吗？")'>
                                         <i class="fa fa-trash-o"></i> 删除
                                     </button>
-                                    <button type="button" class="btn btn-default" title=
-                                            "开启"
+                                    <button type="button" class="btn btn-default" title="开启"
                                             onclick='confirm("你确认要开启吗？")'>
                                         <i class="fa fa-check"></i> 开启
                                     </button>
-                                    <button type="button" class="btn btn-default" title=
-                                            "屏蔽"
+                                    <button type="button" class="btn btn-default" title="屏蔽"
                                             onclick='confirm("你确认要屏蔽吗？")'>
                                         <i class="fa fa-ban"></i> 屏蔽
                                     </button>
-                                    <button type="button" class="btn btn-default" title=
-                                            "刷新"
+                                    <button type="button" class="btn btn-default" title="刷新"
                                             onclick="window.location.reload();">
                                         <i class="fa fa-refresh"></i> 刷新
                                     </button>
@@ -250,85 +141,28 @@ mobile devices -->
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr th:each="product : ${productList}">
                                 <td><input name="ids" type="checkbox"></td>
-                                <td>1</td>
-                                <td>itcast-001</td>
-                                <td>广州五日游</td>
-                                <td>￥广州</td>
-                                <td>2018-03-30 19:00:00</td>
-                                <td>850.0</td>
-                                <td>关闭</td>
+                                <td th:text="${product.id}"></td>
+                                <td th:text="${product.productNum}"></td>
+                                <td th:text="${product.productName}"></td>
+                                <td th:text="${product.cityName}"></td>
+                                <td th:text="${product.departureTime}"></td>
+                                <td th:text="${product.productPrice}"></td>
+                                <td th:text="${product.productStatus}"></td>
                                 <td class="text-center">
                                     <button type="button" class="btn bg-olive btn-xs"
-                                            onclick='location.href="../product/findById.do?id=1&type=find"'>详情
+                                            onclick='location.href="/product/findById?id="+ ${product.id} +"&type=find"'>
+                                        详情
                                     </button>
                                     <button type="button" class="btn bg-olive btn-xs"
-                                            onclick='location.href="../product/findById.do?id=1&type=update"'>编辑
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input name="ids" type="checkbox"></td>
-                                <td>2</td>
-                                <td>itcast-002</td>
-                                <td>北京三日游</td>
-                                <td>￥北京</td>
-                                <td>2018-03-28 00:00:00</td>
-                                <td>350.0</td>
-                                <td>开启</td>
-                                <td class="text-center">
-                                    <button type="button" class="btn bg-olive btn-xs"
-                                            onclick='location.href="../product/findById.do?id=2&type=find"'>详情
-                                    </button>
-                                    <button type="button" class="btn bg-olive btn-xs"
-                                            onclick='location.href="../product/findById.do?id=2&type=update"'>编辑
+                                            onclick='location.href="/product/findById?id=2&type=update"'>编辑
                                     </button>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
                         <!--数据列表/-->
-                        <!--工具栏-->
-                        <div class="pull-left">
-                            <div class="form-group form-inline">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default" title=
-                                            "新建"
-                                            onclick='location.href="all-order-manage-edit.html"'>
-                                        <i class="fa fa-file-o"></i> 新建
-                                    </button>
-                                    <button type="button" class="btn btn-default" title=
-                                            "删除"
-                                            onclick='confirm("你确认要删除吗？")'>
-                                        <i class="fa fa-trash-o"></i> 删除
-                                    </button>
-                                    <button type="button" class="btn btn-default" title=
-                                            "开启"
-                                            onclick='confirm("你确认要开启吗？")'>
-                                        <i class="fa fa-check"></i> 开启
-                                    </button>
-                                    <button type="button" class="btn btn-default" title=
-                                            "屏蔽"
-                                            onclick='confirm("你确认要屏蔽吗？")'>
-                                        <i class="fa fa-ban"></i> 屏蔽
-                                    </button>
-                                    <button type="button" class="btn btn-default" title=
-                                            "刷新"
-                                            onclick="window.location.reload();">
-                                        <i class="fa fa-refresh"></i> 刷新
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="box-tools pull-right">
-                            <div class="has-feedback">
-                                <input type="text" class="form-control input-sm"
-                                       placeholder="搜索"> <span
-                                    class="glyphicon glyphicon-search form-control-feedback"></span>
-                            </div>
-                        </div>
-                        <!--工具栏/-->
                     </div>
                     <!-- 数据表格 /-->
                 </div>
@@ -337,26 +171,37 @@ mobile devices -->
                 <div class="box-footer">
                     <div class="pull-left">
                         <div class="form-group form-inline">
-                            总共2 页，共14 条数据。 每页 <select class="form-control">
-                            <option>10</option>
-                            <option>15</option>
+                            共<span th:text="${pageInfo.pages}"></span>页,
+                            第<span th:text="${pageInfo.pageNum}"></span>页,
+                            共<span th:text="${pageInfo.total}"></span>条.
+                            每页<select class="form-control" href="/product/findAll?page=2&size=5">
+                            <option selected="selected">10</option>
                             <option>20</option>
                             <option>50</option>
-                            <option>80</option>
-                        </select> 条
+                            <option>100</option>
+                            </select> 条
                         </div>
                     </div>
                     <div class="box-tools pull-right">
                         <ul class="pagination">
-                            <li><a href="#" aria-label="Previous">首页</a></li>
-                            <li><a href="#">上一页</a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">下一页</a></li>
-                            <li><a href="#" aria-label="Next">尾页</a></li>
+                            <li><a th:href="@{/products/findAll(page=${pageInfo.firstPage})}"
+                                   aria-label="Previous">首页</a></li>
+                            <li><a th:href="@{/products/findAll(page=${pageInfo.prePage})}">上一页</a></li>
+
+                            <li><a th:href="@{/products/findAll(page=1)}"><span th:text="${pageInfo.pageNum}-2"></span></a>
+                            </li>
+                            <li><a th:href="@{/products/findAll(page=1)}"><span th:text="${pageInfo.pageNum}-1"></span></a>
+                            </li>
+                            <li><a th:href="@{/products/findAll(page=1)}"><span
+                                    th:text="${pageInfo.pageNum}"></span></a></li>
+                            <li><a th:href="@{/products/findAll(page=1)}"><span th:text="${pageInfo.pageNum}+1"></span></a>
+                            </li>
+                            <li><a th:href="@{/products/findAll(page=1)}"><span th:text="${pageInfo.pageNum}+2"></span></a>
+                            </li>
+
+                            <li><a th:href="@{/products/findAll(page=${pageInfo.nextPage})}">下一页</a></li>
+                            <li><a th:href="@{/products/findAll(page=${pageInfo.lastPage})}" aria-label="Next">尾页</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -367,14 +212,7 @@ mobile devices -->
     </div>
     <!-- 内容区域 /-->
     <!-- 底部导航 -->
-    <footer class="main-footer">
-        <div class="pull-right hidden-xs">
-            <b>Version</b> 1.0.8
-        </div>
-        <strong>Copyright &copy; 2014-2017 <a
-                href="http://www.itcast.cn">研究院研发部</a>.
-        </strong> All rights reserved.
-    </footer>
+    <div th:replace="footer.html"></div>
     <!-- 底部导航 /-->
 </div>
 <script
