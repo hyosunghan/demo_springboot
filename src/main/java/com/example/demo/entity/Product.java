@@ -1,25 +1,24 @@
 package com.example.demo.entity;
 
-import java.util.Date;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Product {
 
-    private String id; // 主键
-    private String productNum; // 编号 唯一
-    private String productName; // 名称
-    private String cityName; // 出发城市
-    private Date departureTime; // 出发时间
-    private String departureTimeStr;
-    private double productPrice; // 产品价格
-    private String productDesc; // 产品描述
-    private Integer productStatus; // 状态 0 关闭 1 开启
-    private String productStatusStr;
+    private int id;
+    private String productNum;
+    private String productName;
+    private String cityName;
+    private String departureTime;
+    private int productPrice;
+    private String productDesc;
+    private String productStatus;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -47,27 +46,19 @@ public class Product {
         this.cityName = cityName;
     }
 
-    public Date getDepartureTime() {
+    public String getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(Date departureTime) {
+    public void setDepartureTime(String departureTime) {
         this.departureTime = departureTime;
     }
 
-    public String getDepartureTimeStr() {
-        return departureTimeStr;
-    }
-
-    public void setDepartureTimeStr(String departureTimeStr) {
-        this.departureTimeStr = departureTimeStr;
-    }
-
-    public double getProductPrice() {
+    public int getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(double productPrice) {
+    public void setProductPrice(int productPrice) {
         this.productPrice = productPrice;
     }
 
@@ -79,19 +70,11 @@ public class Product {
         this.productDesc = productDesc;
     }
 
-    public Integer getProductStatus() {
+    public String getProductStatus() {
         return productStatus;
     }
 
-    public void setProductStatus(Integer productStatus) {
+    public void setProductStatus(String productStatus) {
         this.productStatus = productStatus;
-    }
-
-    public String getProductStatusStr() {
-        return productStatusStr;
-    }
-
-    public void setProductStatusStr(String productStatusStr) {
-        this.productStatusStr = productStatusStr;
     }
 }

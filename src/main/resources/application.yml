@@ -8,7 +8,8 @@ spring:
     username: root
     password: 1234
 
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: false
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql

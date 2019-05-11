@@ -16,4 +16,8 @@ public class ProductService {
     public List<Product> findAll() {
         return productMapper.findAll();
     }
+
+    public void save(Product product) {
+        productMapper.save(product);
+    }
 }
