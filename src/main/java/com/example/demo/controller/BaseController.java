@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping()
-public class RootController {
+public class BaseController {
 
     @GetMapping("/")
     public ModelAndView root() {
@@ -16,11 +16,11 @@ public class RootController {
 
     @GetMapping("/index")
     public ModelAndView index() {
-        return new ModelAndView("content-index");
+        return new ModelAndView("base-index");
     }
 
     @GetMapping("/load")
     public ModelAndView login() {
-        return new ModelAndView("content-login");
+        return new ModelAndView("base-login");
     }
 }

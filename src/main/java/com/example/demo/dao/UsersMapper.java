@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import com.example.demo.entity.User;
 import com.example.demo.entity.Users;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,6 +22,6 @@ public interface UsersMapper {
     List<Users> findAll();
 
     @Insert("insert into users(email,username,password,phoneNum,status)" +
-            " value(#{users.email},#{users.username},#{users.password},#{users.phoneNum},#{users.status})")
-    void save(@Param("users") Users users);
+            " values(#{users.email},#{users.username},#{users.password},#{users.phoneNum},#{users.status})")
+    void create(@Param("users") User user);
 }

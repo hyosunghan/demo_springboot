@@ -151,13 +151,10 @@
                                 <td th:text="${product.productPrice}"></td>
                                 <td th:text="${product.productStatus}"></td>
                                 <td class="text-center">
-                                    <button type="button" class="btn bg-olive btn-xs"
-                                            onclick='location.href="/product/findById?id="+ ${product.id} +"&type=find"'>
-                                        详情
-                                    </button>
-                                    <button type="button" class="btn bg-olive btn-xs"
-                                            onclick='location.href="/product/findById?id=2&type=update"'>编辑
-                                    </button>
+                                    <a class="btn bg-olive btn-xs"
+                                       th:href="@{'/product/findById/'+${product.id}}">详情</a>
+                                    <a class="btn bg-olive btn-xs"
+                                       th:href="@{'/product/deleteById/'+${product.id}}">删除</a>
                                 </td>
                             </tr>
                             </tbody>

@@ -56,11 +56,11 @@ public class UsersService implements UserDetailsService {
         return usersMapper.findAll();
     }
 
-    public void save(Users users) {
-        String password = users.getPassword();
+    public void create(com.example.demo.entity.User user) {
+        String password = user.getPassword();
         String encodePassword = passwordEncoder.encode(password);
-        users.setPassword(encodePassword);
-        usersMapper.save(users);
+        user.setPassword(encodePassword);
+        usersMapper.create(user);
     }
 
     public Users findById(int id) {

@@ -137,8 +137,8 @@
                                 <td th:text="${users.phoneNum}"></td>
                                 <td th:text="${users.status}"></td>
                                 <td class="text-center">
-                                    <a th:href='@{/users/findById/1}' class
-                                            ="btn bg-olive btn-xs">详情</a>
+                                    <a th:href="@{'/users/findById/'+${users.id}}"
+                                       class="btn bg-olive btn-xs">详情</a>
                                 </td>
                             </tr>
                             </tbody>

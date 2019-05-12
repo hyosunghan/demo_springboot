@@ -67,7 +67,8 @@
         <!-- 内容头部 -->
         <section class="content-header">
             <h1>
-                订单管理 <small>全部订单</small>
+                订单管理
+                <small>全部订单</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="/index"><i
@@ -100,8 +101,8 @@
                                     </button>
                                     <button type="button" class="btn btn-default" title=
                                             "开启"
-                                    onclick='confirm("你确认要开启吗？")'>
-                                    <i class="fa fa-check"></i> 开启
+                                            onclick='confirm("你确认要开启吗？")'>
+                                        <i class="fa fa-check"></i> 开启
                                     </button>
                                     <button type="button" class="btn btn-default" title=
                                             "屏蔽"
@@ -130,7 +131,8 @@
                             <thead>
                             <tr>
                                 <th class="" style="padding-right: 0px"><input id="selall"
-                                                                               type="checkbox" class="icheckbox_square-blue"></th>
+                                                                               type="checkbox"
+                                                                               class="icheckbox_square-blue"></th>
                                 <th class="sorting_asc">ID</th>
                                 <th class="sorting">订单编号</th>
                                 <th class="sorting">下单时间</th>
@@ -151,9 +153,9 @@
                                 <td th:text="${orders.payType}"></td>
                                 <td th:text="${orders.orderStatus}"></td>
                                 <td class="text-center"><a class="btn bg-olive btn-xs"
-                                                           th:href='@{/orders/findById/1}'>详情</a>
+                                                           th:href="@{'/orders/findById/'+${orders.id}}">详情</a>
                                     <a class="btn bg-olive btn-xs"
-                                       href='/orders/deleteById.do?id=2'>删除</a>
+                                       th:href="@{'/orders/deleteById/'+${orders.id}}">删除</a>
                                 </td>
                             </tr>
 
@@ -296,14 +298,15 @@
 <script
         src="/plugins/bootstrap-slider/bootstrap-slider.js"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
 // 选择框
         $(".select2").select2();
 // WYSIHTML5编辑器
         $(".textarea").wysihtml5({
-            locale : 'zh-CN'
+            locale: 'zh-CN'
         });
     });
+
     // 设置激活菜单
     function setSidebarActive(tagUri) {
         var liObj = $("#" + tagUri);
@@ -312,16 +315,17 @@
             liObj.addClass("active");
         }
     }
-    $(document).ready(function() {
+
+    $(document).ready(function () {
 // 激活导航位置
         setSidebarActive("order-manage");
 // 列表按钮
         $("#dataList td input[type='checkbox']").iCheck({
-            checkboxClass : 'icheckbox_square-blue',
-            increaseArea : '20%'
+            checkboxClass: 'icheckbox_square-blue',
+            increaseArea: '20%'
         });
 // 全选操作
-        $("#selall").click(function() {
+        $("#selall").click(function () {
             var clicks = $(this).is(':checked');
             if (!clicks) {
                 $("#dataList td input[type='checkbox']").iCheck("uncheck");
@@ -331,6 +335,7 @@
             $(this).data("clicks", !clicks);
         });
     });
+
     function getPageSize() {
         var pageSize = $("#pageSizeSelect").val();
         location.href = "/order/findAll.do?page=1&pageSize="

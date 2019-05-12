@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 不保护的页面
                 .authorizeRequests().antMatchers("/", "/index").permitAll()     // 首页
                 .antMatchers("/css/**", "/img/**", "/plugins/**").permitAll()   // 静态资源
-                .antMatchers("/swagger-ui.html").permitAll()                    // 接口文档
+                .antMatchers("/swagger-ui.*").permitAll()                    // 接口文档
                 // 其余页面需验证
                 .anyRequest().authenticated()
                 // 登录
