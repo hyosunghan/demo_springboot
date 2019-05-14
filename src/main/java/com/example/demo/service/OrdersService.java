@@ -42,4 +42,8 @@ public class OrdersService {
         return orders;
     }
 
+    public List<Orders> findPending() {
+        return ordersMapper.findPending();
+    }
+
 }

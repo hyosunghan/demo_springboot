@@ -24,7 +24,7 @@ public class BaseController {
 
     @GetMapping("/index")
     public ModelAndView index() {
-        List<Orders> ordersList = ordersService.findAll();
+        List<Orders> ordersList = ordersService.findPending();
         for (int i = 0; i < ordersList.size(); i++) {
             int id = ordersList.get(i).getId();
             Orders ordersInfo = ordersService.findById(id);
