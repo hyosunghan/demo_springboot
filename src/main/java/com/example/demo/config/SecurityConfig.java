@@ -22,15 +22,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 // 不保护的页面
-                .authorizeRequests().antMatchers("/", "/index").permitAll()     // 首页
+                .authorizeRequests().antMatchers("/").permitAll()
                 .antMatchers("/css/**", "/img/**", "/plugins/**").permitAll()   // 静态资源
                 .antMatchers("/swagger-ui.*").permitAll()                    // 接口文档
                 // 其余页面需验证
                 .anyRequest().authenticated()
                 // 登录
-                .and().formLogin().loginPage("/load").loginProcessingUrl("/login").defaultSuccessUrl("/index").failureUrl("/load").permitAll()
+                .and().formLogin().loginPage("/").loginProcessingUrl("/login").defaultSuccessUrl("/index").failureUrl("/").permitAll()
                 // 注销
-                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/load").permitAll()
+                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll()
                 // 关闭csrf保护
                 .and().csrf().disable();
     }
