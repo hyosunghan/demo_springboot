@@ -70,10 +70,10 @@
                 权限管理 <small>全部权限</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="/index.jsp"><i
+                <li><a href="/index"><i
                         class="fa fa-dashboard"></i> 首页</a></li>
                 <li><a
-                        href="/user/findAll.do">权限管理</a></li>
+                        href="/permission/findAll">权限管理</a></li>
                 <li class="active">全部权限</li>
             </ol>
         </section>
@@ -92,7 +92,7 @@
                             <div class="form-group form-inline">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default" t
-                                            itle="新建" onclick='location.href="/pages/permission-add.jsp"'>
+                                            itle="新建" onclick='location.href="/permission/add"'>
                                         <i class="fa fa-file-o"></i> 新建
                                     </button>
                                     <button type="button" class="btn btn-default" t
@@ -126,33 +126,13 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr th:each="permission : ${permissionList}">
                                 <td><input name="ids" type="checkbox"></td>
-                                <td>1</td>
-                                <td>产品修改</td>
-                                <td>/product/update.do</td>
+                                <td th:text="${permission.id}"></td>
+                                <td th:text="${permission.permissionName}"></td>
+                                <td th:text="${permission.url}"></td>
                                 <td class="text-center">
                                     <a href="/permission/findById.do?id=1"
-                                       class="btn bg-olive btn-xs">详情</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input name="ids" type="checkbox"></td>
-                                <td>2</td>
-                                <td>产品详情</td>
-                                <td>/product/findById.do</td>
-                                <td class="text-center">
-                                    <a href="/permission/findById.do?id=2"
-                                       class="btn bg-olive btn-xs">详情</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input name="ids" type="checkbox"></td>
-                                <td>3</td>
-                                <td>订单详情</td>
-                                <td>/order/findById.do</td>
-                                <td class="text-center">
-                                    <a href="/permission/findById.do?id=3"
                                        class="btn bg-olive btn-xs">详情</a>
                                 </td>
                             </tr>

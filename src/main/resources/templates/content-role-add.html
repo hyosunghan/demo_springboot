@@ -69,19 +69,18 @@
         <!-- 内容头部 -->
         <section class="content-header">
             <h1>
-                角色管理 <small>角色表单</small>
+                角色管理
+                <small>角色表单</small>
             </h1>
             <ol class="breadcrumb">
-                70
-                北京市昌平区建材城西路金燕龙办公楼一层 电话：400-618-9090
-                <li><a href="/index.jsp"><i
+                <li><a href="/index"><i
                         class="fa fa-dashboard"></i> 首页</a></li>
-                <li><a href="/role/findAll.do">角色管理</a></li>
+                <li><a href="/role/findAll">角色管理</a></li>
                 <li class="active">角色表单</li>
             </ol>
         </section>
         <!-- 内容头部 /-->
-        <form action="/role/save.do"
+        <form action="/role/save"
               method="post">
             <!-- 正文区域 -->
             <section class="content"> <!--产品信息-->
@@ -104,7 +103,8 @@
                 <div class="box-tools text-center">
                     <button type="submit" class="btn bg-maroon">保存</button>
                     <button type="button" class="btn bg-default"
-                            onclick="history.back(-1);">返回</button>
+                            onclick="history.back(-1);">返回
+                    </button>
                 </div>
                 <!--工具栏/--> </section>
             <!-- 正文区域 /-->
@@ -200,23 +200,24 @@
         src="/plugins/bootstrap-slider/bootstrap-slider.js"></script>
 <script
         src="/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
-    <script>
-        $(document).ready(function() {
+<script>
+    $(document).ready(function () {
         // 选择框
         $(".select2").select2();
         // WYSIHTML5编辑器
         $(".textarea").wysihtml5({
-        locale : 'zh-CN'
+            locale: 'zh-CN'
         });
-        });
-        // 设置激活菜单
-        function setSidebarActive(tagUri) {
+    });
+
+    // 设置激活菜单
+    function setSidebarActive(tagUri) {
         var liObj = $("#" + tagUri);
         if (liObj.length > 0) {
-        liObj.parent().parent().addClass("active");
-        liObj.addClass("active");
+            liObj.parent().parent().addClass("active");
+            liObj.addClass("active");
         }
-        }
-    </script>
-    </body>
-    </html>
+    }
+</script>
+</body>
+</html>

@@ -92,7 +92,7 @@
                             <div class="form-group form-inline">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default" t
-                                            itle="新建" onclick="location.href='/pages/role-add.jsp'">
+                                            itle="新建" onclick="location.href='/role/add'">
                                         <i class="fa fa-file-o"></i> 新建
                                     </button>
                                     <button type="button" class="btn btn-default" t
@@ -125,31 +125,13 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr th:each="role : ${roleList}">
                                 <td><input name="ids" type="checkbox"></td>
-                                <td>1</td>
-                                <td>admin</td>
-                                <td>管理员权限</td>
+                                <td th:text="${role.id}"></td>
+                                <td th:text="${role.roleName}"></td>
+                                <td th:text="${role.roleDesc}"></td>
                                 <td class="text-center">
                                     <a href="/role/findRoleByIdAndAllPermission.do?id=1" class="btn bg-olive btn-xs">添加权限</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input name="ids" type="checkbox"></td>
-                                <td>2</td>
-                                <td>user</td>
-                                <td>普通用户</td>
-                                <td class="text-center">
-                                    <a href="/role/findRoleByIdAndAllPermission.do?id=2" class="btn bg-olive btn-xs">添加权限</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input name="ids" type="checkbox"></td>
-                                <td>3</td>
-                                <td>guest</td>
-                                <td>测试帐号</td>
-                                <td class="text-center">
-                                    <a href="/role/findRoleByIdAndAllPermission.do?id=3" class="btn bg-olive btn-xs">添加权限</a>
                                 </td>
                             </tr>
                             </tbody>

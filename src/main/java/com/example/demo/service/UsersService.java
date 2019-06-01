@@ -68,4 +68,10 @@ public class UsersService implements UserDetailsService {
         users.setRoleList(roleMapper.getListByUsersId(id));
         return users;
     }
+
+    public void addRoleToUser(int id, int[] ids) {
+        for (int i = 0; i < ids.length; i++) {
+            usersMapper.addRoleToUser(id, ids[i]);
+        }
+    }
 }

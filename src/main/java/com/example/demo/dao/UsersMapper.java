@@ -24,4 +24,7 @@ public interface UsersMapper {
     @Insert("insert into users(email,username,password,phoneNum,status)" +
             " values(#{users.email},#{users.username},#{users.password},#{users.phoneNum},#{users.status})")
     void create(@Param("users") User user);
+
+    @Insert("insert into users_role(usersId,roleId) value(#{usersId},#{roleId})")
+    void addRoleToUser(@Param("usersId") int usersId, @Param("roleId") int roleId);
 }
