@@ -1,5 +1,6 @@
 package com.example.demo.aspect;
 
+import com.example.demo.controller.BaseController;
 import com.example.demo.controller.SysLogController;
 import com.example.demo.entity.SysLog;
 import com.example.demo.service.SysLogService;
@@ -58,42 +59,45 @@ public class SysLogAspect {
     @After("execution(* com.example.demo.controller.*.*(..))")
     public void doAfter(JoinPoint jp) throws Exception {
         // 获取类上的@RequestMapping对象
-        if (executionClass != SysLogController.class) {
-            RequestMapping classAnnotation = (RequestMapping) executionClass.getAnnotation(RequestMapping.class);
-            if (classAnnotation != null) {
-                // 获取方法上的@RequestMapping对象
-                RequestMapping methodAnnotation = executionMethod.getAnnotation(RequestMapping.class);
-                if (methodAnnotation != null) {
-                    StringBuilder url = new StringBuilder(); // 它的值应该是类上的@RequestMapping的value+方法上的@RequestMapping的value
-                    if (classAnnotation.value().length != 0) {
-                        url.append(classAnnotation.value()[0]);
-                    }
-                    url.append(methodAnnotation.value()[0]);
-
-                    SysLog sysLog = new SysLog();
-                    // 获取访问时长
-                    Long executionTime = new Date().getTime() - startTime.getTime();
-                    // 将sysLog对象属性封装
-                    sysLog.setExecutionTime(executionTime.intValue());
-                    sysLog.setUrl(url.toString());
-                    // 获取ip
-                    String ip = request.getRemoteAddr();
-                    sysLog.setIp(ip);
-                    // 可以通过securityContext获取，也可以从request.getSession中获取
-                    SecurityContext context = SecurityContextHolder.getContext(); //request.getSession().getAttribute("SPRING_SECURITY_CONTEXT")
-                    Object object = context.getAuthentication().getPrincipal();
-                    if (object instanceof UserDetails) {
-                        String username = ((UserDetails) object).getUsername();
-                        sysLog.setUsername(username);
-                    } else {
-                        return;
-                    }
-                    sysLog.setMethod("[类名]" + executionClass.getName() + "[方法名]" + executionMethod.getName());
-                    sysLog.setVisitTime(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(startTime));
-                    // 调用Service，调用dao将sysLog insert数据库
-                    sysLogService.save(sysLog);
-                }
-            }
+//        if (executionClass == BaseController.class) {
+//            return;
+//        }
+        RequestMapping classAnnotation = (RequestMapping) executionClass.getAnnotation(RequestMapping.class);
+        if (classAnnotation == null) {
+            return;
         }
+        // 获取方法上的@RequestMapping对象
+        RequestMapping methodAnnotation = executionMethod.getAnnotation(RequestMapping.class);
+        if (methodAnnotation == null) {
+            return;
+        }
+        StringBuilder url = new StringBuilder(); // 它的值应该是类上的@RequestMapping的value+方法上的@RequestMapping的value
+        if (classAnnotation.value().length != 0) {
+            url.append(classAnnotation.value()[0]);
+        }
+        url.append(methodAnnotation.value()[0]);
+
+        SysLog sysLog = new SysLog();
+        // 获取访问时长
+        Long executionTime = new Date().getTime() - startTime.getTime();
+        // 将sysLog对象属性封装
+        sysLog.setExecutionTime(executionTime.intValue());
+        sysLog.setUrl(url.toString());
+        // 获取ip
+        String ip = request.getRemoteAddr();
+        sysLog.setIp(ip);
+        // 可以通过securityContext获取，也可以从request.getSession中获取
+        SecurityContext context = SecurityContextHolder.getContext(); //request.getSession().getAttribute("SPRING_SECURITY_CONTEXT")
+        Object object = context.getAuthentication().getPrincipal();
+        if (object instanceof UserDetails) {
+            String username = ((UserDetails) object).getUsername();
+            sysLog.setUsername(username);
+        } else {
+            return;
+        }
+        sysLog.setMethod("[类名]" + executionClass.getName() + "[方法名]" + executionMethod.getName());
+        sysLog.setVisitTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(startTime));
+        // 调用Service，调用dao将sysLog insert数据库
+        sysLogService.save(sysLog);
     }
 }
