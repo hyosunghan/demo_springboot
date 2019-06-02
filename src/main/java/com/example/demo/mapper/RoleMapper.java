@@ -1,4 +1,4 @@
-package com.example.demo.dao;
+package com.example.demo.mapper;
 
 import com.example.demo.entity.Rol;
 import com.example.demo.entity.Role;

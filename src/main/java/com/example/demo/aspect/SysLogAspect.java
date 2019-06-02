@@ -1,6 +1,8 @@
-package com.example.demo.log;
+package com.example.demo.aspect;
 
+import com.example.demo.controller.SysLogController;
 import com.example.demo.entity.SysLog;
+import com.example.demo.service.SysLogService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Component
@@ -86,7 +89,7 @@ public class SysLogAspect {
                         sysLog.setUsername(object.toString());
                     }
                     sysLog.setMethod("[类名]" + executionClass.getName() + "[方法名]" + executionMethod.getName());
-                    sysLog.setVisitTime(startTime.toString());
+                    sysLog.setVisitTime(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(startTime));
                     // 调用Service，调用dao将sysLog insert数据库
                     sysLogService.save(sysLog);
                 }

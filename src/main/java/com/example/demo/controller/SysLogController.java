@@ -1,6 +1,7 @@
-package com.example.demo.log;
+package com.example.demo.controller;
 
 import com.example.demo.entity.SysLog;
+import com.example.demo.service.SysLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,9 +19,9 @@ public class SysLogController {
     @RequestMapping("/findAll")
     public ModelAndView findAll() {
         ModelAndView mv = new ModelAndView();
-        List<SysLog> sysLogs = sysLogService.findAll();
-        mv.addObject("sysLogs", sysLogs);
-        mv.setViewName("syslog-list");
+        List<SysLog> sysLogList = sysLogService.findAll();
+        mv.addObject("sysLogList", sysLogList);
+        mv.setViewName("content-syslog-list");
         return mv;
     }
 }

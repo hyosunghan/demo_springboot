@@ -1,9 +1,9 @@
 package com.example.demo.service;
 
-import com.example.demo.dao.MemberMapper;
-import com.example.demo.dao.OrdersMapper;
-import com.example.demo.dao.ProductMapper;
-import com.example.demo.dao.TravellerMapper;
+import com.example.demo.mapper.MemberMapper;
+import com.example.demo.mapper.OrdersMapper;
+import com.example.demo.mapper.ProductMapper;
+import com.example.demo.mapper.TravellerMapper;
 import com.example.demo.entity.Orders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

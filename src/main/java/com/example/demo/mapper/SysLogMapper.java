@@ -1,4 +1,4 @@
-package com.example.demo.log;
+package com.example.demo.mapper;
 
 import com.example.demo.entity.SysLog;
 import org.apache.ibatis.annotations.Insert;
@@ -12,7 +12,7 @@ import java.util.List;
 @Mapper
 public interface SysLogMapper {
 
-    @Select("select * from syslog")
+    @Select("select * from syslog order by id desc")
     @Results({
             @Result(id=true,column="id",property="id"),
             @Result(column="visitTime",property="visitTime"),

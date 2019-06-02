@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.dao.PermissionMapper;
-import com.example.demo.dao.RoleMapper;
+import com.example.demo.mapper.PermissionMapper;
+import com.example.demo.mapper.RoleMapper;
 import com.example.demo.entity.Rol;
 import com.example.demo.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;

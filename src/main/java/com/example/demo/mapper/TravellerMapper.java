@@ -1,4 +1,4 @@
-package com.example.demo.dao;
+package com.example.demo.mapper;
 
 import com.example.demo.entity.Traveller;
 import org.apache.ibatis.annotations.Mapper;

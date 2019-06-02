@@ -1,6 +1,7 @@
-package com.example.demo.log;
+package com.example.demo.service;
 
 import com.example.demo.entity.SysLog;
+import com.example.demo.mapper.SysLogMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

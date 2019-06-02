@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.dao.PermissionMapper;
+import com.example.demo.mapper.PermissionMapper;
 import com.example.demo.entity.Permissio;
 import com.example.demo.entity.Permission;
 import org.springframework.beans.factory.annotation.Autowired;
