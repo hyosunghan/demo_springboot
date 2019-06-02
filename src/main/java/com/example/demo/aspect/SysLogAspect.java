@@ -86,7 +86,7 @@ public class SysLogAspect {
                         String username = ((UserDetails) object).getUsername();
                         sysLog.setUsername(username);
                     } else {
-                        sysLog.setUsername(object.toString());
+                        return;
                     }
                     sysLog.setMethod("[类名]" + executionClass.getName() + "[方法名]" + executionMethod.getName());
                     sysLog.setVisitTime(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(startTime));
