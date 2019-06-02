@@ -24,24 +24,24 @@ public class RoleController {
     @Autowired
     private PermissionService permissionService;
 
-    @RequestMapping("/findAll")
-    public ModelAndView findAll() {
+    @RequestMapping(value = "/findAll", method = RequestMethod.GET)
+    public ModelAndView findAllRole() {
         List<Role> roleList = roleService.findAll();
         return new ModelAndView("content-role-list", "roleList", roleList);
     }
 
-    @RequestMapping("/add")
-    public ModelAndView add() {
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public ModelAndView addRole() {
         return new ModelAndView("content-role-add");
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ModelAndView create(Rol role) {
+    public ModelAndView createRole(Rol role) {
         roleService.create(role);
         return new ModelAndView("redirect:findAll");
     }
 
-    @RequestMapping("/findRoleByIdAndAllPermission/{id}")
+    @RequestMapping(value = "/findRoleByIdAndAllPermission/{id}", method = RequestMethod.GET)
     public ModelAndView findRoleByIdAndAllPermission(@PathVariable Integer id) {
         Role role = roleService.findById(id);
         List<Permission> permissionList = permissionService.findOtherPermission(id);
@@ -52,8 +52,8 @@ public class RoleController {
         return mv;
     }
 
-    @RequestMapping("/addPermissionToRole")
-    public String addPermissionToRole(Integer roleId, int[] ids){
+    @RequestMapping(value = "/addPermissionToRole", method = RequestMethod.GET)
+    public String addPermissionToRole(Integer roleId, Integer[] ids){
         roleService.addPermissionToRole(roleId, ids);
         return "redirect:findAll";
     }

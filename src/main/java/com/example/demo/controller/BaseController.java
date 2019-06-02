@@ -17,12 +17,12 @@ public class BaseController {
     @Autowired
     private OrdersService ordersService;
 
-    @RequestMapping(value = "/",method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView root() {
         return new ModelAndView("base-login");
     }
 
-    @RequestMapping(value = "/index",method = RequestMethod.GET)
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
     public ModelAndView index() {
         List<Orders> ordersList = ordersService.findPending();
         for (int i = 0; i < ordersList.size(); i++) {

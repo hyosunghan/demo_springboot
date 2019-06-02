@@ -18,13 +18,13 @@ public class OrdersController {
     private OrdersService ordersService;
 
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
-    public ModelAndView findAll() {
-        List<Orders> orderss = ordersService.findAll();
-        return new ModelAndView("content-orders-list", "ordersList", orderss);
+    public ModelAndView findAllOrders() {
+        List<Orders> ordersList = ordersService.findAll();
+        return new ModelAndView("content-orders-list", "ordersList", ordersList);
     }
 
     @RequestMapping(value = "/findById/{id}", method = RequestMethod.GET)
-    public ModelAndView findById(@PathVariable Integer id) {
+    public ModelAndView findOrdersById(@PathVariable Integer id) {
         Orders orders = ordersService.findById(id);
         return new ModelAndView("content-orders-detail","orders", orders);
     }

@@ -20,8 +20,8 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @RequestMapping("/findAll")
-    public ModelAndView findAll(@RequestParam(defaultValue = "1") Integer page,
+    @RequestMapping(value = "/findAll", method = RequestMethod.GET)
+    public ModelAndView findAllProduct(@RequestParam(defaultValue = "1") Integer page,
                                 @RequestParam(defaultValue = "10") Integer size) {
         ModelAndView mv = new ModelAndView();
 
@@ -35,13 +35,13 @@ public class ProductController {
         return mv;
     }
 
-    @RequestMapping("/add")
-    public ModelAndView add() {
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public ModelAndView addProduct() {
         return new ModelAndView("content-product-add");
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ModelAndView save(Product product) {
+    public ModelAndView saveProduct(Product product) {
         productService.save(product);
         return new ModelAndView("redirect:findAll");
     }

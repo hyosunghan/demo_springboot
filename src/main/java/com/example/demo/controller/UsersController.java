@@ -25,30 +25,30 @@ public class UsersController {
     @Autowired
     private RoleService roleService;
 
-    @RequestMapping("/findAll")
-    public ModelAndView findAll() {
+    @RequestMapping(value = "/findAll", method = RequestMethod.GET)
+    public ModelAndView findAllUsers() {
         List<Users> usersList = usersService.findAll();
         return new ModelAndView("content-users-list", "usersList", usersList);
     }
 
-    @RequestMapping("/add")
-    public ModelAndView add() {
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public ModelAndView addUsers() {
         return new ModelAndView("content-users-add");
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ModelAndView create(User user) {
+    public ModelAndView createUsers(User user) {
         usersService.create(user);
         return new ModelAndView("redirect:findAll");
     }
 
-    @RequestMapping("/findById/{id}")
-    public ModelAndView findById(@PathVariable Integer id) {
+    @RequestMapping(value = "/findById/{id}", method = RequestMethod.GET)
+    public ModelAndView findUsersById(@PathVariable Integer id) {
         Users users = usersService.findById(id);
         return new ModelAndView("content-users-role-list", "users", users);
     }
 
-    @RequestMapping("/findUserByIdAndAllRole/{id}")
+    @RequestMapping(value = "/findUserByIdAndAllRole/{id}", method = RequestMethod.GET)
     public ModelAndView findUserByIdAndAllRole(@PathVariable Integer id) {
         Users users = usersService.findById(id);
         List<Role> roleList = roleService.findOtherRole(id);
@@ -60,7 +60,7 @@ public class UsersController {
     }
 
     @RequestMapping(value = "/addRoleToUser",method = RequestMethod.POST)
-    public String addRoleToUser(Integer userId, int[] ids){
+    public String addRoleToUser(Integer userId, Integer[] ids){
         usersService.addRoleToUser(userId, ids);
         return "redirect:findAll";
     }

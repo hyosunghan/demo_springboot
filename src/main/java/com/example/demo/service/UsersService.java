@@ -69,7 +69,7 @@ public class UsersService implements UserDetailsService {
         return users;
     }
 
-    public void addRoleToUser(int id, int[] ids) {
+    public void addRoleToUser(int id, Integer[] ids) {
         for (int i = 0; i < ids.length; i++) {
             usersMapper.addRoleToUser(id, ids[i]);
         }

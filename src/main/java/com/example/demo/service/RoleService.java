@@ -36,7 +36,7 @@ public class RoleService {
         return role;
     }
 
-    public void addPermissionToRole(int id, int[] ids) {
+    public void addPermissionToRole(int id, Integer[] ids) {
         for (int i = 0; i < ids.length; i++) {
             roleMapper.addPermissionToRole(id, ids[i]);
         }
