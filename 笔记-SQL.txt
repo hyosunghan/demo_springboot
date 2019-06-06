@@ -1,0 +1,87 @@
+数据定义语言DDL
+	操作数据库
+		创建	create datebase [if not exists] 数据库名
+		修改	alter database 数据库名 character set utf8
+		删除	drop database [if exists] 数据库名
+		查看列表show databases
+		查看定义show create 数据库名
+		使用  	use 数据库名
+	操作表
+		查看	show tables
+		查看结构desc 表名
+		删除  	drop table [if exists] 表名
+		创建  	create table [if not exists] 表名(列名1 列类型1[primary key],列名2 列类型2,[constraint fk_主列_副列 foreign key(主列) references 副表名(副列)] [primary key (列名)])
+		修改	alter table 表名
+			添加列	add(列名1 列类型1,列名2 列类型2)
+			改列类	modify 列名 新列类型
+			改列名	change 原列名 新列名 列类型
+			删除列	drop 列名
+			改表名	rename to 新表名
+			改编码	character set 编码名
+			设主键	add primary key(列名)
+			删主键	drop primary key
+			设外键	add constraint fk_主列_副列 foreign key(主列) references 副表名(副列)
+数据操作语言DML
+	插入数据	insert into 表名(列名1,列名2,...) values(列值1,列值2,...)
+	修改数据	update 表名 set 列名1=列值1,列名2=列值2,... [where 条件]
+	删除数据	delete from 表名 [where 条件]
+	重建表		truncate table 表名
+数据控制语言DCL
+	创建用户	create user 用户名@主机名 identified by '密码'
+	用户授权	grant 权限1,权限2... on 数据库.* to 用户名@主机名
+	撤销授权	revoke 权限1,权限2... on 数据库.* from 用户名@主机名
+	查看权限	show grants for 用户名@主机名
+	删除用户	drop user 用户名@主机名
+	修改密码
+		修改管理员密码	mysqladmin -uroot -p password 新密码
+		修改业务员密码	set password for 用户名@主机名=password(新密码)
+数据查询语言DQL
+	select 控制列 from 表名 [where 条件] [group by 分组] [having 过滤] [order by 排序] [limit(偏移量，分页值)]
+		控制列
+			简单查询
+				去除重复	distinct多列名
+				为空处理	ifnull(列名,显示值)
+				列名连接	concat(多列名)
+				别名显示	列名 [as] 别名
+			聚合函数
+				有效行	count(列名)
+				求总和	sum(列名)
+				最大值	max(列名)
+				最小值	min(列名)
+				平均值	avg(列名)
+		[where 条件]
+			运算符
+				数值	列名 >	<	<=	>=	<>	= 比较值	
+				为空	列名 is null
+				非数	列名 is nan
+				集合	列名 in (集合)
+				区间	列名 bettwen 最小值 and 最大值
+				包含	列名 like '	_	%	字符串	'
+			连接符	and	or	not
+		[group by 分组]	控制列只能有分组列和聚合函数
+		[having 过滤]	过滤只能用聚合函数
+		[order by 排序]
+			顺序排列	列名 [asc]
+			升序排列	列名 desc
+		[limit(偏移量，分页值)]
+多表查询
+	合并结果集(具有相同结构的结果集)
+		去除重复行	union
+		显示所有行	union all
+	连接查询(A有3条，B有4条，交叉连接12条，自然连接0~3条，内连接0~3条，左外连接3条，右外连接4条，全外连接4~7条)
+		交叉连接	select * from 表名1 [cross join] 表名2										笛卡儿积
+		内连接
+			自然连接	select * from 表名1 natural join 表名2									相同的字段值相同
+			等值连接	select * from 表名1 [inner] join 表名2 on 表名1.列名=表名2.列名			不同的字段值相同
+		外连接
+			左外连接	select * from 表名1 left [outer] join 表名2 on 表名1.列名=表名2.列名	等值连接外加左表其余记录
+			右外连接	select * from 表名1 right [outer] join 表名2 on 表名1.列名=表名2.列名	等值连接外加右表其余记录
+			全外连接	select * from 表名1 full [outer] join 表名2 on 表名1.列名=表名2.列名	等值连接外加两表其余记录
+	子查询
+		作为条件
+			单行单列	select * from 表名 where 列名 =	>	<	<=	>=	<>	(select 列 from 表 where 条件)
+			单行多列	select * from 表名 where 列名 in	all	any	(select 列 from 表 where 条件)
+			多行多列	select * from 表名 where (列1,列2) in (select 列1,列2 from 表 where 条件)
+		作为嵌套	select * from (select * from 表名 where 条件) where 条件
+		
+		
