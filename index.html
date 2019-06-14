@@ -54,10 +54,11 @@
 </head>
 <body>
 <div class="container-fluid">
+    <!--签名或轮播图-->
     <div class="row">
-        <div align="center">
-            <img src="index/img/hyosunghan.gif"/>
-        </div>
+        <!--<div align="center">-->
+            <!--<img src="index/img/hyosunghan.gif"/>-->
+        <!--</div>-->
         <!--&lt;!&ndash;轮播图&ndash;&gt;-->
         <!--<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="3000">-->
             <!--&lt;!&ndash; 圆点 &ndash;&gt;-->
@@ -95,6 +96,7 @@
             <!--</a>-->
         <!--</div>-->
     </div>
+    <br><br><br><br><br><br><br><br><br>
     <div class="row">
         <form class="col-lg-8 col-lg-offset-2" role="form" name="bdfm"
               method="get" action="http://www.baidu.com/s?word">
@@ -235,37 +237,37 @@
     </div>
     <br>
 </div>
-<script type="text/javascript">
-    $("body").ready(load())
+<!--<script type="text/javascript">-->
+    <!--$("body").ready(load())-->
 
-    // 页面加载
-    function load() {
-        var input = $("#focusedInput");
-        var random = Math.floor(Math.random() * 10);
-        var tip = readFile("resource.txt", random);
-        input.attr("placeholder", tip);
-    }
+    <!--// 页面加载-->
+    <!--function load() {-->
+        <!--var input = $("#focusedInput");-->
+        <!--var random = Math.floor(Math.random() * 10);-->
+        <!--var tip = readFile("resource.txt", random);-->
+        <!--input.attr("placeholder", tip);-->
+    <!--}-->
 
-    // ActiveX读文件
-    function readFile(filename, number) {
-        var fso = new ActiveXObject("Scripting.FileSystemObject");
-        var f = fso.OpenTextFile(filename, 1);
-        var s = "";
-        while (!f.AtEndOfStream && 0 != number) {
-            s = f.ReadLine() + "\n";
-            number--;
-        }
-        f.Close();
-        return s;
-    }
+    <!--// ActiveX读文件-->
+    <!--function readFile(filename, number) {-->
+        <!--var fso = new ActiveXObject("Scripting.FileSystemObject");-->
+        <!--var f = fso.OpenTextFile(filename, 1);-->
+        <!--var s = "";-->
+        <!--while (!f.AtEndOfStream && 0 != number) {-->
+            <!--s = f.ReadLine() + "\n";-->
+            <!--number&#45;&#45;;-->
+        <!--}-->
+        <!--f.Close();-->
+        <!--return s;-->
+    <!--}-->
 
-    // ActiveX写文件
-    function writeFile(filename, filecontent) {
-        var fso = new ActiveXObject("Scripting.FileSystemObject");
-        var f = fso.OpenTextFile(filename, 8, true);
-        f.WriteLine(filecontent);
-        f.Close();
-    }
-</script>
+    <!--// ActiveX写文件-->
+    <!--function writeFile(filename, filecontent) {-->
+        <!--var fso = new ActiveXObject("Scripting.FileSystemObject");-->
+        <!--var f = fso.OpenTextFile(filename, 8, true);-->
+        <!--f.WriteLine(filecontent);-->
+        <!--f.Close();-->
+    <!--}-->
+<!--</script>-->
 </body>
 </html>
