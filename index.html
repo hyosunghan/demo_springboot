@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base target="_blank">
+    <title>HomePage</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <style type="text/css">
+        /*背景图片*/
+        body {
+            background-image: url("img/index.jpg");
+            background-attachment: fixed;
+            background-size: 100% 100%;
+        }
+
+        /*按钮字体*/
+        .btn {
+            font-family: fantasy;
+        }
+
+        /*友情链接，版权信息，输入框-字体*/
+        .col-lg-7, .col-lg-7 a, input {
+            font-family: times;
+            font-size: 1;
+            color: #000000;
+        }
+
+        /*下拉菜单图标居左*/
+        a .glyphicon {
+            float: left;
+        }
+
+        /*下拉内容对齐父按钮*/
+        .dropdown-menu {
+            left: 14px;
+        }
+
+        /*落款头像位置*/
+        .col-lg-5 {
+            /* border-right: 1px solid; */
+            text-align: right;
+        }
+
+        /*落款头像大小*/
+        .img-circle {
+            width: 40px;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div align="center">
+            <img src="img/hyosunghan.gif"/>
+        </div>
+        <!--&lt;!&ndash;轮播图&ndash;&gt;-->
+        <!--<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="3000">-->
+            <!--&lt;!&ndash; 圆点 &ndash;&gt;-->
+            <!--<ol class="carousel-indicators">-->
+                <!--<li data-target="#carousel-example-generic" data-slide-to="0"></li>-->
+                <!--<li data-target="#carousel-example-generic" data-slide-to="1" class="active"></li>-->
+                <!--&lt;!&ndash;<li data-target="#carousel-example-generic" data-slide-to="2"></li>&ndash;&gt;-->
+            <!--</ol>-->
+            <!--&lt;!&ndash; 图片 &ndash;&gt;-->
+            <!--<div class="carousel-inner" role="listbox">-->
+                <!--<div class="item">-->
+                    <!--<img src="img/hanxiaoxing.gif" alt="error" class="img-responsive center-block">-->
+                    <!--<div class="carousel-caption">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="item active">-->
+                    <!--<img src="img/hyosunghan.gif" alt="error" class="img-responsive center-block">-->
+                    <!--<div class="carousel-caption">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--&lt;!&ndash;<div class="item">&ndash;&gt;-->
+                <!--&lt;!&ndash;<img src="img/hanxiaoxing.gif" alt="error" class="img-responsive center-block">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="carousel-caption">&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--</div>-->
+            <!--&lt;!&ndash; 翻页 &ndash;&gt;-->
+            <!--<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">-->
+                <!--<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>-->
+                <!--<span class="sr-only">Previous</span>-->
+            <!--</a>-->
+            <!--<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">-->
+                <!--<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>-->
+                <!--<span class="sr-only">Next</span>-->
+            <!--</a>-->
+        <!--</div>-->
+    </div>
+    <div class="row">
+        <form class="col-lg-8 col-lg-offset-2" role="form" name="bdfm"
+              method="get" action="http://www.baidu.com/s?word">
+            <div class="input-group">
+                <div class="input-group-btn">
+                    <button class="btn btn-lg btn-info" type="reset">
+                        <span class="glyphicon glyphicon-repeat"></span>
+                    </button>
+                </div>
+                <input type="text" class="form-control input-lg" id="focusedInput"
+                       name="word" autofocus="autofocus"
+                       placeholder="The value of life, not with time, but with the depth to be measured.">
+                <div class="input-group-btn">
+                    <button type="submit" class="btn btn-info btn-lg">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                    <button type="submit" class="btn btn-info btn-lg dropdown-toggle"
+                            data-toggle="dropdown">
+                        <span class="caret"></span> <span class="sr-only"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="http://news.baidu.com/" class="btn btn-lg"><span
+                                class="glyphicon glyphicon-globe"></span>新闻</a></li>
+                        <li><a href="http://tieba.baidu.com/" class="btn btn-lg"><span
+                                class="glyphicon glyphicon-file"></span>贴吧</a></li>
+                        <li><a href="http://zhidao.baidu.com/" class="btn btn-lg"><span
+                                class="glyphicon glyphicon-search"></span>知道</a></li>
+                        <li><a href="http://music.baidu.com/" class="btn btn-lg"><span
+                                class="glyphicon glyphicon-music"></span>音乐</a></li>
+                        <li><a href="http://images.baidu.com/" class="btn btn-lg"><span
+                                class="glyphicon glyphicon-picture"></span>图片</a></li>
+                        <li><a href="http://v.baidu.com/" class="btn btn-lg"><span
+                                class="glyphicon glyphicon-expand"></span>视频</a></li>
+                        <li><a href="http://map.baidu.com/" class="btn btn-lg"><span
+                                class="glyphicon glyphicon-map-marker"></span>地图</a></li>
+                        <li><a href="http://wenku.baidu.com/" class="btn btn-lg"><span
+                                class="glyphicon glyphicon-book"></span>文库</a></li>
+                        <li class="divider"></li>
+                        <li><a href="http://www.baidu.com/more/" class="btn btn-lg"><span
+                                class="glyphicon glyphicon-th"></span>更多>></a></li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+    </div>
+    <br>
+	<div class="row">
+        <div
+                class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group col-lg-offset-2">
+            <a href="http://wx.qq.com/"
+               class="btn btn-success btn-lg btn-block">微信</a>
+        </div>
+		<div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
+            <a href="http://www.alipay.com/"
+               class="btn btn-primary btn-lg btn-block">支付宝</a>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
+            <a href="http://pan.baidu.com/"
+               class="btn btn-primary btn-lg btn-block">百度网盘</a>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
+            <a href="http://music.163.com/" 
+			class="btn btn-danger btn-lg btn-block">网易云音乐</a>
+        </div>
+        
+    </div>
+    <br>
+    <div class="row">
+		<div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group col-lg-offset-2">
+            <a href="http://www.jd.com/" 
+			class="btn btn-danger btn-lg btn-block">京东</a>
+        </div>
+        <div
+                class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
+            <a href="http://www.taobao.com/"
+               class="btn btn-warning btn-lg btn-block">淘宝</a>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
+            <a href="http://www.youku.com/"
+               class="btn btn-success btn-lg btn-block">优酷</a>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
+            <a href="https://v.qq.com/"
+               class="btn btn-success btn-lg btn-block">腾讯视频</a>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        
+        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group  col-lg-offset-2">
+            <a href="http://www.douyu.com/"
+               class="btn btn-warning btn-lg btn-block">斗鱼TV</a>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
+            <a href="http://www.zhaikexueyuan.com/"
+               class="btn btn-primary btn-lg btn-block">宅客学院</a>
+        </div>
+        
+		<div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
+            <a href="http://weibo.com/"
+               class="btn btn-warning btn-lg btn-block">微博</a>
+        </div>
+		<div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
+            <a href="https://mail.qq.com/"
+               class="btn btn-primary btn-lg btn-block">QQ邮箱</a>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group col-lg-offset-2">
+            <a href="http://www.csdn.net/"
+               class="btn btn-danger btn-lg btn-block">CSDN</a>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
+            <a href="http://www.w3cschool.cn"
+               class="btn btn-danger btn-lg btn-block">W3Cschool</a>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
+            <a href="https://github.com/"
+               class="btn btn-success btn-lg btn-block">GitHub</a>
+        </div>
+        <div
+                class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
+            <a href="http://www.huaweicloud.com/"
+               class="btn btn-danger btn-lg btn-block">华为云</a>
+        </div>
+    </div>
+    <br> <br> <br> <br>
+    <div class="row">
+        <div class="col-lg-5 col-md-4 col-ms-3 col-xs-2">
+            <img src="img/head.png" alt="error" class="img-circle">
+        </div>
+        <div class="col-lg-7 col-md-8 col-ms-9 col-xs-10">
+            <a href="#">Whistleblowing</a>&nbsp;&nbsp;&nbsp;<a href="#">Partnership</a>
+            &nbsp;&nbsp;&nbsp;<a href="#">About Us</a>
+            <br>Copyright&copy;Hyosung,All Rights Reserved.
+        </div>
+    </div>
+    <br>
+</div>
+<script type="text/javascript">
+    $("body").ready(load())
+
+    // 页面加载
+    function load() {
+        var input = $("#focusedInput");
+        var random = Math.floor(Math.random() * 10);
+        var tip = readFile("resource.txt", random);
+        input.attr("placeholder", tip);
+    }
+
+    // ActiveX读文件
+    function readFile(filename, number) {
+        var fso = new ActiveXObject("Scripting.FileSystemObject");
+        var f = fso.OpenTextFile(filename, 1);
+        var s = "";
+        while (!f.AtEndOfStream && 0 != number) {
+            s = f.ReadLine() + "\n";
+            number--;
+        }
+        f.Close();
+        return s;
+    }
+
+    // ActiveX写文件
+    function writeFile(filename, filecontent) {
+        var fso = new ActiveXObject("Scripting.FileSystemObject");
+        var f = fso.OpenTextFile(filename, 8, true);
+        f.WriteLine(filecontent);
+        f.Close();
+    }
+</script>
+</body>
+</html>
