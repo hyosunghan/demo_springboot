@@ -202,7 +202,7 @@ INSERT INTO `role_permission` VALUES ('2', '3');
 -- ----------------------------
 DROP TABLE IF EXISTS `syslog`;
 CREATE TABLE `syslog` (
-  `id` int(32) NOT NULL,
+  `id` int(32) NOT NULL AUTO_INCREMENT,
   `visitTime` varchar(50) DEFAULT NULL,
   `username` varchar(50) DEFAULT NULL,
   `ip` varchar(30) DEFAULT NULL,
