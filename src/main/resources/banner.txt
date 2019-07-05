@@ -1,10 +1,11 @@
+${AnsiColor.RED}
              _
             | |__ __    __ _____  ______ _   _  _ ___  _____
             | '_  \ \  / //  _  \/ ____/| | | || '_  \/  _  \
             | | | |\ \/ / | |_| |\____ \| |_| || | | || |_| |
             |_| |_| \  /  \_____//_____/ \___/ |_| |_|\____ |
                     /_/                               /_____/
-                                                             
+${AnsiColor.BRIGHT_YELLOW}
                                  _ooOoo_                      
                                 o8888888o                         
                                 88" . "88
@@ -24,7 +25,7 @@
                    \  \ `-.   \_ __\ /__ _/   .-` /  /
                                  '=---='
             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                     佛祖保佑       永不宕机       永无BUG
+                  佛祖保佑       永不宕机       永无BUG
+${AnsiColor.GREEN}
 Application Version: ${application.version}${application.formatted-version}
 Spring Boot Version: ${spring-boot.version}${spring-boot.formatted-version}
-${AnsiColor.DEFAULT}
