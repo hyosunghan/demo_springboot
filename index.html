@@ -10,6 +10,28 @@
     <script src="index/js/jquery.min.js"></script>
     <script src="index/js/bootstrap.min.js"></script>
     <style type="text/css">
+
+        /*搜索框*/
+        .btn-circle-head {
+            width: 60px;
+            height: 60px;
+            padding: 20px 20px;
+            font-size: 20px;
+            line-height: 1.33;
+            border-radius: 70px;
+        }
+
+        /*应用按钮*/
+		.btn-circle {
+			width: 80px;
+			height: 80px;
+			padding: 30px 30px;
+			font-size: 20px;
+			line-height: 1.33;
+			border-radius: 70px;
+			background-image: url("index/img/weixin.jpg");
+		}
+
         /*背景图片*/
         body {
             background-image: url("index/img/timg.jpg");
@@ -96,135 +118,130 @@
               method="get" action="http://www.baidu.com/s?word">
             <div class="input-group">
                 <div class="input-group-btn">
-                    <button class="btn btn-lg btn-info" type="reset">
+                    <button class="btn btn-lg btn-circle-head btn-info" type="reset">
                         <span class="glyphicon glyphicon-repeat"></span>
                     </button>
                 </div>
-                <input type="text" class="form-control input-lg" id="focusedInput"
+                <input type="text" class="form-control input-lg btn-circle-head" id="focusedInput"
                        name="word" autofocus="autofocus"
                        placeholder="The value of life, not with time, but with the depth to be measured.">
                 <div class="input-group-btn">
-                    <button type="submit" class="btn btn-info btn-lg">
+                    <button type="submit" class="btn btn-info btn-circle-head btn-lg">
                         <span class="glyphicon glyphicon-search"></span>
                     </button>
-                    <button type="submit" class="btn btn-info btn-lg dropdown-toggle"
+                    <button type="submit" class="btn btn-info btn-circle-head btn-lg dropdown-toggle"
                             data-toggle="dropdown">
                         <span class="caret"></span> <span class="sr-only"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="http://news.baidu.com/" class="btn btn-lg"><span
-                                class="glyphicon glyphicon-globe"></span>新闻</a></li>
+                                class="glyphicon glyphicon-globe"></span>News</a></li>
                         <li><a href="http://tieba.baidu.com/" class="btn btn-lg"><span
-                                class="glyphicon glyphicon-file"></span>贴吧</a></li>
+                                class="glyphicon glyphicon-file"></span>TieBa</a></li>
                         <li><a href="http://zhidao.baidu.com/" class="btn btn-lg"><span
-                                class="glyphicon glyphicon-search"></span>知道</a></li>
+                                class="glyphicon glyphicon-search"></span>ZhiDao</a></li>
                         <li><a href="http://music.baidu.com/" class="btn btn-lg"><span
-                                class="glyphicon glyphicon-music"></span>音乐</a></li>
+                                class="glyphicon glyphicon-music"></span>Music</a></li>
                         <li><a href="http://images.baidu.com/" class="btn btn-lg"><span
-                                class="glyphicon glyphicon-picture"></span>图片</a></li>
+                                class="glyphicon glyphicon-picture"></span>Image</a></li>
                         <li><a href="http://v.baidu.com/" class="btn btn-lg"><span
-                                class="glyphicon glyphicon-expand"></span>视频</a></li>
+                                class="glyphicon glyphicon-expand"></span>Video</a></li>
                         <li><a href="http://map.baidu.com/" class="btn btn-lg"><span
-                                class="glyphicon glyphicon-map-marker"></span>地图</a></li>
+                                class="glyphicon glyphicon-map-marker"></span>Map</a></li>
                         <li><a href="http://wenku.baidu.com/" class="btn btn-lg"><span
-                                class="glyphicon glyphicon-book"></span>文库</a></li>
+                                class="glyphicon glyphicon-book"></span>WenKu</a></li>
                         <li class="divider"></li>
                         <li><a href="http://www.baidu.com/more/" class="btn btn-lg"><span
-                                class="glyphicon glyphicon-th"></span>更多>></a></li>
+                                class="glyphicon glyphicon-th"></span>MORE>></a></li>
                     </ul>
                 </div>
             </div>
         </form>
     </div>
     <br>
+	<br>
 	<div class="row">
-        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group col-lg-offset-2">
-            <a href="http://wx.qq.com/" class="btn btn-success btn-lg btn-block">
-                <span class="glyphicon glyphicon-user"></span>微信
+        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-6 btn-group col-lg-offset-2">
+            <a href="http://wx.qq.com/" class="btn btn-success btn-circle btn-block"
+               style="background-image: url('index/img/weixin.jpg');background-size: cover">
             </a>
         </div>
-		<div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
-            <a href="http://www.alipay.com/" class="btn btn-primary btn-lg btn-block">
-                <span class="glyphicon glyphicon-credit-card"></span>支付宝
+		<div class="col-lg-1 col-md-3 col-sm-3 col-xs-6 btn-group">
+            <a href="http://www.alipay.com/" class="btn btn-primary btn-circle btn-lg btn-block"
+               style="background-image: url('index/img/zhifubao.jpg');background-size: cover">
             </a>
         </div>
-        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
-            <a href="http://pan.baidu.com/" class="btn btn-primary btn-lg btn-block">
-                <span class="glyphicon glyphicon-hdd"></span>百度网盘
+        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-6 btn-group">
+            <a href="http://pan.baidu.com/" class="btn btn-primary btn-circle btn-lg btn-block"
+               style="background-image: url('index/img/baiduyun.jpg');background-size: cover">
             </a>
         </div>
-        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
-            <a href="http://music.163.com/" class="btn btn-danger btn-lg btn-block">
-                <span class="glyphicon glyphicon-cd"></span>网易云音乐
+        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-6 btn-group">
+            <a href="http://music.163.com/" class="btn btn-danger btn-circle btn-lg btn-block"
+               style="background-image: url('index/img/wangyiyun.jpg');background-size: cover">
             </a>
         </div>
-    </div>
-    <br>
-    <div class="row">
-		<div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group col-lg-offset-2">
-            <a href="http://www.jd.com/" class="btn btn-danger btn-lg btn-block">
-                <span class="glyphicon glyphicon-shopping-cart"></span>京东
+		<div class="col-lg-1 col-md-3 col-sm-3 col-xs-6 btn-group">
+            <a href="http://www.jd.com/" class="btn btn-danger btn-circle btn-lg btn-block"
+               style="background-image: url('index/img/jingdong.jpg');background-size: cover">
             </a>
         </div>
-        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
-            <a href="http://www.taobao.com/" class="btn btn-warning btn-lg btn-block">
-                <span class="glyphicon glyphicon-gift"></span>淘宝
+        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-6 btn-group">
+            <a href="http://www.taobao.com/" class="btn btn-warning btn-circle btn-lg btn-block"
+               style="background-image: url('index/img/taobao.jpg');background-size: cover">
             </a>
         </div>
-        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
-            <a href="http://www.youku.com/" class="btn btn-success btn-lg btn-block">
-                <span class="glyphicon glyphicon-play-circle"></span>优酷
+        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-6 btn-group">
+            <a href="http://www.youku.com/" class="btn btn-success btn-circle btn-lg btn-block"
+               style="background-image: url('index/img/youku.jpg');background-size: cover">
             </a>
         </div>
-        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
-            <a href="https://v.qq.com/" class="btn btn-success btn-lg btn-block">
-                <span class="glyphicon glyphicon-film"></span>腾讯视频
+        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-6 btn-group">
+            <a href="https://v.qq.com/" class="btn btn-success btn-circle btn-lg btn-block"
+               style="background-image: url('index/img/tengxunshipin.jpg');background-size: cover">
             </a>
         </div>
     </div>
     <br>
     <div class="row">
-        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group  col-lg-offset-2">
-            <a href="http://www.douyu.com/" class="btn btn-warning btn-lg btn-block">
-                <span class="glyphicon glyphicon-facetime-video"></span>斗鱼
+        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-6 btn-group  col-lg-offset-2">
+            <a href="http://www.douyu.com/" class="btn btn-warning btn-circle btn-lg btn-block"
+               style="background-image: url('index/img/douyu.jpg');background-size: cover">
             </a>
         </div>
-        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
-            <a href="http://www.zhaikexueyuan.com/" class="btn btn-warning btn-lg btn-block">
-                <span class="glyphicon glyphicon-blackboard"></span>宅客学院
+        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-6 btn-group">
+            <a href="http://www.zhaikexueyuan.com/" class="btn btn-warning btn-circle btn-lg btn-block"
+               style="background-image: url('index/img/zhaikexueyuan.jpg');background-size: cover">
             </a>
         </div>
-		<div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
-            <a href="http://weibo.com/" class="btn btn-warning btn-lg btn-block">
-                <span class="glyphicon glyphicon-eye-open"></span>微博
+		<div class="col-lg-1 col-md-3 col-sm-3 col-xs-6 btn-group">
+            <a href="http://weibo.com/" class="btn btn-warning btn-circle btn-lg btn-block"
+               style="background-image: url('index/img/weibo.jpg');background-size: cover">
             </a>
         </div>
-		<div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
-            <a href="https://mail.qq.com/" class="btn btn-primary btn-lg btn-block">
-                <span class="glyphicon glyphicon-envelope"></span>QQ邮箱
+		<div class="col-lg-1 col-md-3 col-sm-3 col-xs-6 btn-group">
+            <a href="https://mail.qq.com/" class="btn btn-primary btn-circle btn-lg btn-block"
+               style="background-image: url('index/img/qqyouxiang.jpg');background-size: cover">
             </a>
         </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group col-lg-offset-2">
-            <a href="http://www.csdn.net/" class="btn btn-danger btn-lg btn-block">
-                <span class="glyphicon glyphicon-comment"></span>CSDN
+        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-6 btn-group">
+            <a href="http://www.csdn.net/" class="btn btn-danger btn-circle btn-lg btn-block"
+               style="background-image: url('index/img/csdn.jpg');background-size: cover">
             </a>
         </div>
-        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
-            <a href="http://www.w3cschool.cn" class="btn btn-danger btn-lg btn-block">
-                <span class="glyphicon glyphicon-tasks"></span>W3Cschool
+        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-6 btn-group">
+            <a href="http://www.w3cschool.cn" class="btn btn-danger btn-circle btn-lg btn-block"
+               style="background-image: url('index/img/w3cschool.jpg');background-size: cover">
             </a>
         </div>
-        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
-            <a href="https://github.com/" class="btn btn-success btn-lg btn-block">
-                <span class="glyphicon glyphicon-open"></span>GitHub
+        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-6 btn-group">
+            <a href="https://github.com/" class="btn btn-success btn-circle btn-lg btn-block"
+               style="background-image: url('index/img/github.jpg');background-size: cover">
             </a>
         </div>
-        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 btn-group">
-            <a href="http://rap2.taobao.org/" class="btn btn-primary btn-lg btn-block">
-                <span class="glyphicon glyphicon-inbox"></span>Rap2
+        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-6 btn-group">
+            <a href="http://rap2.taobao.org/" class="btn btn-primary btn-circle btn-lg btn-block"
+               style="background-image: url('index/img/rap2.jpg');background-size: cover">
             </a>
         </div>
     </div>
