@@ -4,6 +4,8 @@ import com.example.demo.mapper.RoleMapper;
 import com.example.demo.mapper.UsersMapper;
 import com.example.demo.entity.Role;
 import com.example.demo.entity.Users;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -52,8 +54,10 @@ public class UsersService implements UserDetailsService {
         return user;
     }
 
-    public List<Users> findAll() {
-        return usersMapper.findAll();
+    public PageInfo<Users> findAll(int page, int size) {
+        PageHelper.startPage(page, size);
+        List<Users> list = usersMapper.findAll();
+        return new PageInfo<>(list);
     }
 
     public void create(com.example.demo.entity.User user) {

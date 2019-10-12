@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.Orders;
 import com.example.demo.entity.Product;
 import com.example.demo.service.ProductService;
 import com.github.pagehelper.PageHelper;
@@ -22,17 +23,10 @@ public class ProductController {
 
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
     public ModelAndView findAllProduct(@RequestParam(defaultValue = "1") Integer page,
-                                @RequestParam(defaultValue = "10") Integer size) {
-        ModelAndView mv = new ModelAndView();
+                                       @RequestParam(defaultValue = "10") Integer size) {
 
-        PageHelper.startPage(page, size);
-        List<Product> products = productService.findAll();
-        PageInfo<Product> pageInfo = new PageInfo<>(products);
-
-        mv.addObject("productList", products);
-        mv.addObject("pageInfo", pageInfo);
-        mv.setViewName("content-product-list");
-        return mv;
+        PageInfo<Product> pageInfo = productService.findAll(page, size);
+        return new ModelAndView("content-product-list", "pageInfo", pageInfo);
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)

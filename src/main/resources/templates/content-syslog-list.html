@@ -129,7 +129,7 @@
                             </thead>
                             <tbody>
 
-                            <tr th:each="sysLog : ${sysLogList}">
+                            <tr th:each="sysLog : ${pageInfo.list}">
                                 <td><input name="ids" type="checkbox"></td>
                                 <td th:text="${sysLog.id}"></td>
                                 <td th:text="${sysLog.visitTime}"></td>
@@ -153,34 +153,22 @@
                 <div class="box-footer">
                     <div class="pull-left">
                         <div class="form-group form-inline">
-                            总共2 页，共4 条数据。 每页 <select
-                                class="form-control" onchange="getPageSize()" id="pageSizeSelect">
-                            <option value="1">请选择</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="10">10</option>
-                        </select> 条
+                            共<span th:text="${pageInfo.pages}"></span>页，
+                            每页<select th:field="${pageInfo.pageSize}" th:value="${pageInfo.pageSize}" class="form-control" onchange="getPageSize()" id="pageSizeSelect">
+                            <option th:selected="${pageInfo.pageSize==10}" value="10">10</option>
+                            <option th:selected="${pageInfo.pageSize==20}" value="20">20</option>
+                            <option th:selected="${pageInfo.pageSize==50}" value="50">50</option>
+                        </select>条，
+                            共<span th:text="${pageInfo.total}"></span>条。
                         </div>
                     </div>
                     <div class="box-tools pull-right">
                         <ul class="pagination">
-                            <li><a
-                                    href="/order/findAll.do?page=1&pageSize=3"
-                                    aria-label="Previous">首页</a></li>
-                            <li><a
-                                    href="/order/findAll.do?page=0&pageSize=3">上一页</a>
-                            </li>
-                            <li><a
-                                    href="/order/findAll.do?page=1&pageSize=3">1</a></li>
-                            <li><a
-                                    href="/order/findAll.do?page=2&pageSize=3">2</a></li>
-                            <li><a
-                                    href="/order/findAll.do?page=2&pageSize=3">下一页</a>
-                            </li>
-                            <li><a
-                                    href="/order/findAll.do?page=2&pageSize=3"
-                                    aria-label="Next">尾页</a></li>
+                            <li><a th:href="@{'/sysLog/findAll?page='+${pageInfo.navigateFirstPage}+'&size='+${pageInfo.pageSize}+''}" aria-label="Previous"><<</a></li>
+                            <li><a th:href="@{'/sysLog/findAll?page='+${pageInfo.prePage} +'&size='+${pageInfo.pageSize}+''}"><</a></li>
+                            <li><span th:text="${pageInfo.pageNum}"></span></li>
+                            <li><a th:href="@{'/sysLog/findAll?page='+${pageInfo.nextPage} +'&size='+${pageInfo.pageSize}+''}">></a></li>
+                            <li><a th:href="@{'/sysLog/findAll?page='+${pageInfo.navigateLastPage}+'&size='+${pageInfo.pageSize}+''}" aria-label="Next">>></a></li>
                         </ul>
                     </div>
                 </div>
@@ -319,8 +307,7 @@
 
     function getPageSize() {
         var pageSize = $("#pageSizeSelect").val();
-        location.href = "/order/findAll.do?page=1&pageSize="
-            + pageSize;
+        location.href = "/sysLog/findAll?page=1&size=" + pageSize;
     }
 </script>
 </body>

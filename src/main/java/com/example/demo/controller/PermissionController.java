@@ -3,10 +3,12 @@ package com.example.demo.controller;
 import com.example.demo.entity.Permissio;
 import com.example.demo.entity.Permission;
 import com.example.demo.service.PermissionService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -19,9 +21,10 @@ public class PermissionController {
     private PermissionService permissionService;
 
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
-    public ModelAndView findAllPermission() {
-        List<Permission> permissionList = permissionService.findAll();
-        return new ModelAndView("content-permission-list", "permissionList", permissionList);
+    public ModelAndView findAllPermission(@RequestParam(defaultValue = "1") Integer page,
+                                          @RequestParam(defaultValue = "10") Integer size) {
+        PageInfo<Permission> pageInfo = permissionService.findAll(page, size);
+        return new ModelAndView("content-permission-list", "pageInfo", pageInfo);
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)

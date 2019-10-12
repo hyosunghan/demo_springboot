@@ -141,7 +141,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="product : ${productList}">
+                            <tr th:each="product : ${pageInfo.list}">
                                 <td><input name="ids" type="checkbox"></td>
                                 <td th:text="${product.id}"></td>
                                 <td th:text="${product.productNum}"></td>
@@ -168,37 +168,22 @@
                 <div class="box-footer">
                     <div class="pull-left">
                         <div class="form-group form-inline">
-                            共<span th:text="${pageInfo.pages}"></span>页,
-                            第<span th:text="${pageInfo.pageNum}"></span>页,
-                            共<span th:text="${pageInfo.total}"></span>条.
-                            每页<select class="form-control" href="/product/findAll?page=2&size=5">
-                            <option selected="selected">10</option>
-                            <option>20</option>
-                            <option>50</option>
-                            <option>100</option>
-                            </select> 条
+                            共<span th:text="${pageInfo.pages}"></span>页，
+                            每页<select th:field="${pageInfo.pageSize}" th:value="${pageInfo.pageSize}" class="form-control" onchange="getPageSize()" id="pageSizeSelect">
+                            <option th:selected="${pageInfo.pageSize==10}" value="10">10</option>
+                            <option th:selected="${pageInfo.pageSize==20}" value="20">20</option>
+                            <option th:selected="${pageInfo.pageSize==50}" value="50">50</option>
+                        </select>条，
+                            共<span th:text="${pageInfo.total}"></span>条。
                         </div>
                     </div>
                     <div class="box-tools pull-right">
                         <ul class="pagination">
-                            <li><a th:href="@{/products/findAll(page=${pageInfo.firstPage})}"
-                                   aria-label="Previous">首页</a></li>
-                            <li><a th:href="@{/products/findAll(page=${pageInfo.prePage})}">上一页</a></li>
-
-                            <li><a th:href="@{/products/findAll(page=1)}"><span th:text="${pageInfo.pageNum}-2"></span></a>
-                            </li>
-                            <li><a th:href="@{/products/findAll(page=1)}"><span th:text="${pageInfo.pageNum}-1"></span></a>
-                            </li>
-                            <li><a th:href="@{/products/findAll(page=1)}"><span
-                                    th:text="${pageInfo.pageNum}"></span></a></li>
-                            <li><a th:href="@{/products/findAll(page=1)}"><span th:text="${pageInfo.pageNum}+1"></span></a>
-                            </li>
-                            <li><a th:href="@{/products/findAll(page=1)}"><span th:text="${pageInfo.pageNum}+2"></span></a>
-                            </li>
-
-                            <li><a th:href="@{/products/findAll(page=${pageInfo.nextPage})}">下一页</a></li>
-                            <li><a th:href="@{/products/findAll(page=${pageInfo.lastPage})}" aria-label="Next">尾页</a>
-                            </li>
+                            <li><a th:href="@{'/product/findAll?page='+${pageInfo.navigateFirstPage}+'&size='+${pageInfo.pageSize}+''}" aria-label="Previous"><<</a></li>
+                            <li><a th:href="@{'/product/findAll?page='+${pageInfo.prePage} +'&size='+${pageInfo.pageSize}+''}"><</a></li>
+                            <li><span th:text="${pageInfo.pageNum}"></span></li>
+                            <li><a th:href="@{'/product/findAll?page='+${pageInfo.nextPage} +'&size='+${pageInfo.pageSize}+''}">></a></li>
+                            <li><a th:href="@{'/product/findAll?page='+${pageInfo.navigateLastPage}+'&size='+${pageInfo.pageSize}+''}" aria-label="Next">>></a></li>
                         </ul>
                     </div>
                 </div>
@@ -335,6 +320,11 @@
             $(this).data("clicks", !clicks);
         });
     });
+
+    function getPageSize() {
+        var pageSize = $("#pageSizeSelect").val();
+        location.href = "/product/findAll?page=1&size=" + pageSize;
+    }
 </script>
 </body>
 </html>

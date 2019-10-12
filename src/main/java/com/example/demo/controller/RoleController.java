@@ -5,11 +5,13 @@ import com.example.demo.entity.Rol;
 import com.example.demo.entity.Role;
 import com.example.demo.service.PermissionService;
 import com.example.demo.service.RoleService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -25,9 +27,10 @@ public class RoleController {
     private PermissionService permissionService;
 
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
-    public ModelAndView findAllRole() {
-        List<Role> roleList = roleService.findAll();
-        return new ModelAndView("content-role-list", "roleList", roleList);
+    public ModelAndView findAllRole(@RequestParam(defaultValue = "1") Integer page,
+                                    @RequestParam(defaultValue = "10") Integer size) {
+        PageInfo<Role> pageInfo = roleService.findAll(page, size);
+        return new ModelAndView("content-role-list", "pageInfo", pageInfo);
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)

@@ -5,11 +5,13 @@ import com.example.demo.entity.User;
 import com.example.demo.entity.Users;
 import com.example.demo.service.RoleService;
 import com.example.demo.service.UsersService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -26,9 +28,10 @@ public class UsersController {
     private RoleService roleService;
 
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
-    public ModelAndView findAllUsers() {
-        List<Users> usersList = usersService.findAll();
-        return new ModelAndView("content-users-list", "usersList", usersList);
+    public ModelAndView findAllUsers(@RequestParam(defaultValue = "1") Integer page,
+                                     @RequestParam(defaultValue = "10") Integer size) {
+        PageInfo<Users> pageInfo = usersService.findAll(page, size);
+        return new ModelAndView("content-users-list", "pageInfo", pageInfo);
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)

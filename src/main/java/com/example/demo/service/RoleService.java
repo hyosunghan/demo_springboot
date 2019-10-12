@@ -4,6 +4,8 @@ import com.example.demo.mapper.PermissionMapper;
 import com.example.demo.mapper.RoleMapper;
 import com.example.demo.entity.Rol;
 import com.example.demo.entity.Role;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +20,10 @@ public class RoleService {
     @Autowired
     private PermissionMapper permissionMapper;
 
-    public List<Role> findAll() {
-        return roleMapper.findAll();
+    public PageInfo<Role> findAll(int page, int size) {
+        PageHelper.startPage(page, size);
+        List<Role> list = roleMapper.findAll();
+        return new PageInfo<>(list);
     }
 
     public void create(Rol role) {

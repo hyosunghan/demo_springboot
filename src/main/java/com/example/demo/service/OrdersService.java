@@ -5,6 +5,8 @@ import com.example.demo.mapper.OrdersMapper;
 import com.example.demo.mapper.ProductMapper;
 import com.example.demo.mapper.TravellerMapper;
 import com.example.demo.entity.Orders;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +27,10 @@ public class OrdersService {
     @Autowired
     private TravellerMapper travellerMapper;
 
-    public List<Orders> findAll() {
-        return ordersMapper.findAll();
+    public PageInfo<Orders> findAll(int page, int size) {
+        PageHelper.startPage(page, size);
+        List<Orders> list = ordersMapper.findAll();
+        return new PageInfo<>(list);
     }
 
     public Orders findById(int id) {

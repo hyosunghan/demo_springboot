@@ -1,7 +1,5 @@
 package com.example.demo.aspect;
 
-import com.example.demo.controller.BaseController;
-import com.example.demo.controller.SysLogController;
 import com.example.demo.entity.SysLog;
 import com.example.demo.service.SysLogService;
 import org.aspectj.lang.JoinPoint;
@@ -49,7 +47,12 @@ public class SysLogAspect {
             // 有参数，就将args中所有元素遍历，获取对应的Class,装入到一个Class[]
             Class[] classArgs = new Class[args.length];
             for (int i = 0; i < args.length; i++) {
-                classArgs[i] = args[i].getClass();
+                if (null == args[i]) {
+                    // 参数为Null则为首页列表
+                    classArgs[i] = Integer.class;
+                } else {
+                    classArgs[i] = args[i].getClass();
+                }
             }
             executionMethod = executionClass.getMethod(methodName, classArgs);// 获取有参数方法
         }
