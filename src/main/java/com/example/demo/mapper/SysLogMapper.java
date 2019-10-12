@@ -1,12 +1,14 @@
 package com.example.demo.mapper;
 
 import com.example.demo.entity.SysLog;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Mapper
@@ -27,4 +29,7 @@ public interface SysLogMapper {
     @Insert("insert into syslog(visitTime,username,ip,url,executionTime,method)" +
             " values(#{visitTime},#{username},#{ip},#{url},#{executionTime},#{method})")
     void save(SysLog log);
+
+    @Delete("delete from syslog where id in #{idList}")
+    void delete(List<Integer> idList);
 }

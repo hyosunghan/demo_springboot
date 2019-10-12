@@ -25,4 +25,8 @@ public class SysLogService {
         List<SysLog> list = sysLogMapper.findAll();
         return new PageInfo<>(list);
     }
+
+    public void delete(List<Integer> idList) {
+        sysLogMapper.delete(idList);
+    }
 }

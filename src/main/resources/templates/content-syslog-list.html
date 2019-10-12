@@ -82,6 +82,9 @@
         <!-- 正文区域 -->
         <section class="content"> <!-- .box-body -->
             <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">日志列表</h3>
+                </div>
                 <div class="box-body">
                     <!-- 数据表格 -->
                     <div class="table-box">
@@ -91,7 +94,7 @@
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default" title=
                                             "删除"
-                                            onclick='confirm("你确认要删除吗？")'>
+                                            onclick='doDelete()'>
                                         <i class="fa fa-trash-o"></i> 删除
                                     </button>
                                     <button type="button" class="btn btn-default" title=
@@ -308,6 +311,20 @@
     function getPageSize() {
         var pageSize = $("#pageSizeSelect").val();
         location.href = "/sysLog/findAll?page=1&size=" + pageSize;
+    }
+    
+    function doDelete() {
+        var table = $('.dataList').DataTable();
+        var re = confirm("你确认要删除吗？");
+        if (re == false) {
+            return false;
+        } else {
+            console.log(table);
+            console.log(table.rows('.selected'));
+            // alert( table.rows('.selected').data().length +' row(s) selected' );
+
+            // location.href = "/sysLog/batchDelete";
+        }
     }
 </script>
 </body>

@@ -25,4 +25,10 @@ public class SysLogController {
         PageInfo<SysLog> pageInfo = sysLogService.findAll(page, size);
         return new ModelAndView("content-syslog-list", "pageInfo", pageInfo);
     }
+
+    @RequestMapping(value = "/batchDelete", method = RequestMethod.POST)
+    public ModelAndView saveProduct(List<Integer> idList) {
+        sysLogService.delete(idList);
+        return new ModelAndView("redirect:findAll");
+    }
 }
