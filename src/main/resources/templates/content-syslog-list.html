@@ -83,36 +83,25 @@
         <section class="content"> <!-- .box-body -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">日志列表</h3>
+                    <div class="pull-left">
+                        <div class="form-group form-inline">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default" title=
+                                        "删除" id="deleteButton">
+                                    <i class="fa fa-trash-o"></i> 删除
+                                </button>
+                                <button type="button" class="btn btn-default" title=
+                                        "刷新"
+                                        onclick="window.location.reload();">
+                                    <i class="fa fa-refresh"></i> 刷新
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="box-body">
                     <!-- 数据表格 -->
                     <div class="table-box">
-                        <!--工具栏-->
-                        <div class="pull-left">
-                            <div class="form-group form-inline">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default" title=
-                                            "删除">
-                                            <!--onclick='doDelete()'>-->
-                                        <i class="fa fa-trash-o"></i> 删除
-                                    </button>
-                                    <button type="button" class="btn btn-default" title=
-                                            "刷新"
-                                            onclick="window.location.reload();">
-                                        <i class="fa fa-refresh"></i> 刷新
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="box-tools pull-right">
-                            <div class="has-feedback">
-                                <input type="text" class="form-control input-sm"
-                                       placeholder="搜索"> <span
-                                    class="glyphicon glyphicon-search form-control-feedback"></span>
-                            </div>
-                        </div>
-                        <!--工具栏/-->
                         <!--数据列表-->
                         <table id="dataList"
                                class="table table-bordered table-striped table-hover dataTable">
@@ -127,12 +116,11 @@
                                 <th class="sorting">IP</th>
                                 <th class="sorting">访问路径</th>
                                 <th class="sorting">访问时长</th>
-                                <!--<th class="text-center">代码</th>-->
                             </tr>
                             </thead>
                             <tbody>
 
-                            <tr th:each="sysLog : ${pageInfo.list}">
+                            <tr th:each="sysLog : ${listInfo}">
                                 <td><input name="ids" type="checkbox"></td>
                                 <td th:text="${sysLog.id}"></td>
                                 <td th:text="${sysLog.visitTime}"></td>
@@ -142,9 +130,7 @@
                                 <td th:text="${sysLog.executionTime}"></td>
                                 <!--<td th:text="${sysLog.method}"></td>-->
                             </tr>
-
                             </tbody>
-
                         </table>
                         <!--数据列表/-->
                     </div>
@@ -153,40 +139,41 @@
                 <!-- /.box-body -->
 
                 <!-- .box-footer-->
-                <div class="box-footer">
-                    <div class="pull-left">
-                        <div class="form-group form-inline">
-                            共<span th:text="${pageInfo.pages}"></span>页，
-                            每页<select th:field="${pageInfo.pageSize}" th:value="${pageInfo.pageSize}" class="form-control" onchange="getPageSize()" id="pageSizeSelect">
-                            <option th:selected="${pageInfo.pageSize==10}" value="10">10</option>
-                            <option th:selected="${pageInfo.pageSize==20}" value="20">20</option>
-                            <option th:selected="${pageInfo.pageSize==50}" value="50">50</option>
-                        </select>条，
-                            共<span th:text="${pageInfo.total}"></span>条。
-                        </div>
-                    </div>
-                    <div class="box-tools pull-right">
-                        <ul class="pagination">
-                            <li th:if="${!pageInfo.isFirstPage}">
-                                <a th:href="@{'/sysLog/findAll?page=1&size='+${pageInfo.pageSize}}" aria-label="Previous"><<</a>
-                            </li>
-                            <li th:if="${pageInfo.hasPreviousPage}">
-                                <a th:href="@{'/sysLog/findAll?page='+${pageInfo.prePage}+'&size='+${pageInfo.pageSize}}"><</a>
-                            </li>
-                            <li th:each="i : ${pageInfo.navigatepageNums}" class="pagination" th:classappend="${i == pageInfo.pageNum} ? 'active' : '' ">
-                                <a th:href="@{'/sysLog/findAll?page='+${i}+'&size='+${pageInfo.pageSize}}">
-                                    <span th:text="${i}"></span>
-                                </a>
-                            </li>
-                            <li th:if="${pageInfo.hasNextPage}">
-                                <a th:href="@{'/sysLog/findAll?page='+${pageInfo.nextPage}+'&size='+${pageInfo.pageSize}}">></a>
-                            </li>
-                            <li th:if="${!pageInfo.isLastPage}">
-                                <a th:href="@{'/sysLog/findAll?page='+${pageInfo.pages}+'&size='+${pageInfo.pageSize}}" aria-label="Next">>></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                <!--<div class="box-footer">-->
+                <!--<div class="pull-left">-->
+                <!--<div class="form-group form-inline">-->
+                <!--共<span th:text="${pageInfo.pages}"></span>页，-->
+                <!--每页<select th:field="${pageInfo.pageSize}" th:value="${pageInfo.pageSize}" class="form-control" onchange="getPageSize()" id="pageSizeSelect">-->
+                <!--<option th:selected="${pageInfo.pageSize==10}" value="10">10</option>-->
+                <!--<option th:selected="${pageInfo.pageSize==20}" value="20">20</option>-->
+                <!--<option th:selected="${pageInfo.pageSize==50}" value="50">50</option>-->
+                <!--</select>条，-->
+                <!--共<span th:text="${pageInfo.total}"></span>条。-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="box-tools pull-right">-->
+                <!--<ul class="pagination">-->
+                <!--&lt;!&ndash;th:classappend="${pageInfo.isFirstPage} ? 'disabled' : '' "&ndash;&gt;-->
+                <!--<li th:if="${!pageInfo.isFirstPage}">-->
+                <!--<a th:href="@{'/sysLog/findAll?page=1&size='+${pageInfo.pageSize}}" aria-label="Previous"><<</a>-->
+                <!--</li>-->
+                <!--<li th:if="${pageInfo.hasPreviousPage}">-->
+                <!--<a th:href="@{'/sysLog/findAll?page='+${pageInfo.prePage}+'&size='+${pageInfo.pageSize}}"><</a>-->
+                <!--</li>-->
+                <!--<li th:each="i : ${pageInfo.navigatepageNums}" class="pagination" th:classappend="${i == pageInfo.pageNum} ? 'active' : '' ">-->
+                <!--<a th:href="@{'/sysLog/findAll?page='+${i}+'&size='+${pageInfo.pageSize}}">-->
+                <!--<span th:text="${i}"></span>-->
+                <!--</a>-->
+                <!--</li>-->
+                <!--<li th:if="${pageInfo.hasNextPage}">-->
+                <!--<a th:href="@{'/sysLog/findAll?page='+${pageInfo.nextPage}+'&size='+${pageInfo.pageSize}}">></a>-->
+                <!--</li>-->
+                <!--<li th:if="${!pageInfo.isLastPage}">-->
+                <!--<a th:href="@{'/sysLog/findAll?page='+${pageInfo.pages}+'&size='+${pageInfo.pageSize}}" aria-label="Next">>></a>-->
+                <!--</li>-->
+                <!--</ul>-->
+                <!--</div>-->
+                <!--</div>-->
                 <!-- /.box-footer-->
             </div>
         </section>
@@ -301,14 +288,14 @@
     }
 
     $(document).ready(function () {
-// 激活导航位置
+        // 激活导航位置
         setSidebarActive("order-manage");
-// 列表按钮
+        // 列表按钮
         $("#dataList td input[type='checkbox']").iCheck({
             checkboxClass: 'icheckbox_square-blue',
             increaseArea: '20%'
         });
-// 全选操作
+        // 全选操作
         $("#selall").click(function () {
             var clicks = $(this).is(':checked');
             if (!clicks) {
@@ -318,21 +305,72 @@
             }
             $(this).data("clicks", !clicks);
         });
+
+        var table = $('#dataList').DataTable({
+            'paging': true,        //是否分页
+            'lengthChange': true,  //左上角选择每页显示数量
+            'info': true,          //左下角显示底端信息
+            'searching': true,     //右上角搜索栏
+            'ordering': true,       //表格列排序
+            // 'scrollCollapse': true,  //滚动条
+            // 'scrollY': "200",        //滚动条
+            "pagingType": "full_numbers",
+                        // simple               上页，下页
+                        // simple_numbers       上页，下页，数字
+                        // full                 首页，尾页，上页，下页
+                        // full_numbers         首页，尾页，上页，下页，数字
+                        // first_last_numbers   首页，尾页，数字
+            "language": {
+                "info": "当前第_PAGE_页，共_PAGES_页",
+                "sInfo": "当前显示第_START_到第_END_条，共_TOTAL_条",
+                "sInfoFiltered": "(从_MAX_条筛选)",
+                "sInfoEmpty": "共筛选到0条",
+                "sSearch": "搜索:",
+                "sLengthMenu": "每页显示_MENU_条",
+                "sZeroRecords": "未筛选到相关内容",
+                "paginate": {
+                    "sFirst": "首页",
+                    "sLast": "尾页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "first": "First page",
+                    "last": "Last page",
+                    "next": "Next page",
+                    "previous": "Previous page"
+                }
+            }
+        });
+
+        $('#deleteButton').click(function () {
+            alert(table.rows('.selected').data().length +' row(s) selected' );
+        });
     });
 
     function getPageSize() {
         var pageSize = $("#pageSizeSelect").val();
         location.href = "/sysLog/findAll?page=1&size=" + pageSize;
     }
-    
-    function doDelete() {
-        var table = $('#table').DataTable();
-        var re = confirm("你确认要删除吗？");
-        if (re) {
-            alert(this.table.rows('.selected').data().length +' row(s) selected' );
-            // location.href = "/sysLog/batchDelete";
-        }
-    }
+
+    // function doDelete() {
+    //
+    //
+    //     var checkBoxArr = [];
+    //     $('input[name="ids"]:checked').each(function() {
+    //         $('#dataList tbody').on( 'click', 'tr', function () {
+    //             $(this).toggleClass('selected');
+    //         });
+    //         // checkBoxArr.push($(this).val());
+    //     });
+    //     console.log(this.table.rows('.selected').data().length +' row(s) selected' );
+    //
+    //     // console.log(checkBoxArr);
+    //
+    //     // var re = confirm("你确认要删除吗？");
+    //     // if (re) {
+    //     //     // alert(this.table.rows('.selected').data().length +' row(s) selected' );
+    //     //     // location.href = "/sysLog/batchDelete";
+    //     // }
+    // }
 </script>
 </body>
 </html>

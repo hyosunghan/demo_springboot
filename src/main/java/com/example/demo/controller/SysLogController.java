@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -20,10 +19,9 @@ public class SysLogController {
     private SysLogService sysLogService;
 
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
-    public ModelAndView findAllSysLog(@RequestParam(defaultValue = "1") Integer page,
-                                      @RequestParam(defaultValue = "10") Integer size) {
-        PageInfo<SysLog> pageInfo = sysLogService.findAll(page, size);
-        return new ModelAndView("content-syslog-list", "pageInfo", pageInfo);
+    public ModelAndView findAllSysLog() {
+        List<SysLog> listInfo = sysLogService.findAll();
+        return new ModelAndView("content-syslog-list", "listInfo", listInfo);
     }
 
     @RequestMapping(value = "/batchDelete", method = RequestMethod.POST)
