@@ -93,8 +93,8 @@
                             <div class="form-group form-inline">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default" title=
-                                            "删除"
-                                            onclick='doDelete()'>
+                                            "删除">
+                                            <!--onclick='doDelete()'>-->
                                         <i class="fa fa-trash-o"></i> 删除
                                     </button>
                                     <button type="button" class="btn btn-default" title=
@@ -167,11 +167,13 @@
                     </div>
                     <div class="box-tools pull-right">
                         <ul class="pagination">
-                            <li><a th:href="@{'/sysLog/findAll?page='+${pageInfo.navigateFirstPage}+'&size='+${pageInfo.pageSize}+''}" aria-label="Previous"><<</a></li>
-                            <li><a th:href="@{'/sysLog/findAll?page='+${pageInfo.prePage} +'&size='+${pageInfo.pageSize}+''}"><</a></li>
-                            <li><span th:text="${pageInfo.pageNum}"></span></li>
-                            <li><a th:href="@{'/sysLog/findAll?page='+${pageInfo.nextPage} +'&size='+${pageInfo.pageSize}+''}">></a></li>
-                            <li><a th:href="@{'/sysLog/findAll?page='+${pageInfo.navigateLastPage}+'&size='+${pageInfo.pageSize}+''}" aria-label="Next">>></a></li>
+                            <li><a th:href="@{'/sysLog/findAll?page=1&size='+${pageInfo.pageSize}}" aria-label="Previous"><<</a></li>
+                            <li th:each="i : ${pageInfo.navigatepageNums}" class="pagination" th:classappend="${i == pageInfo.pageNum} ? 'active' : '' ">
+                                <a th:href="@{'/sysLog/findAll?page='+${i}+'&size='+${pageInfo.pageSize}}">
+                                    <span th:text="${i}"></span>
+                                </a>
+                            </li>
+                            <li><a th:href="@{'/sysLog/findAll?page='+${pageInfo.pages}+'&size='+${pageInfo.pageSize}}" aria-label="Next">>></a></li>
                         </ul>
                     </div>
                 </div>
@@ -314,15 +316,10 @@
     }
     
     function doDelete() {
-        var table = $('.dataList').DataTable();
+        var table = $('#table').DataTable();
         var re = confirm("你确认要删除吗？");
-        if (re == false) {
-            return false;
-        } else {
-            console.log(table);
-            console.log(table.rows('.selected'));
-            // alert( table.rows('.selected').data().length +' row(s) selected' );
-
+        if (re) {
+            alert(this.table.rows('.selected').data().length +' row(s) selected' );
             // location.href = "/sysLog/batchDelete";
         }
     }

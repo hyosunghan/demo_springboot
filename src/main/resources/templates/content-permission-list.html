@@ -168,11 +168,13 @@
                     </div>
                     <div class="box-tools pull-right">
                         <ul class="pagination">
-                            <li><a th:href="@{'/permission/findAll?page='+${pageInfo.navigateFirstPage}+'&size='+${pageInfo.pageSize}+''}" aria-label="Previous"><<</a></li>
-                            <li><a th:href="@{'/permission/findAll?page='+${pageInfo.prePage} +'&size='+${pageInfo.pageSize}+''}"><</a></li>
-                            <li><span th:text="${pageInfo.pageNum}"></span></li>
-                            <li><a th:href="@{'/permission/findAll?page='+${pageInfo.nextPage} +'&size='+${pageInfo.pageSize}+''}">></a></li>
-                            <li><a th:href="@{'/permission/findAll?page='+${pageInfo.navigateLastPage}+'&size='+${pageInfo.pageSize}+''}" aria-label="Next">>></a></li>
+                            <li><a th:href="@{'/permission/findAll?page=1&size='+${pageInfo.pageSize}}" aria-label="Previous"><<</a></li>
+                            <li th:each="i : ${pageInfo.navigatepageNums}" class="pagination" th:classappend="${i == pageInfo.pageNum} ? 'active' : '' ">
+                                <a th:href="@{'/permission/findAll?page='+${i}+'&size='+${pageInfo.pageSize}}">
+                                    <span th:text="${i}"></span>
+                                </a>
+                            </li>
+                            <li><a th:href="@{'/permission/findAll?page='+${pageInfo.pages}+'&size='+${pageInfo.pageSize}}" aria-label="Next">>></a></li>
                         </ul>
                     </div>
                 </div>
