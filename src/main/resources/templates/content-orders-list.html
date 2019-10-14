@@ -185,13 +185,23 @@
                     </div>
                     <div class="box-tools pull-right">
                         <ul class="pagination">
-                            <li><a th:href="@{'/orders/findAll?page=1&size='+${pageInfo.pageSize}}" aria-label="Previous"><<</a></li>
+                            <li th:if="${!pageInfo.isFirstPage}">
+                                <a th:href="@{'/orders/findAll?page=1&size='+${pageInfo.pageSize}}" aria-label="Previous"><<</a>
+                            </li>
+                            <li th:if="${pageInfo.hasPreviousPage}">
+                                <a th:href="@{'/orders/findAll?page='+${pageInfo.prePage}+'&size='+${pageInfo.pageSize}}"><</a>
+                            </li>
                             <li th:each="i : ${pageInfo.navigatepageNums}" class="pagination" th:classappend="${i == pageInfo.pageNum} ? 'active' : '' ">
                                 <a th:href="@{'/orders/findAll?page='+${i}+'&size='+${pageInfo.pageSize}}">
                                     <span th:text="${i}"></span>
                                 </a>
                             </li>
-                            <li><a th:href="@{'/orders/findAll?page='+${pageInfo.pages}+'&size='+${pageInfo.pageSize}}" aria-label="Next">>></a></li>
+                            <li th:if="${pageInfo.hasNextPage}">
+                                <a th:href="@{'/orders/findAll?page='+${pageInfo.nextPage}+'&size='+${pageInfo.pageSize}}">></a>
+                            </li>
+                            <li th:if="${!pageInfo.isLastPage}">
+                                <a th:href="@{'/orders/findAll?page='+${pageInfo.pages}+'&size='+${pageInfo.pageSize}}" aria-label="Next">>></a>
+                            </li>
                         </ul>
                     </div>
                 </div>
