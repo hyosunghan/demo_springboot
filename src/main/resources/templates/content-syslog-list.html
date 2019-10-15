@@ -86,12 +86,11 @@
                     <div class="pull-left">
                         <div class="form-group form-inline">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-default" title=
-                                        "删除" id="deleteButton">
+                                <button type="button" class="btn btn-default" title="删除"
+                                        onclick="doDelete()">
                                     <i class="fa fa-trash-o"></i> 删除
                                 </button>
-                                <button type="button" class="btn btn-default" title=
-                                        "刷新"
+                                <button type="button" class="btn btn-default" title="刷新"
                                         onclick="window.location.reload();">
                                     <i class="fa fa-refresh"></i> 刷新
                                 </button>
@@ -109,7 +108,7 @@
                             <tr>
                                 <th class="" style="padding-right: 0px"><input id="selall"
                                                                                type="checkbox"
-                                                                               class="icheckbox_square-blue"></th>
+                                                                               class="icheckbox_square-blue sorting_disabled"></th>
                                 <th class="sorting_desc">ID</th>
                                 <th class="sorting">访问时间</th>
                                 <th class="sorting">访问用户</th>
@@ -270,9 +269,9 @@
         src="/plugins/bootstrap-slider/bootstrap-slider.js"></script>
 <script>
     $(document).ready(function () {
-// 选择框
+        // 选择框
         $(".select2").select2();
-// WYSIHTML5编辑器
+        // WYSIHTML5编辑器
         $(".textarea").wysihtml5({
             locale: 'zh-CN'
         });
@@ -307,12 +306,12 @@
         });
 
         var table = $('#dataList').DataTable({
-            'paging': true,        //是否分页
-            'lengthChange': true,  //左上角选择每页显示数量
-            'info': true,          //左下角显示底端信息
-            'searching': true,     //右上角搜索栏
-            'ordering': true,       //表格列排序
-            "autoWidth": false,
+            'paging': true,        //开启分页
+            'lengthChange': true,  //开启每页显示数量选择
+            'info': true,          //开启显示底端信息
+            'searching': true,     //开启搜索
+            'ordering': true,      //开启排序
+            'autoWidth': true,     //开启自动列宽
             "pagingType": "full_numbers",
                         // simple               上页，下页
                         // simple_numbers       上页，下页，数字
@@ -340,37 +339,28 @@
                 }
             }
         });
-
-        $('#deleteButton').click(function () {
-            alert(table.rows('.selected').data().length +' row(s) selected' );
-        });
     });
 
-    function getPageSize() {
-        var pageSize = $("#pageSizeSelect").val();
-        location.href = "/sysLog/findAll?page=1&size=" + pageSize;
-    }
-
-    // function doDelete() {
-    //
-    //
-    //     var checkBoxArr = [];
-    //     $('input[name="ids"]:checked').each(function() {
-    //         $('#dataList tbody').on( 'click', 'tr', function () {
-    //             $(this).toggleClass('selected');
-    //         });
-    //         // checkBoxArr.push($(this).val());
-    //     });
-    //     console.log(this.table.rows('.selected').data().length +' row(s) selected' );
-    //
-    //     // console.log(checkBoxArr);
-    //
-    //     // var re = confirm("你确认要删除吗？");
-    //     // if (re) {
-    //     //     // alert(this.table.rows('.selected').data().length +' row(s) selected' );
-    //     //     // location.href = "/sysLog/batchDelete";
-    //     // }
+    // function getPageSize() {
+    //     var pageSize = $("#pageSizeSelect").val();
+    //     location.href = "/sysLog/findAll?page=1&size=" + pageSize;
     // }
+
+    function doDelete() {
+        var checkNum = $('input:checkbox[name="ids"]:checked').length;
+        if (checkNum == 0) {
+            alert("请选择至少一条数据");
+            return;
+        }
+        var checkVal = [];
+        $.each($('input:checkbox[name="ids"]:checked'),function(){
+            checkVal.push($(this).parent().parent().next().text());//$(this).val()
+        });
+        var re = confirm("你确认要删除吗？");
+        if (re) {
+            location.href = "/sysLog/delete?ids=" + checkVal;
+        }
+    }
 </script>
 </body>
 </html>

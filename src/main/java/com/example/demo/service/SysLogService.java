@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -22,7 +23,9 @@ public class SysLogService {
         return sysLogMapper.findAll();
     }
 
-    public void delete(List<Integer> idList) {
-        sysLogMapper.delete(idList);
+    public void delete(String idList) {
+        String[] strings = idList.split(",");
+        List<String> list = Arrays.asList(strings);
+        sysLogMapper.delete(list);
     }
 }

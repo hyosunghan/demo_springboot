@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.SysLog;
 import com.example.demo.service.SysLogService;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,15 +17,24 @@ public class SysLogController {
     @Autowired
     private SysLogService sysLogService;
 
+    /**
+     * 日志列表
+     * @return
+     */
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
     public ModelAndView findAllSysLog() {
         List<SysLog> listInfo = sysLogService.findAll();
         return new ModelAndView("content-syslog-list", "listInfo", listInfo);
     }
 
-    @RequestMapping(value = "/batchDelete", method = RequestMethod.POST)
-    public ModelAndView saveProduct(List<Integer> idList) {
-        sysLogService.delete(idList);
-        return new ModelAndView("redirect:findAll");
+    /**
+     * 日志删除
+     * @param ids
+     * @return
+     */
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public String delete(String ids) {
+        sysLogService.delete(ids);
+        return "redirect:findAll";
     }
 }

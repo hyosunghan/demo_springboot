@@ -31,4 +31,7 @@ public interface RoleMapper {
 
     @Insert("insert into role_permission(roleId,permissionId) value(#{roleId},#{permissionId})")
     void addPermissionToRole(@Param("roleId") int roleId, @Param("permissionId") int permissionId);
+
+    @Select("select count(*) from role_permission where permissionId=#{permissionId}")
+    Integer checkPermissionUsed(@Param("permissionId") String permissionId);
 }

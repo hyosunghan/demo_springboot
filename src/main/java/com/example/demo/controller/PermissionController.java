@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
-
 @RequestMapping("/permission")
 @Controller
 public class PermissionController {
@@ -20,6 +18,12 @@ public class PermissionController {
     @Autowired
     private PermissionService permissionService;
 
+    /**
+     * 权限列表
+     * @param page
+     * @param size
+     * @return
+     */
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
     public ModelAndView findAllPermission(@RequestParam(defaultValue = "1") Integer page,
                                           @RequestParam(defaultValue = "10") Integer size) {
@@ -29,12 +33,43 @@ public class PermissionController {
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView addPermission() {
-        return new ModelAndView("content-permission-add");
+        return new ModelAndView("content-permission-edit");
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.GET)
+    /**
+     * 权限查询
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/query", method = RequestMethod.GET)
+    public ModelAndView query(String id) {
+        Permission permission = permissionService.query(Integer.parseInt(id));
+        return new ModelAndView("content-permission-edit", "permission" ,permission);
+    }
+
+    /**
+     * 权限创建，权限修改
+     * @param permission
+     * @return
+     */
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String savePermission(Permissio permission) {
-        permissionService.create(permission);
+        if (permission.getId() == 0) {
+            permissionService.create(permission);
+        } else {
+            permissionService.update(permission);
+        }
+        return "redirect:findAll";
+    }
+
+    /**
+     * 权限删除
+     * @param ids
+     * @return
+     */
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public String batchDelete(String ids) {
+        permissionService.delete(ids);
         return "redirect:findAll";
     }
 }

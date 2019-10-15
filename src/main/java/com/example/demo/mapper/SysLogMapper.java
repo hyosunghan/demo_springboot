@@ -4,11 +4,11 @@ import com.example.demo.entity.SysLog;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Mapper
@@ -30,6 +30,11 @@ public interface SysLogMapper {
             " values(#{visitTime},#{username},#{ip},#{url},#{executionTime},#{method})")
     void save(SysLog log);
 
-    @Delete("delete from syslog where id in #{idList}")
-    void delete(List<Integer> idList);
+    @Delete("<script>delete from syslog where id in " +
+            "   <foreach collection=\"list\" item=\"id\" open=\"(\" close=\")\" separator=\",\">\n" +
+            "       #{id}\n" +
+            "   </foreach>" +
+            "</script>")
+    void delete(@Param("list") List<String> list);
+
 }

@@ -91,9 +91,13 @@
                         <div class="pull-left">
                             <div class="form-group form-inline">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-default" t
-                                            itle="新建" onclick='location.href="/permission/add"'>
+                                    <button type="button" class="btn btn-default" title="新建"
+                                            onclick='location.href="/permission/add"'>
                                         <i class="fa fa-file-o"></i> 新建
+                                    </button>
+                                    <button type="button" class="btn btn-default" title="删除"
+                                            onclick="doDelete()">
+                                        <i class="fa fa-trash-o"></i> 删除
                                     </button>
                                     <button type="button" class="btn btn-default" title="刷新"
                                             onclick="window.location.reload();">
@@ -102,13 +106,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="box-tools pull-right">
-                            <div class="has-feedback">
-                                <input type="text" class="form-control input-sm"
-                                       placeholder="搜索"> <span
-                                    class="glyphicon glyphicon-search form-control-feedback"></span>
-                            </div>
-                        </div>
+                        <!--<div class="box-tools pull-right">-->
+                            <!--<div class="has-feedback">-->
+                                <!--<input type="text" class="form-control input-sm"-->
+                                       <!--placeholder="搜索"> <span-->
+                                    <!--class="glyphicon glyphicon-search form-control-feedback"></span>-->
+                            <!--</div>-->
+                        <!--</div>-->
                         <!--工具栏/-->
                         <!--数据列表-->
                         <table id="dataList"
@@ -118,10 +122,9 @@
                                 <th class="" style="padding-right: 0px"><input
                                         id="selall" type="checkbox" class="icheckbox_square-blue">
                                 </th>
-                                <th class="sorting_asc">ID</th>
-                                <th class="sorting_desc">权限名称</th>
-                                <th class="sorting_asc sorting_asc_disabled">URL
-                                </th>
+                                <th>ID</th><!-- class="sorting_asc"-->
+                                <th>权限名称</th><!-- class="sorting_desc"-->
+                                <th>URL</th><!-- class="sorting_asc sorting_asc_disabled"-->
                                 <th class="text-center">操作</th>
                             </tr>
                             </thead>
@@ -132,8 +135,8 @@
                                 <td th:text="${permission.permissionName}"></td>
                                 <td th:text="${permission.url}"></td>
                                 <td class="text-center">
-                                    <a href="/permission/findById.do?id=1"
-                                       class="btn bg-olive btn-xs">详情</a>
+                                    <a th:href="@{'/permission/query?id='+${permission.id}}"
+                                       class="btn bg-olive btn-xs">修改</a>
                                 </td>
                             </tr>
                             </tbody>
@@ -299,6 +302,22 @@
     function getPageSize() {
         var pageSize = $("#pageSizeSelect").val();
         location.href = "/permission/findAll?page=1&size=" + pageSize;
+    }
+
+    function doDelete() {
+        var checkNum = $('input:checkbox[name="ids"]:checked').length;
+        if (checkNum == 0) {
+            alert("请选择至少一条数据");
+            return;
+        }
+        var checkVal = [];
+        $.each($('input:checkbox[name="ids"]:checked'),function(){
+            checkVal.push($(this).parent().parent().next().text());//$(this).val()
+        });
+        var re = confirm("你确认要删除吗？");
+        if (re) {
+            location.href = "/permission/delete?ids=" + checkVal;
+        }
     }
 </script>
 </body>
