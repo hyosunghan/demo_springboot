@@ -2,10 +2,12 @@ package com.example.demo.mapper;
 
 import com.example.demo.entity.Rol;
 import com.example.demo.entity.Role;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -29,9 +31,22 @@ public interface RoleMapper {
     @Select("select * from role where id=#{id}")
     Role findById(@Param("id") int id);
 
+    @Select("select * from role where id=#{id}")
+    Rol query(@Param("id") int id);
+
     @Insert("insert into role_permission(roleId,permissionId) value(#{roleId},#{permissionId})")
     void addPermissionToRole(@Param("roleId") int roleId, @Param("permissionId") int permissionId);
 
     @Select("select count(*) from role_permission where permissionId=#{permissionId}")
     Integer checkPermissionUsed(@Param("permissionId") String permissionId);
+
+    @Delete("<script>delete from role where id in " +
+            "   <foreach collection=\"list\" item=\"id\" open=\"(\" close=\")\" separator=\",\">" +
+            "       #{id}" +
+            "   </foreach>" +
+            "</script>")
+    void delete(@Param("list") List<String> list);
+
+    @Update("update role set roleName=#{role.roleName},roleDesc=#{role.roleDesc} where id=#{role.id}")
+    void update(@Param("role") Rol role);
 }

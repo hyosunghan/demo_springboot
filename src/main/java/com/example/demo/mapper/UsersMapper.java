@@ -27,4 +27,7 @@ public interface UsersMapper {
 
     @Insert("insert into users_role(usersId,roleId) value(#{usersId},#{roleId})")
     void addRoleToUser(@Param("usersId") int usersId, @Param("roleId") int roleId);
+
+    @Select("select count(*) from users_role where usersId=#{usersId}")
+    Integer checkRoleUsed(@Param("usersId") String usersId);
 }

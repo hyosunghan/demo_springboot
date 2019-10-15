@@ -37,7 +37,7 @@ public class PermissionService {
         PermissionMapper.update(permission);
     }
 
-    public Permission query(int id) {
+    public Permissio query(int id) {
         return PermissionMapper.query(id);
     }
 

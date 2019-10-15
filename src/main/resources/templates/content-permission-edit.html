@@ -89,15 +89,16 @@
                     <div class="row data-type">
                         <div class="col-md-2 title">权限资源名称</div>
                         <div class="col-md-4 data">
-                            <input type="text" class="form-control" name="permissionName"
-                                   placeholder="权限资源名称" th:value="${permission.permissionName}">
+                            <input type="text" class="form-control" name="permissionName" placeholder="权限资源名称"
+                                   th:value="${permission != null ? permission.permissionName : ''}">
                         </div>
                         <div class="col-md-2 title">权限资源URL</div>
                         <div class="col-md-4 data">
-                            <input type="text" class="form-control" name="url"
-                                   placeholder="url" th:value="${permission.url}">
+                            <input type="text" class="form-control" name="url" placeholder="url"
+                                   th:value="${permission != null ? permission.url : ''}">
+                            <input name="id" style="display:none"
+                                   th:value="${permission != null ? permission.id : 0}"> <!--隐藏显示ID-->
                         </div>
-                        <input name="id" style="display:none" th:value="${permission.id}"> <!--隐藏显示ID-->
                     </div>
                 </div>
                 <!--订单信息/--> <!--工具栏-->

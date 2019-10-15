@@ -18,7 +18,7 @@ public interface PermissionMapper {
     List<Permission> findAll();
 
     @Select("select * from permission where id=#{id}")
-    Permission query(int id);
+    Permissio query(int id);
 
     @Insert("insert into permission(permissionName,url)" +
             " values(#{permission.permissionName},#{permission.url})")
@@ -28,8 +28,8 @@ public interface PermissionMapper {
     void update(@Param("permission") Permissio permission);
 
     @Delete("<script>delete from permission where id in " +
-            "   <foreach collection=\"list\" item=\"id\" open=\"(\" close=\")\" separator=\",\">\n" +
-            "       #{id}\n" +
+            "   <foreach collection=\"list\" item=\"id\" open=\"(\" close=\")\" separator=\",\">" +
+            "       #{id}" +
             "   </foreach>" +
             "</script>")
     void delete(@Param("list") List<String> list);

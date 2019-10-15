@@ -43,7 +43,7 @@ public class PermissionController {
      */
     @RequestMapping(value = "/query", method = RequestMethod.GET)
     public ModelAndView query(String id) {
-        Permission permission = permissionService.query(Integer.parseInt(id));
+        Permissio permission = permissionService.query(Integer.parseInt(id));
         return new ModelAndView("content-permission-edit", "permission" ,permission);
     }
 
@@ -68,7 +68,7 @@ public class PermissionController {
      * @return
      */
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String batchDelete(String ids) {
+    public String delete(String ids) {
         permissionService.delete(ids);
         return "redirect:findAll";
     }

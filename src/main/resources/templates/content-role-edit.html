@@ -89,13 +89,15 @@
                     <div class="row data-type">
                         <div class="col-md-2 title">角色名称</div>
                         <div class="col-md-4 data">
-                            <input type="text" class="form-control" name="roleName"
-                                   placeholder="角色名称" value="">
+                            <input type="text" class="form-control" name="roleName" placeholder="角色名称"
+                                   th:value="${role != null ? role.roleName : ''}">
                         </div>
                         <div class="col-md-2 title">角色描述</div>
                         <div class="col-md-4 data">
-                            <input type="text" class="form-control" name="roleDesc"
-                                   placeholder="角色描述" value="">
+                            <input type="text" class="form-control" name="roleDesc" placeholder="角色描述"
+                                   th:value="${role != null ? role.roleDesc : ''}">
+                            <input name="id" style="display:none"
+                                   th:value="${role != null ? role.id : 0}"> <!--隐藏显示ID-->
                         </div>
                     </div>
                 </div>

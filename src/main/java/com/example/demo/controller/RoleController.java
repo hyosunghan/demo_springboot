@@ -26,6 +26,12 @@ public class RoleController {
     @Autowired
     private PermissionService permissionService;
 
+    /**
+     * 角色列表
+     * @param page
+     * @param size
+     * @return
+     */
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
     public ModelAndView findAllRole(@RequestParam(defaultValue = "1") Integer page,
                                     @RequestParam(defaultValue = "10") Integer size) {
@@ -35,13 +41,44 @@ public class RoleController {
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView addRole() {
-        return new ModelAndView("content-role-add");
+        return new ModelAndView("content-role-edit");
     }
 
+    /**
+     * 权限查询
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/query", method = RequestMethod.GET)
+    public ModelAndView query(String id) {
+        Rol role = roleService.query(Integer.parseInt(id));
+        return new ModelAndView("content-role-edit", "role" ,role);
+    }
+
+    /**
+     * 角色创建，角色修改
+     * @param role
+     * @return
+     */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ModelAndView createRole(Rol role) {
-        roleService.create(role);
-        return new ModelAndView("redirect:findAll");
+    public String createRole(Rol role) {
+        if (role.getId() == 0) {
+            roleService.create(role);
+        } else {
+            roleService.update(role);
+        }
+        return "redirect:findAll";
+    }
+
+    /**
+     * 角色删除
+     * @param ids
+     * @return
+     */
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public String delete(String ids) {
+        roleService.delete(ids);
+        return "redirect:findAll";
     }
 
     @RequestMapping(value = "/findRoleByIdAndAllPermission/{id}", method = RequestMethod.GET)

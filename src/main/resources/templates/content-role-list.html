@@ -82,34 +82,38 @@
         <section class="content"> <!-- .box-body -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">角色列表</h3>
+                    <!--<h3 class="box-title">角色列表</h3>-->
+                    <!--工具栏-->
+                    <div class="pull-left">
+                        <div class="form-group form-inline">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default" title="新建"
+                                        onclick='location.href="/role/add"'>
+                                    <i class="fa fa-file-o"></i> 新建
+                                </button>
+                                <button type="button" class="btn btn-default" title="删除"
+                                        onclick="doDelete()">
+                                    <i class="fa fa-trash-o"></i> 删除
+                                </button>
+                                <button type="button" class="btn btn-default" title="刷新"
+                                        onclick="window.location.reload();">
+                                    <i class="fa fa-refresh"></i> 刷新
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="box-tools pull-right">-->
+                    <!--<div class="has-feedback">-->
+                    <!--<input type="text" class="form-control input-sm"-->
+                    <!--placeholder="搜索"> <span-->
+                    <!--class="glyphicon glyphicon-search form-control-feedback"></span>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--工具栏/-->
                 </div>
                 <div class="box-body">
                     <!-- 数据表格 -->
                     <div class="table-box">
-                        <!--工具栏-->
-                        <div class="pull-left">
-                            <div class="form-group form-inline">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default" t
-                                            itle="新建" onclick="location.href='/role/add'">
-                                        <i class="fa fa-file-o"></i> 新建
-                                    </button>
-                                    <button type="button" class="btn btn-default" title="刷新"
-                                            onclick="window.location.reload();">
-                                        <i class="fa fa-refresh"></i> 刷新
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="box-tools pull-right">
-                            <div class="has-feedback">
-                                <input type="text" class="form-control input-sm"
-                                       placeholder="搜索"> <span
-                                    class="glyphicon glyphicon-search form-control-feedback"></span>
-                            </div>
-                        </div>
-                        <!--工具栏/-->
                         <!--数据列表-->
                         <table id="dataList"
                                class="table table-bordered table-striped table-hover dataTable">
@@ -118,9 +122,9 @@
                                 <th class="" style="padding-right: 0px"><input
                                         id="selall" type="checkbox" class="icheckbox_square-blue">
                                 </th>
-                                <th class="sorting_asc">ID</th>
-                                <th class="sorting_desc">角色名称</th>
-                                <th class="sorting">角色描述</th>
+                                <th>ID</th>  <!--class="sorting_asc"-->
+                                <th>角色名称</th> <!-- class="sorting_desc"-->
+                                <th>角色描述</th><!-- class="sorting"-->
                                 <th class="text-center">操作</th>
                             </tr>
                             </thead>
@@ -131,7 +135,10 @@
                                 <td th:text="${role.roleName}"></td>
                                 <td th:text="${role.roleDesc}"></td>
                                 <td class="text-center">
-                                    <a href="/role/findRoleByIdAndAllPermission.do?id=1" class="btn bg-olive btn-xs">添加权限</a>
+                                    <a th:href="@{'/role/query?id='+${role.id}}"
+                                       class="btn bg-olive btn-xs">修改</a>
+                                    <a href="/role/findRoleByIdAndAllPermission.do?id=1"
+                                       class="btn bg-olive btn-xs">添加权限</a>
                                 </td>
                             </tr>
                             </tbody>
@@ -296,6 +303,22 @@
     function getPageSize() {
         var pageSize = $("#pageSizeSelect").val();
         location.href = "/role/findAll?page=1&size=" + pageSize;
+    }
+
+    function doDelete() {
+        var checkNum = $('input:checkbox[name="ids"]:checked').length;
+        if (checkNum == 0) {
+            alert("请选择至少一条数据");
+            return;
+        }
+        var checkVal = [];
+        $.each($('input:checkbox[name="ids"]:checked'),function(){
+            checkVal.push($(this).parent().parent().next().text());//$(this).val()
+        });
+        var re = confirm("你确认要删除吗？");
+        if (re) {
+            location.href = "/role/delete?ids=" + checkVal;
+        }
     }
 </script>
 </body>
