@@ -35,7 +35,7 @@ public interface PermissionMapper {
     void delete(@Param("list") List<String> list);
 
     @Select("select p.* from role_permission rp,permission p" +
-            " where rp.roleId=#{roleId} and p.id=permission.permissionId")
+            " where rp.roleId=#{roleId} and p.id=rp.permissionId")
     List<Permission> getListByRoleId(@Param("roleId") int roleId);
 
     @Select("select * from permission where id not in( select permissionId from role_permission where roleId=#{id})")
