@@ -137,7 +137,7 @@
                                 <td class="text-center">
                                     <a th:href="@{'/role/query?id='+${role.id}}"
                                        class="btn bg-olive btn-xs">修改</a>
-                                    <a href="/role/findRoleByIdAndAllPermission.do?id=1"
+                                    <a th:href="@{'/role/findRoleByIdAndAllPermission?id='+${role.id}}"
                                        class="btn bg-olive btn-xs">添加权限</a>
                                 </td>
                             </tr>

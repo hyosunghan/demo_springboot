@@ -56,7 +56,7 @@
     <link rel="stylesheet"
           href="/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
 </head>
-<body class="hold-transition skin-purple sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
     <!-- 页面头部 -->
     <div th:replace="header.html"></div>
@@ -75,17 +75,15 @@
                 <li><a href="/index"><i
                         class="fa fa-dashboard"></i> 首页</a></li>
                 <li><a
-                        href="/role/findAll.do">角色管理</a></li>
-                <li class="active">添加权限资源表单</li>
+                        href="/role/findAll">角色管理</a></li>
+                <li class="active">角色添加权限</li>
             </ol>
         </section>
         <!-- 内容头部 /-->
-        <form
-                action="/role/addPermissionToRole.do"
-                method="post">
+        <form action="/role/addPermissionToRole" method="post">
             <!-- 正文区域 -->
-            <section class="content"> <input type="hidden" name="roleId"
-                                             value="2">
+            <section class="content">
+                <input type="hidden" name="roleId" th:value="${role.id}">
                 <table id="dataList"
                        class="table table-bordered table-striped table-hover dataTable">
                     <thead>

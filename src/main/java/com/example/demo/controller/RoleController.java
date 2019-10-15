@@ -81,8 +81,8 @@ public class RoleController {
         return "redirect:findAll";
     }
 
-    @RequestMapping(value = "/findRoleByIdAndAllPermission/{id}", method = RequestMethod.GET)
-    public ModelAndView findRoleByIdAndAllPermission(@PathVariable Integer id) {
+    @RequestMapping(value = "/findRoleByIdAndAllPermission", method = RequestMethod.GET)
+    public ModelAndView findRoleByIdAndAllPermission(Integer id) {
         Role role = roleService.findById(id);
         List<Permission> permissionList = permissionService.findOtherPermission(id);
         ModelAndView mv = new ModelAndView();
@@ -92,7 +92,13 @@ public class RoleController {
         return mv;
     }
 
-    @RequestMapping(value = "/addPermissionToRole", method = RequestMethod.GET)
+    /**
+     * 角色添加权限
+     * @param roleId
+     * @param ids
+     * @return
+     */
+    @RequestMapping(value = "/addPermissionToRole", method = RequestMethod.POST)
     public String addPermissionToRole(Integer roleId, Integer[] ids){
         roleService.addPermissionToRole(roleId, ids);
         return "redirect:findAll";
