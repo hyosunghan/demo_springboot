@@ -139,7 +139,9 @@
                                     <a th:href="@{'/role/query?id='+${role.id}}"
                                        class="btn bg-olive btn-xs">修改</a>
                                     <a th:href="@{'/role/findRoleByIdAndAllPermission?id='+${role.id}}"
-                                       class="btn bg-olive btn-xs">添加权限</a>
+                                       class="btn bg-olive btn-xs">授权</a>
+                                    <a th:href="@{'/role/delete?ids='+${role.id}}"
+                                       class="btn bg-olive btn-xs">删除</a>
                                 </td>
                             </tr>
                             </tbody>
@@ -164,8 +166,7 @@
                     <div class="pull-left">
                         <div class="form-group form-inline">
                             共<span th:text="${pageInfo.pages}"></span>页，
-                            每页<select th:field="${pageInfo.pageSize}" th:value="${pageInfo.pageSize}"
-                                      class="form-control" onchange="getPageSize()" id="pageSizeSelect">
+                            每页<select th:field="${pageInfo.pageSize}" th:value="${pageInfo.pageSize}" class="form-control" onchange="getPageSize()" id="pageSizeSelect">
                             <option th:selected="${pageInfo.pageSize==10}" value="10">10</option>
                             <option th:selected="${pageInfo.pageSize==20}" value="20">20</option>
                             <option th:selected="${pageInfo.pageSize==50}" value="50">50</option>
@@ -232,18 +233,14 @@
 <script src="/plugins/treeTable/jquery.treetable.js"></script>
 <script src="/plugins/select2/select2.full.min.js"></script>
 <script src="/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-<script
-        src="/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.zh-CN.js"></script>
+<script src="/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.zh-CN.js"></script>
 <script src="/plugins/bootstrap-markdown/js/bootstrap-markdown.js"></script>
-<script
-        src="/plugins/bootstrap-markdown/locale/bootstrap-markdown.zh.js"></script
->
+<script src="/plugins/bootstrap-markdown/locale/bootstrap-markdown.zh.js"></script>
 <script src="/plugins/bootstrap-markdown/js/markdown.js"></script>
 <script src="/plugins/bootstrap-markdown/js/to-markdown.js"></script>
 <script src="/plugins/ckeditor/ckeditor.js"></script>
 <script src="/plugins/input-mask/jquery.inputmask.js"></script>
-<script
-        src="/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
 <script src="/plugins/input-mask/jquery.inputmask.extensions.js"></script>
 <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/plugins/datatables/dataTables.bootstrap.min.js"></script>
@@ -255,7 +252,7 @@
 <script src="/plugins/ionslider/ion.rangeSlider.min.js"></script>
 <script src="/plugins/bootstrap-slider/bootstrap-slider.js"></script>
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
 // 选择框
         $(".select2").select2();
 // WYSIHTML5编辑器
@@ -263,7 +260,6 @@
             locale: 'zh-CN'
         });
     });
-
     // 设置激活菜单
     function setSidebarActive(tagUri) {
         var liObj = $("#" + tagUri);
@@ -272,10 +268,9 @@
             liObj.addClass("active");
         }
     }
-
     $(document)
         .ready(
-            function () {
+            function() {
 // 激活导航位置
                 setSidebarActive("admin-datalist");
 // 列表按钮
@@ -288,7 +283,7 @@
 // 全选操作
                 $("#selall")
                     .click(
-                        function () {
+                        function() {
                             var clicks = $(this).is(
                                 ':checked');
                             if (!clicks) {

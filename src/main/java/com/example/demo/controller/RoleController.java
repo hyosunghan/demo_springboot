@@ -98,8 +98,8 @@ public class RoleController {
      * @param ids
      * @return
      */
-    @RequestMapping(value = "/addPermissionToRole", method = RequestMethod.POST)
-    public String addPermissionToRole(Integer roleId, Integer[] ids){
+    @RequestMapping(value = "/addPermissionToRole", method = RequestMethod.GET)
+    public String addPermissionToRole(Integer roleId, String ids){
         roleService.addPermissionToRole(roleId, ids);
         return "redirect:findAll";
     }

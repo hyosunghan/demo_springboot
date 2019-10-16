@@ -81,7 +81,7 @@
             </ol>
         </section>
         <!-- 内容头部 /-->
-        <form action="/role/addPermissionToRole" method="post">
+        <!--<form action="/role/addPermissionToRole" method="post">-->
             <!-- 正文区域 -->
             <section class="content">
                 <div class="box box-primary">
@@ -110,7 +110,7 @@
                         </table>
                         <!--订单信息/--> <!--工具栏-->
                         <div class="box-tools text-center">
-                            <button type="submit" class="btn bg-maroon">保存</button>
+                            <button type="submit" class="btn bg-maroon" onclick="doAdd()">保存</button>
                             <button type="button" class="btn bg-default"
                                     onclick="history.back(-1);">返回
                             </button>
@@ -120,7 +120,7 @@
                 </div>
             </section>
             <!-- 正文区域 /-->
-        </form>
+        <!--</form>-->
     </div>
     <!-- 内容区域 /-->
     <!-- 底部导航 -->
@@ -212,7 +212,7 @@
         src="/plugins/bootstrap-slider/bootstrap-slider.js"></script>
 <script
         src="/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
-<script>
+<script language='javascript' th:inline="javascript">
     $(document).ready(function () {
         // 选择框
         $(".select2").select2();
@@ -254,6 +254,20 @@
             liObj.parent().parent().addClass("active");
             liObj.addClass("active");
         }
+    }
+
+    function doAdd() {
+        var checkNum = $('input:checkbox[name="ids"]:checked').length;
+        if (checkNum == 0) {
+            alert("请选择至少一条数据");
+            return;
+        }
+        var roleId = [[${role.id}]];
+        var checkVal = [];
+        $.each($('input:checkbox[name="ids"]:checked'), function () {
+            checkVal.push($(this).parent().parent().next().text());//$(this).val()
+        });
+        location.href = "/role/addPermissionToRole?roleId=" + roleId + "&ids=" + checkVal;
     }
 </script>
 </body>

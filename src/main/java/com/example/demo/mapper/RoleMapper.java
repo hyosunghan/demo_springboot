@@ -47,6 +47,13 @@ public interface RoleMapper {
             "</script>")
     void delete(@Param("list") List<String> list);
 
+    @Delete("<script>delete from role_permission where roleId in " +
+            "   <foreach collection=\"list\" item=\"id\" open=\"(\" close=\")\" separator=\",\">" +
+            "       #{id}" +
+            "   </foreach>" +
+            "</script>")
+    void deleteAbout(@Param("list") List<String> list);
+
     @Update("update role set roleName=#{role.roleName},roleDesc=#{role.roleDesc} where id=#{role.id}")
     void update(@Param("role") Rol role);
 }

@@ -9,6 +9,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,6 +52,7 @@ public class RoleService {
         return roleMapper.query(id);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public void delete(String idList) {
         String[] strings = idList.split(",");
         List<String> list = new ArrayList<>(Arrays.asList(strings));
@@ -63,6 +65,7 @@ public class RoleService {
         }
         if (!list.isEmpty()) {
             roleMapper.delete(list);
+            roleMapper.deleteAbout(list);
         }
     }
 
@@ -70,9 +73,12 @@ public class RoleService {
         roleMapper.update(role);
     }
 
-    public void addPermissionToRole(int id, Integer[] ids) {
-        for (int i = 0; i < ids.length; i++) {
-            roleMapper.addPermissionToRole(id, ids[i]);
+    @Transactional(rollbackFor = Exception.class)
+    public void addPermissionToRole(int id, String ids) {
+        String[] split = ids.split(",");
+        List<String> strings = Arrays.asList(split);
+        for (int i = 0; i < strings.size(); i++) {
+            roleMapper.addPermissionToRole(id, Integer.parseInt(strings.get(i)));
         }
     }
 }

@@ -82,34 +82,38 @@
         <section class="content"> <!-- .box-body -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">用户列表</h3>
+                    <!--<h3 class="box-title">用户列表</h3>-->
+                    <!--工具栏-->
+                    <div class="pull-left">
+                        <div class="form-group form-inline">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default" title="新建"
+                                        onclick='location.href="/users/add"'>
+                                    <i class="fa fa-file-o"></i> 新建
+                                </button>
+                                <button type="button" class="btn btn-default" title="删除"
+                                        onclick="doDelete()">
+                                    <i class="fa fa-trash-o"></i> 删除
+                                </button>
+                                <button type="button" class="btn btn-default" title="刷新"
+                                        onclick="window.location.reload();">
+                                    <i class="fa fa-refresh"></i> 刷新
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="box-tools pull-right">-->
+                    <!--<div class="has-feedback">-->
+                    <!--<input type="text" class="form-control input-sm"-->
+                    <!--placeholder="搜索"> <span-->
+                    <!--class="glyphicon glyphicon-search form-control-feedback"></span>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--工具栏/-->
                 </div>
                 <div class="box-body">
                     <!-- 数据表格 -->
                     <div class="table-box">
-                        <!--工具栏-->
-                        <div class="pull-left">
-                            <div class="form-group form-inline">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default" title="新建"
-                                            onclick='location.href="/users/add"'>
-                                        <i class="fa fa-file-o"></i> 新建
-                                    </button>
-                                    <button type="button" class="btn btn-default" title="刷新"
-                                            onclick="window.location.reload();">
-                                        <i class="fa fa-refresh"></i> 刷新
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="box-tools pull-right">
-                            <div class="has-feedback">
-                                <input type="text" class="form-control input-sm"
-                                       placeholder="搜索"> <span
-                                    class="glyphicon glyphicon-search form-control-feedback"></span>
-                            </div>
-                        </div>
-                        <!--工具栏/-->
                         <!--数据列表-->
                         <table id="dataList"
                                class="table table-bordered table-striped table-hover dataTable">
@@ -118,13 +122,11 @@
                                 <th class="" style="padding-right: 0px"><input
                                         id="selall" type="checkbox" class="icheckbox_square-blue">
                                 </th>
-                                <th class="sorting_asc">ID</th>
-                                <th class="sorting_desc">用户名</th>
-                                <th class="sorting_asc sorting_asc_disabled">邮箱
-                                </th>
-                                <th class="sorting_desc sorting_desc_disabled">
-                                    联系电话</th>
-                                <th class="sorting">状态</th>
+                                <th>ID</th><!-- class="sorting_asc"-->
+                                <th>用户名</th><!-- class="sorting_desc"-->
+                                <th>邮箱</th><!-- class="sorting_asc sorting_asc_disabled"-->
+                                <th>联系电话</th><!-- class="sorting_desc sorting_desc_disabled"-->
+                                <th>状态</th><!-- class="sorting"-->
                                 <th class="text-center">操作</th>
                             </tr>
                             </thead>
@@ -137,8 +139,14 @@
                                 <td th:text="${users.phoneNum}"></td>
                                 <td th:text="${users.status}"></td>
                                 <td class="text-center">
-                                    <a th:href="@{'/users/findById/'+${users.id}}"
-                                       class="btn bg-olive btn-xs">详情</a>
+                                    <!--<a th:href="@{'/users/findById/'+${users.id}}"-->
+                                       <!--class="btn bg-olive btn-xs">详情</a>-->
+                                    <a th:href="@{'/users/query?id='+${role.id}}"
+                                       class="btn bg-olive btn-xs">修改</a>
+                                    <a th:href="@{'/users/findRoleByIdAndAllPermission?id='+${role.id}}"
+                                       class="btn bg-olive btn-xs">角色</a>
+                                    <a th:href="@{'/users/delete?ids='+${role.id}}"
+                                       class="btn bg-olive btn-xs">删除</a>
                                 </td>
                             </tr>
                             </tbody>
@@ -253,7 +261,7 @@
         $(".select2").select2();
 // WYSIHTML5编辑器
         $(".textarea").wysihtml5({
-            locale : 'zh-CN'
+            locale: 'zh-CN'
         });
     });
     // 设置激活菜单
@@ -273,8 +281,8 @@
                 $("#dataList td input[type='checkbox']")
                     .iCheck(
                         {
-                            checkboxClass : 'icheckbox_square-blue',
-                            increaseArea : '20%'
+                            checkboxClass: 'icheckbox_square-blue',
+                            increaseArea: '20%'
                         });
 // 全选操作
                 $("#selall")
@@ -300,6 +308,22 @@
     function getPageSize() {
         var pageSize = $("#pageSizeSelect").val();
         location.href = "/users/findAll?page=1&size=" + pageSize;
+    }
+
+    function doDelete() {
+        var checkNum = $('input:checkbox[name="ids"]:checked').length;
+        if (checkNum == 0) {
+            alert("请选择至少一条数据");
+            return;
+        }
+        var checkVal = [];
+        $.each($('input:checkbox[name="ids"]:checked'), function () {
+            checkVal.push($(this).parent().parent().next().text());//$(this).val()
+        });
+        var re = confirm("你确认要删除吗？");
+        if (re) {
+            location.href = "/users/delete?ids=" + checkVal;
+        }
     }
 </script>
 </body>

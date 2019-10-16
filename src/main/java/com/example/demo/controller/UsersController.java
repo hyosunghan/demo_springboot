@@ -36,7 +36,7 @@ public class UsersController {
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView addUsers() {
-        return new ModelAndView("content-users-add");
+        return new ModelAndView("content-users-edit");
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)

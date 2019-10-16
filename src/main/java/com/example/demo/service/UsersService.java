@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +74,7 @@ public class UsersService implements UserDetailsService {
         return users;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public void addRoleToUser(int id, Integer[] ids) {
         for (int i = 0; i < ids.length; i++) {
             usersMapper.addRoleToUser(id, ids[i]);
