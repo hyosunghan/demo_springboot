@@ -22,6 +22,21 @@
         // 缓存用户权限
         var authorities = [[${user.authorities}]];
         window.localStorage.setItem("authorities", JSON.stringify(authorities));
+        // 最后登录时间
+        time = new Date();
+        y = time.getFullYear();
+        m = time.getMonth() + 1;
+        d = time.getDate();
+        h = time.getHours();
+        mi = time.getMinutes();
+        s = time.getSeconds();
+        m = m < 10 ? '0' + m : m;
+        d = d < 10 ? '0' + d : d;
+        h = h < 10 ? '0' + h : h;
+        mi = mi < 10 ? '0' + mi : mi;
+        s = s < 10 ? '0' + s : s;
+        time = y + '-' + m + '-' + d + ' ' + h + ':' + mi + ':' + s;
+        window.localStorage.setItem("loginTime", time);
 
         location.href="/index";
     });
