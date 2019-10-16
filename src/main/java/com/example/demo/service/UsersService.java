@@ -87,9 +87,18 @@ public class UsersService implements UserDetailsService {
     @Transactional(rollbackFor = Exception.class)
     public void delete(String idList) {
         String[] strings = idList.split(",");
-        List<String> list = Arrays.asList(strings);
-        usersMapper.delete(list);
-        usersMapper.deleteAbout(list);
+        List<String> list = new ArrayList<>(Arrays.asList(strings));
+
+        Iterator<String> iterator = list.iterator();
+        while(iterator.hasNext()){
+            if(iterator.next().equals("1")){
+                iterator.remove();
+            }
+        }
+        if (!list.isEmpty()) {
+            usersMapper.delete(list);
+            usersMapper.deleteAbout(list);
+        }
     }
 
     public Users findById(int id) {

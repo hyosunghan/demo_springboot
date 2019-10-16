@@ -81,12 +81,6 @@ public class UsersController {
         return "redirect:findAll";
     }
 
-//    @RequestMapping(value = "/findById/{id}", method = RequestMethod.GET)
-//    public ModelAndView findUsersById(@PathVariable Integer id) {
-//        Users users = usersService.findById(id);
-//        return new ModelAndView("content-users-role-list", "users", users);
-//    }
-
     @RequestMapping(value = "/findUserByIdAndAllRole", method = RequestMethod.GET)
     public ModelAndView findUserByIdAndAllRole(Integer id) {
         Users users = usersService.findById(id);
@@ -104,7 +98,7 @@ public class UsersController {
      * @param ids
      * @return
      */
-    @RequestMapping(value = "/addRoleToUser",method = RequestMethod.POST)
+    @RequestMapping(value = "/addRoleToUser",method = RequestMethod.GET)
     public String addRoleToUser(Integer userId, Integer[] ids){
         usersService.addRoleToUser(userId, ids);
         return "redirect:findAll";
