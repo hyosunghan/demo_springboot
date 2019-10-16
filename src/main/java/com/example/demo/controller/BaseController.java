@@ -31,16 +31,15 @@ public class BaseController {
     private SysLogService sysLogService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView root() {
+    public ModelAndView login() {
         return new ModelAndView("base-login");
     }
 
     @RequestMapping(value = "/jump", method = RequestMethod.GET)
-    public ModelAndView header() {
+    public ModelAndView jump() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) principal;
-        String username = user.getUsername();
-        return new ModelAndView("content-jump", "username", username);
+        return new ModelAndView("base-jump", "user", user);
     }
 
     /**

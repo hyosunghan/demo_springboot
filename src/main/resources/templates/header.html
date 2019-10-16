@@ -243,6 +243,9 @@
         </div>
     </nav>
     <script>
+        if (!window.localStorage.hasOwnProperty("username") || !window.localStorage.hasOwnProperty("authorities")) {
+            location.href="/";
+        }
         var username = window.localStorage.getItem("username");
         document.getElementById('username1').innerText=username;
         document.getElementById('username2').innerText=username;

@@ -16,8 +16,10 @@
 <script src="/plugins/jQueryUI/jquery-ui.min.js"></script>
 <script language='javascript' th:inline="javascript">
     $(document).ready(function () {
-        var username = [[${username}]];
+        var username = [[${user.username}]];
         window.localStorage.setItem("username", username);
+        var authorities = [[${user.authorities}]];
+        window.localStorage.setItem("authorities", JSON.stringify(authorities));
         location.href="/index";
     });
 </script>
