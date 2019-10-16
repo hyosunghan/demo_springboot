@@ -118,7 +118,7 @@
                                     <a th:href="@{'/role/findRoleByIdAndAllPermission?id='+${role.id}}"
                                        class="btn bg-green btn-xs">权限管理</a>
                                     <a th:href="@{'/role/delete?ids='+${role.id}}"
-                                       class="btn bg-red btn-xs">删除</a>
+                                       th:classappend="${role.id==1?'disabled':''}" class="btn bg-red btn-xs">删除</a>
                                 </td>
                             </tr>
                             </tbody>

@@ -86,7 +86,7 @@
                     </div>
                 </div>
                 <!-- ./col -->
-                <div class="col-lg-3 col-xs-6">
+                <div class="col-lg-3 col-xs-6" id="user-count">
                     <!-- small box -->
                     <div class="small-box bg-yellow">
                         <div class="inner">
@@ -100,7 +100,7 @@
                     </div>
                 </div>
                 <!-- ./col -->
-                <div class="col-lg-3 col-xs-6">
+                <div class="col-lg-3 col-xs-6" id="log-count">
                     <!-- small box -->
                     <div class="small-box bg-red">
                         <div class="inner">
@@ -234,6 +234,12 @@
 // 激活导航位置
         setSidebarActive("admin-index");
 
+        var authorities = window.localStorage.getItem("authorities");
+        // 没有管理员权限不展示日志和用户数量
+        if (authorities.indexOf("{\"authority\":\"admin\"}") < 0) {
+            document.getElementById("user-count").remove();
+            document.getElementById("log-count").remove();
+        }
     });
 </script>
 </body>

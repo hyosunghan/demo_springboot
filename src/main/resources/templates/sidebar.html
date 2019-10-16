@@ -17,7 +17,7 @@
             <li id="admin-index">
                 <a href="/index"><i class="fa fa-dashboard"></i> <span>首页</span></a>
             </li>
-            <li class="treeview">
+            <li class="treeview" id="system-manager">
                 <a href="#">
                     <i class="fa fa-cogs"></i> <span>系统管理</span>
                     <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
@@ -69,5 +69,10 @@
     <script>
         var username = window.localStorage.getItem("username");
         document.getElementById('username3').innerText=username;
+        var authorities = window.localStorage.getItem("authorities");
+        // 没有管理员权限不展示系统管理
+        if (authorities.indexOf("{\"authority\":\"admin\"}") < 0) {
+            document.getElementById("system-manager").remove();
+        }
     </script>
 </aside>
