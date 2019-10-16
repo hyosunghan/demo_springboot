@@ -67,7 +67,8 @@
         <!-- 内容头部 -->
         <section class="content-header">
             <h1>
-                角色管理 <small>全部角色</small>
+                角色管理
+                <small>全部角色</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="/index"><i
@@ -163,7 +164,8 @@
                     <div class="pull-left">
                         <div class="form-group form-inline">
                             共<span th:text="${pageInfo.pages}"></span>页，
-                            每页<select th:field="${pageInfo.pageSize}" th:value="${pageInfo.pageSize}" class="form-control" onchange="getPageSize()" id="pageSizeSelect">
+                            每页<select th:field="${pageInfo.pageSize}" th:value="${pageInfo.pageSize}"
+                                      class="form-control" onchange="getPageSize()" id="pageSizeSelect">
                             <option th:selected="${pageInfo.pageSize==10}" value="10">10</option>
                             <option th:selected="${pageInfo.pageSize==20}" value="20">20</option>
                             <option th:selected="${pageInfo.pageSize==50}" value="50">50</option>
@@ -179,7 +181,8 @@
                             <li th:if="${pageInfo.hasPreviousPage}">
                                 <a th:href="@{'/role/findAll?page='+${pageInfo.prePage}+'&size='+${pageInfo.pageSize}}"><</a>
                             </li>
-                            <li th:each="i : ${pageInfo.navigatepageNums}" class="pagination" th:classappend="${i == pageInfo.pageNum} ? 'active' : '' ">
+                            <li th:each="i : ${pageInfo.navigatepageNums}" class="pagination"
+                                th:classappend="${i == pageInfo.pageNum} ? 'active' : '' ">
                                 <a th:href="@{'/role/findAll?page='+${i}+'&size='+${pageInfo.pageSize}}">
                                     <span th:text="${i}"></span>
                                 </a>
@@ -188,7 +191,8 @@
                                 <a th:href="@{'/role/findAll?page='+${pageInfo.nextPage}+'&size='+${pageInfo.pageSize}}">></a>
                             </li>
                             <li th:if="${!pageInfo.isLastPage}">
-                                <a th:href="@{'/role/findAll?page='+${pageInfo.pages}+'&size='+${pageInfo.pageSize}}" aria-label="Next">>></a>
+                                <a th:href="@{'/role/findAll?page='+${pageInfo.pages}+'&size='+${pageInfo.pageSize}}"
+                                   aria-label="Next">>></a>
                             </li>
                         </ul>
                     </div>
@@ -251,14 +255,15 @@
 <script src="/plugins/ionslider/ion.rangeSlider.min.js"></script>
 <script src="/plugins/bootstrap-slider/bootstrap-slider.js"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
 // 选择框
         $(".select2").select2();
 // WYSIHTML5编辑器
         $(".textarea").wysihtml5({
-            locale : 'zh-CN'
+            locale: 'zh-CN'
         });
     });
+
     // 设置激活菜单
     function setSidebarActive(tagUri) {
         var liObj = $("#" + tagUri);
@@ -267,22 +272,23 @@
             liObj.addClass("active");
         }
     }
+
     $(document)
         .ready(
-            function() {
+            function () {
 // 激活导航位置
                 setSidebarActive("admin-datalist");
 // 列表按钮
                 $("#dataList td input[type='checkbox']")
                     .iCheck(
                         {
-                            checkboxClass : 'icheckbox_square-blue',
-                            increaseArea : '20%'
+                            checkboxClass: 'icheckbox_square-blue',
+                            increaseArea: '20%'
                         });
 // 全选操作
                 $("#selall")
                     .click(
-                        function() {
+                        function () {
                             var clicks = $(this).is(
                                 ':checked');
                             if (!clicks) {
@@ -312,7 +318,7 @@
             return;
         }
         var checkVal = [];
-        $.each($('input:checkbox[name="ids"]:checked'),function(){
+        $.each($('input:checkbox[name="ids"]:checked'), function () {
             checkVal.push($(this).parent().parent().next().text());//$(this).val()
         });
         var re = confirm("你确认要删除吗？");

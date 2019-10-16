@@ -69,7 +69,8 @@
         <!-- 内容头部 -->
         <section class="content-header">
             <h1>
-                角色管理 <small>添加权限资源表单</small>
+                角色管理
+                <small>角色添加权限</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="/index"><i
@@ -83,36 +84,41 @@
         <form action="/role/addPermissionToRole" method="post">
             <!-- 正文区域 -->
             <section class="content">
-                <input type="hidden" name="roleId" th:value="${role.id}">
-                <table id="dataList"
-                       class="table table-bordered table-striped table-hover dataTable">
-                    <thead>
-                    <tr>
-                        <th class="" style="padding-right: 0px">
-                            <input id="selall"
-                                   type="checkbox" class="icheckbox_square-blue"></th>
-                        <th class="sorting_asc">ID</th>
-                        <th class="sorting">权限名称</th>
-                        <th class="sorting">URL</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td><input name="ids" type="checkbox" value="1">
-                        </td>
-                        <td>1</td>
-                        <td>产品修改</td>
-                        <td>/product/update.do</td>
-                    </tr>
-                    </tbody>
-                </table>
-                <!--订单信息/--> <!--工具栏-->
-                <div class="box-tools text-center">
-                    <button type="submit" class="btn bg-maroon">保存</button>
-                    <button type="button" class="btn bg-default"
-                            onclick="history.back(-1);">返回</button>
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <input type="hidden" name="roleId" th:value="${role.id}">
+                        <table id="dataList"
+                               class="table table-bordered table-striped table-hover dataTable">
+                            <thead>
+                            <tr>
+                                <th class="" style="padding-right: 0px">
+                                    <input id="selall"
+                                           type="checkbox" class="icheckbox_square-blue"></th>
+                                <th>ID</th> <!-- class="sorting_asc"-->
+                                <th>权限名称</th><!-- class="sorting"-->
+                                <th>URL</th><!-- class="sorting"-->
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="permission : ${permissionList}">
+                                <td><input name="ids" type="checkbox"></td>
+                                <td th:text="${permission.id}"></td>
+                                <td th:text="${permission.permissionName}"></td>
+                                <td th:text="${permission.url}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!--订单信息/--> <!--工具栏-->
+                        <div class="box-tools text-center">
+                            <button type="submit" class="btn bg-maroon">保存</button>
+                            <button type="button" class="btn bg-default"
+                                    onclick="history.back(-1);">返回
+                            </button>
+                        </div>
+                    </div>
+                    <!--工具栏/-->
                 </div>
-                <!--工具栏/--> </section>
+            </section>
             <!-- 正文区域 /-->
         </form>
     </div>
@@ -206,33 +212,49 @@
         src="/plugins/bootstrap-slider/bootstrap-slider.js"></script>
 <script
         src="/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
-    <script>
-        $(document).ready(function() {
+<script>
+    $(document).ready(function () {
         // 选择框
         $(".select2").select2();
         // WYSIHTML5编辑器
         $(".textarea").wysihtml5({
-        locale : 'zh-CN'
+            locale: 'zh-CN'
         });
-        // 全选操作
-        $("#selall").click(function() {
-        var clicks = $(this).is(':checked');
-        if (!clicks) {
-        $("#dataList td input[type='checkbox']").iCheck("uncheck");
-        } else {
-        $("#dataList td input[type='checkbox']").iCheck("check");
-        }
-        $(this).data("clicks", !clicks);
-        });
-        });
-        // 设置激活菜单
-        function setSidebarActive(tagUri) {
+        $("#dataList td input[type='checkbox']")
+            .iCheck(
+                {
+                    checkboxClass: 'icheckbox_square-blue',
+                    increaseArea: '20%'
+                });
+// 全选操作
+        $("#selall")
+            .click(
+                function () {
+                    var clicks = $(this).is(
+                        ':checked');
+                    if (!clicks) {
+                        $(
+                            "#dataList td input[type='checkbox']")
+                            .iCheck(
+                                "uncheck");
+                    } else {
+                        $(
+                            "#dataList td input[type='checkbox']")
+                            .iCheck("check");
+                    }
+                    $(this).data("clicks",
+                        !clicks);
+                });
+    });
+
+    // 设置激活菜单
+    function setSidebarActive(tagUri) {
         var liObj = $("#" + tagUri);
         if (liObj.length > 0) {
-        liObj.parent().parent().addClass("active");
-        liObj.addClass("active");
+            liObj.parent().parent().addClass("active");
+            liObj.addClass("active");
         }
-        }
-    </script>
-    </body>
-    </html>
+    }
+</script>
+</body>
+</html>
