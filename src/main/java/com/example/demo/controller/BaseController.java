@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Orders;
 import com.example.demo.service.OrdersService;
+import com.example.demo.service.ProductService;
+import com.example.demo.service.SysLogService;
 import com.example.demo.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,7 +22,13 @@ public class BaseController {
     private OrdersService ordersService;
 
     @Autowired
+    private ProductService productService;
+
+    @Autowired
     private UsersService usersService;
+
+    @Autowired
+    private SysLogService sysLogService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView root() {
@@ -47,6 +55,10 @@ public class BaseController {
         ModelAndView mv = new ModelAndView();
         mv.addObject("username", username);
         mv.addObject("ordersList", ordersList);
+        mv.addObject("ordersCount", ordersService.findAll(1,1).getTotal());
+        mv.addObject("productCount", productService.findAll(1, 1).getTotal());
+        mv.addObject("usersCount", usersService.findAll(1, 1).getTotal());
+        mv.addObject("syslogCount", sysLogService.findAll().size());
         mv.setViewName("content-index");
         return mv;
     }
