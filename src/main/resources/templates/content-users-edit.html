@@ -87,31 +87,32 @@
                     <div class="panel-heading">用户信息</div>
                     <div class="row data-type">
                         <div class="col-md-2 title">用户名称</div>
+                        <input name="id" style="display:none"
+                               th:value="${user != null ? user.id : 0}"> <!--隐藏显示ID-->
                         <div class="col-md-4 data">
-                            <input type="text" class="form-control" name="username"
-                                   placeholder="用户名称" value="">
+                            <input type="text" class="form-control" name="username" placeholder="用户名称"
+                                   th:value="${user != null ? user.username : ''}">
                         </div>
                         <div class="col-md-2 title">密码</div>
                         <div class="col-md-4 data">
-                            <input type="password" class="form-control" name="password"
-                                   placeholder="密码" value="">
+                            <input type="password" class="form-control" name="password" placeholder="密码"
+                                   th:value="${user != null ? user.password : ''}">
                         </div>
                         <div class="col-md-2 title">邮箱</div>
                         <div class="col-md-4 data">
-                            <input type="text" class="form-control" name="email"
-                                   placeholder="邮箱" value="">
+                            <input type="text" class="form-control" name="email" placeholder="邮箱"
+                                   th:value="${user != null ? user.email : ''}">
                         </div>
                         <div class="col-md-2 title">联系电话</div>
                         <div class="col-md-4 data">
-                            <input type="text" class="form-control" name="phoneNum"
-                                   placeholder="联系电话" value="">
+                            <input type="text" class="form-control" name="phoneNum" placeholder="联系电话"
+                                   th:value="${user != null ? user.phoneNum : ''}">
                         </div>
                         <div class="col-md-2 title">用户状态</div>
                         <div class="col-md-4 data">
-                            <select class="form-control select2" style="width: 100%"
-                                    name="status">
-                                <option value="已关闭" selected="selected">关闭</option>
-                                <option value="已开启">开启</option>
+                            <select class="form-control select2" style="width: 100%" name="status">
+                                <option th:selected="${user != null} and ${user.status}==0" value="0">已关闭</option>
+                                <option th:selected="${user != null} and ${user.status}==1" value="1">已开启</option>
                             </select>
                         </div>
                     </div>

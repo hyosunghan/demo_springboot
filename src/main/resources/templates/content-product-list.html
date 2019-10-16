@@ -154,9 +154,9 @@
                                 <td th:text="${product.productPrice}"></td>
                                 <td th:text="${product.productStatus}"></td>
                                 <td class="text-center">
-                                    <a class="btn bg-olive btn-xs"
+                                    <a class="btn bg-blue btn-xs"
                                        th:href="@{'/product/findById/'+${product.id}}">详情</a>
-                                    <a class="btn bg-olive btn-xs"
+                                    <a class="btn bg-red btn-xs"
                                        th:href="@{'/product/deleteById/'+${product.id}}">删除</a>
                                 </td>
                             </tr>

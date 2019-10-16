@@ -137,11 +137,11 @@
                                 <td th:text="${role.roleDesc}"></td>
                                 <td class="text-center">
                                     <a th:href="@{'/role/query?id='+${role.id}}"
-                                       class="btn bg-olive btn-xs">修改</a>
+                                       class="btn bg-blue btn-xs">修改</a>
                                     <a th:href="@{'/role/findRoleByIdAndAllPermission?id='+${role.id}}"
-                                       class="btn bg-olive btn-xs">授权</a>
+                                       class="btn bg-green btn-xs">权限管理</a>
                                     <a th:href="@{'/role/delete?ids='+${role.id}}"
-                                       class="btn bg-olive btn-xs">删除</a>
+                                       class="btn bg-red btn-xs">删除</a>
                                 </td>
                             </tr>
                             </tbody>

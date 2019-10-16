@@ -4,7 +4,7 @@
     <!-- 页面meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>角色添加</title>
+    <title>用户角色管理</title>
     <meta name="description" content="AdminLTE2定制版">
     <meta name="keywords" content="AdminLTE2定制版">
     <!-- Tell the browser to be responsive to screen width -->
@@ -60,7 +60,7 @@
 <div class="wrapper">
     <!-- 页面头部 -->
     <div th:replace="header.html"></div>
-    <!-- 页面头部 -->
+    <!-- 页面头部 /-->
     <!-- 导航侧栏 -->
     <div th:replace="sidebar.html"></div>
     <!-- 导航侧栏 /-->
@@ -69,62 +69,58 @@
         <!-- 内容头部 -->
         <section class="content-header">
             <h1>
-                用户管理 <small>添加角色表单</small>
+                用户管理
+                <small>用户角色管理</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="/index"><i
                         class="fa fa-dashboard"></i> 首页</a></li>
                 <li><a
-                        href="/user/findAll">用户管理</a></li>
-                <li class="active">添加角色表单</li>
+                        href="/users/findAll">用户管理</a></li>
+                <li class="active">用户角色管理</li>
             </ol>
         </section>
         <!-- 内容头部 /-->
-        <form
-                action="/users/addRoleToUser"
-                method="post">
-            <!-- 正文区域 -->
-            <section class="content"> <input type="hidden" name="userId"
-                                             value="1">
-                <table id="dataList"
-                       class="table table-bordered table-striped table-hover dataT
-able">
-                    <thead>
-                    <tr>
-                        <th class="" style="padding-right: 0px">
-                            <input id="selall"
-                                   type="checkbox" class="icheckbox_square-blue"></th>
-                        <th class="sorting_asc">ID</th>
-                        <th class="sorting">角色名称</th>
-                        <th class="sorting">角色描述</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td><input name="ids" type="checkbox" value="2">
-                        </td>
-                        <td>2</td>
-                        <td>user</td>
-                        <td>普通用户</td>
-                    </tr>
-                    <tr>
-                        <td><input name="ids" type="checkbox" value="3">
-                        </td>
-                        <td>3</td>
-                        <td>guest</td>
-                        <td>测试帐号</td>
-                    </tr>
-                    </tbody>
-                </table>
-                <!--订单信息/--> <!--工具栏-->
-                <div class="box-tools text-center">
-                    <button type="submit" class="btn bg-maroon">保存</button>
-                    <button type="button" class="btn bg-default"
-                            onclick="history.back(-1);">返回</button>
+        <!--<form action="/role/addPermissionToRole" method="post">-->
+        <!-- 正文区域 -->
+        <section class="content">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <input type="hidden" name="roleId" th:value="${users.id}">
+                    <table id="dataList"
+                           class="table table-bordered table-striped table-hover dataTable">
+                        <thead>
+                        <tr>
+                            <th class="" style="padding-right: 0px">
+                                <input id="selall"
+                                       type="checkbox" class="icheckbox_square-blue"></th>
+                            <th>ID</th> <!-- class="sorting_asc"-->
+                            <th>角色名称</th><!-- class="sorting"-->
+                            <th>角色描述</th><!-- class="sorting"-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="role : ${roleList}">
+                            <td><input name="ids" type="checkbox"></td>
+                            <td th:text="${role.id}"></td>
+                            <td th:text="${role.roleName}"></td>
+                            <td th:text="${role.roleDesc}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!--订单信息/--> <!--工具栏-->
+                    <div class="box-tools text-center">
+                        <button type="submit" class="btn bg-maroon" onclick="doAdd()">保存</button>
+                        <button type="button" class="btn bg-default"
+                                onclick="history.back(-1);">返回
+                        </button>
+                    </div>
                 </div>
-                <!--工具栏/--> </section>
-            <!-- 正文区域 /-->
-        </form>
+                <!--工具栏/-->
+            </div>
+        </section>
+        <!-- 正文区域 /-->
+        <!--</form>-->
     </div>
     <!-- 内容区域 /-->
     <!-- 底部导航 -->
@@ -216,33 +212,63 @@ able">
         src="/plugins/bootstrap-slider/bootstrap-slider.js"></script>
 <script
         src="/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
-    <script>
-        $(document).ready(function() {
+<script language='javascript' th:inline="javascript">
+    $(document).ready(function () {
         // 选择框
         $(".select2").select2();
         // WYSIHTML5编辑器
         $(".textarea").wysihtml5({
-        locale : 'zh-CN'
+            locale: 'zh-CN'
         });
-        // 全选操作
-        $("#selall").click(function() {
-        var clicks = $(this).is(':checked');
-        if (!clicks) {
-        $("#dataList td input[type='checkbox']").iCheck("uncheck");
-        } else {
-        $("#dataList td input[type='checkbox']").iCheck("check");
-        }
-        $(this).data("clicks", !clicks);
-        });
-        });
-        // 设置激活菜单
-        function setSidebarActive(tagUri) {
+        $("#dataList td input[type='checkbox']")
+            .iCheck(
+                {
+                    checkboxClass: 'icheckbox_square-blue',
+                    increaseArea: '20%'
+                });
+// 全选操作
+        $("#selall")
+            .click(
+                function () {
+                    var clicks = $(this).is(
+                        ':checked');
+                    if (!clicks) {
+                        $(
+                            "#dataList td input[type='checkbox']")
+                            .iCheck(
+                                "uncheck");
+                    } else {
+                        $(
+                            "#dataList td input[type='checkbox']")
+                            .iCheck("check");
+                    }
+                    $(this).data("clicks",
+                        !clicks);
+                });
+    });
+
+    // 设置激活菜单
+    function setSidebarActive(tagUri) {
         var liObj = $("#" + tagUri);
         if (liObj.length > 0) {
-        liObj.parent().parent().addClass("active");
-        liObj.addClass("active");
+            liObj.parent().parent().addClass("active");
+            liObj.addClass("active");
         }
+    }
+
+    function doAdd() {
+        var checkNum = $('input:checkbox[name="ids"]:checked').length;
+        if (checkNum == 0) {
+            alert("请选择至少一条数据");
+            return;
         }
-    </script>
-    </body>
-    </html>
+        var userId = [[${users.id}]];
+        var checkVal = [];
+        $.each($('input:checkbox[name="ids"]:checked'), function () {
+            checkVal.push($(this).parent().parent().next().text());//$(this).val()
+        });
+        location.href = "/users/addRoleToUser?userId=" + userId + "&ids=" + checkVal;
+    }
+</script>
+</body>
+</html>

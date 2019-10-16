@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.User;
 import com.example.demo.mapper.RoleMapper;
 import com.example.demo.mapper.UsersMapper;
 import com.example.demo.entity.Role;
@@ -8,7 +9,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -45,7 +47,7 @@ public class UsersService implements UserDetailsService {
             authoritys.add(new SimpleGrantedAuthority(role.getRoleName()));
         }
 
-        User user = new User(users.getEmail(),
+        org.springframework.security.core.userdetails.User user = new org.springframework.security.core.userdetails.User(users.getEmail(),
                 users.getPassword(),
                 "已关闭".equals(users.getStatus()) ? false : true,
                 true,
@@ -61,11 +63,33 @@ public class UsersService implements UserDetailsService {
         return new PageInfo<>(list);
     }
 
-    public void create(com.example.demo.entity.User user) {
+    public void create(User user) {
         String password = user.getPassword();
         String encodePassword = passwordEncoder.encode(password);
         user.setPassword(encodePassword);
         usersMapper.create(user);
+    }
+
+    public User query(int id) {
+        return usersMapper.query(id);
+    }
+
+    public void update(User user) {
+        String password = user.getPassword();
+        boolean encoded = password.startsWith("$2a$");
+        if (!encoded) {
+            String encodePassword = passwordEncoder.encode(password);
+            user.setPassword(encodePassword);
+        }
+        usersMapper.update(user);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void delete(String idList) {
+        String[] strings = idList.split(",");
+        List<String> list = Arrays.asList(strings);
+        usersMapper.delete(list);
+        usersMapper.deleteAbout(list);
     }
 
     public Users findById(int id) {

@@ -137,16 +137,14 @@
                                 <td th:text="${users.username}"></td>
                                 <td th:text="${users.email}"></td>
                                 <td th:text="${users.phoneNum}"></td>
-                                <td th:text="${users.status}"></td>
+                                <td th:text="${users.status}==1 ? '已开启' : '已关闭'"></td>
                                 <td class="text-center">
-                                    <!--<a th:href="@{'/users/findById/'+${users.id}}"-->
-                                       <!--class="btn bg-olive btn-xs">详情</a>-->
-                                    <a th:href="@{'/users/query?id='+${role.id}}"
-                                       class="btn bg-olive btn-xs">修改</a>
-                                    <a th:href="@{'/users/findRoleByIdAndAllPermission?id='+${role.id}}"
-                                       class="btn bg-olive btn-xs">角色</a>
-                                    <a th:href="@{'/users/delete?ids='+${role.id}}"
-                                       class="btn bg-olive btn-xs">删除</a>
+                                    <a th:href="@{'/users/query?id='+${users.id}}"
+                                       class="btn bg-blue btn-xs">修改</a>
+                                    <a th:href="@{'/users/findUserByIdAndAllRole?id='+${users.id}}"
+                                       class="btn bg-green btn-xs">角色管理</a>
+                                    <a th:href="@{'/users/delete?ids='+${users.id}}"
+                                       class="btn bg-red btn-xs">删除</a>
                                 </td>
                             </tr>
                             </tbody>
