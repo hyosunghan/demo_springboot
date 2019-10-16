@@ -58,7 +58,7 @@
         <section class="content">
             <!-- 统计数值 -->
             <div class="row">
-                <div class="col-lg-3 col-xs-6">
+                <div class="col-lg-3 col-xs-6" id="orders-count">
                     <!-- small box -->
                     <div class="small-box bg-aqua">
                         <div class="inner">
@@ -72,7 +72,7 @@
                     </div>
                 </div>
                 <!-- ./col -->
-                <div class="col-lg-3 col-xs-6">
+                <div class="col-lg-3 col-xs-6" id="product-count">
                     <!-- small box -->
                     <div class="small-box bg-green">
                         <div class="inner">
@@ -86,7 +86,7 @@
                     </div>
                 </div>
                 <!-- ./col -->
-                <div class="col-lg-3 col-xs-6" id="user-count">
+                <div class="col-lg-3 col-xs-6" id="users-count">
                     <!-- small box -->
                     <div class="small-box bg-yellow">
                         <div class="inner">
@@ -100,7 +100,7 @@
                     </div>
                 </div>
                 <!-- ./col -->
-                <div class="col-lg-3 col-xs-6" id="log-count">
+                <div class="col-lg-3 col-xs-6" id="syslog-count">
                     <!-- small box -->
                     <div class="small-box bg-red">
                         <div class="inner">
@@ -215,9 +215,9 @@
 <script src="/plugins/bootstrap-slider/bootstrap-slider.js"></script>
 <script language='javascript' th:inline="javascript">
     $(document).ready(function () {
-// 选择框
+        // 选择框
         $(".select2").select2();
-// WYSIHTML5编辑器
+        // WYSIHTML5编辑器
         $(".textarea").wysihtml5({
             locale: 'zh-CN'
         });
@@ -231,14 +231,16 @@
         }
     }
     $(document).ready(function () {
-// 激活导航位置
+        // 激活导航位置
         setSidebarActive("admin-index");
 
+        // 没有管理员权限不展示日志和用户数量，其余两个占全屏
         var authorities = window.localStorage.getItem("authorities");
-        // 没有管理员权限不展示日志和用户数量
         if (authorities.indexOf("{\"authority\":\"admin\"}") < 0) {
-            document.getElementById("user-count").remove();
-            document.getElementById("log-count").remove();
+            $("#users-count").remove();
+            $("#syslog-count").remove();
+            $("#product-count").setAttribute("class", "col-lg-6 col-xs-6");
+            $("#orders-count").setAttribute("class", "col-lg-6 col-xs-6");
         }
     });
 </script>

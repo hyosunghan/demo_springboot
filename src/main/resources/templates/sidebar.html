@@ -67,12 +67,14 @@
     </section>
     <!-- /.sidebar -->
     <script>
+        // 菜单栏用户名
         var username = window.localStorage.getItem("username");
-        document.getElementById('username3').innerText=username;
-        var authorities = window.localStorage.getItem("authorities");
+        $("#username3").innerText=username;
+
         // 没有管理员权限不展示系统管理
+        var authorities = window.localStorage.getItem("authorities");
         if (authorities.indexOf("{\"authority\":\"admin\"}") < 0) {
-            document.getElementById("system-manager").remove();
+            $("#system-manager").remove();
         }
     </script>
 </aside>

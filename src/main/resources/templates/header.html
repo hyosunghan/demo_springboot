@@ -243,11 +243,13 @@
         </div>
     </nav>
     <script>
+        // 没有找到缓存则重新登录
         if (!window.localStorage.hasOwnProperty("username") || !window.localStorage.hasOwnProperty("authorities")) {
             location.href="/";
         }
+        // 导航栏用户名
         var username = window.localStorage.getItem("username");
-        document.getElementById('username1').innerText=username;
-        document.getElementById('username2').innerText=username;
+        $('#username1').innerText=username;
+        $('#username2').innerText=username;
     </script>
 </header>
