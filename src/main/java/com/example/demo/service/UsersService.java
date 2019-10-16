@@ -49,7 +49,7 @@ public class UsersService implements UserDetailsService {
 
         org.springframework.security.core.userdetails.User user = new org.springframework.security.core.userdetails.User(users.getEmail(),
                 users.getPassword(),
-                "已关闭".equals(users.getStatus()) ? false : true,
+                "0".equals(users.getStatus()) ? false : true,
                 true,
                 true,
                 true,

@@ -9,75 +9,8 @@
     <meta name="keywords" content="AdminLTE2定制版">
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
-    <!-- Bootstrap 3.3.6 -->
-    <!-- Font Awesome -->
-    <!-- Ionicons -->
-    <!-- iCheck -->
-    <!-- Morris chart -->
-    <!-- jvectormap -->
-    <!-- Date Picker -->
-    <!-- Daterange picker -->
-    <!-- Bootstrap time Picker -->
-    <!--<link rel="stylesheet" href="///plugins/timepicker/bootstrap-timepick
-    er.min.css">-->
-    <!-- bootstrap wysihtml5 - text editor -->
-    <!--数据表格-->
-    <!-- 表格树 -->
-    <!-- select2 -->
-    <!-- Bootstrap Color Picker -->
-    <!-- bootstrap wysihtml5 - text editor -->
-    <!--bootstrap-markdown-->
-    <!-- Theme style -->
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-    folder instead of downloading all of them to reduce the load. -->
-    <!-- Ion Slider -->
-    <!-- ion slider Nice -->
-    <!-- bootstrap slider -->
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
-    -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <!-- jQuery 2.2.3 -->
-    <!-- jQuery UI 1.11.4 -->
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <!-- Bootstrap 3.3.6 -->
-    <!-- Morris.js charts -->
-    <!-- Sparkline -->
-    <!-- jvectormap -->
-    <!-- jQuery Knob Chart -->
-    <!-- daterangepicker -->
-    <!-- datepicker -->
-    <!-- Bootstrap WYSIHTML5 -->
-    <!-- Slimscroll -->
-    <!-- FastClick -->
-    <!-- iCheck -->
-    <!-- AdminLTE App -->
-    <!-- 表格树 -->
-    <!-- select2 -->
-    <!-- bootstrap color picker -->
-    <!-- bootstrap time picker -->
-    <!--<script src="///plugins/timepicker/bootstrap-timepicker.min.js"></scr
-    ipt>-->
-    <!-- Bootstrap WYSIHTML5 -->
-    <!--bootstrap-markdown-->
-    <!-- CK Editor -->
-    <!-- InputMask -->
-    <!-- DataTables -->
-    <!-- ChartJS 1.0.1 -->
-    <!-- FLOT CHARTS -->
-    <!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized
-    -->
-    <!-- FLOT PIE PLUGIN - also used to draw donut charts -->
-    <!-- FLOT CATEGORIES PLUGIN - Used to draw bar charts -->
-    <!-- jQuery Knob -->
-    <!-- Sparkline -->
-    <!-- Morris.js charts -->
-    <!-- Ion Slider -->
-    <!-- Bootstrap slider -->
-    <!-- 页面meta /-->
     <link rel="stylesheet" href="/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/plugins/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/plugins/ionicons/css/ionicons.min.css">
@@ -110,7 +43,6 @@
     <!-- 导航侧栏 /-->
     <!-- 内容区域 -->
     <div class="content-wrapper">
-
         <!-- 内容头部 -->
         <section class="content-header">
             <h1>
@@ -122,11 +54,8 @@
             </ol>
         </section>
         <!-- 内容头部 /-->
-
         <!-- 正文区域 -->
         <section class="content">
-
-
             <!-- 统计数值 -->
             <div class="row">
                 <div class="col-lg-3 col-xs-6">
@@ -218,7 +147,6 @@
                             </tr>
                             </thead>
                             <tbody>
-
                             <tr th:each="orders : ${ordersList}">
                                 <td th:text="${orders.orderNum}"></td>
                                 <td th:text="${orders.product.productName}"></td>
@@ -229,23 +157,17 @@
                                     <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-product-line-edit.html"'>编辑</button>
                                 </td>
                             </tr>
-
                             </tbody>
                         </table>
                         <!--数据列表/-->
-
                     </div>
                     <!-- 数据表格 /-->
-
                 </div>
                 <!-- /.box-body -->
-
             </div>
             <!-- 待处理订单 /-->
-
         </section>
         <!-- 正文区域 /-->
-
     </div>
     <!-- 内容区域 /-->
     <!-- 底部导航 -->
@@ -295,7 +217,7 @@
 <script src="/plugins/flot/jquery.flot.categories.min.js"></script>
 <script src="/plugins/ionslider/ion.rangeSlider.min.js"></script>
 <script src="/plugins/bootstrap-slider/bootstrap-slider.js"></script>
-<script>
+<script language='javascript' th:inline="javascript">
     $(document).ready(function () {
 // 选择框
         $(".select2").select2();
@@ -304,7 +226,6 @@
             locale: 'zh-CN'
         });
     });
-
     // 设置激活菜单
     function setSidebarActive(tagUri) {
         var liObj = $("#" + tagUri);
@@ -313,10 +234,13 @@
             liObj.addClass("active");
         }
     }
-
     $(document).ready(function () {
 // 激活导航位置
         setSidebarActive("admin-index");
+
+        // 登录用户
+        var username = [[${username}]];
+        window.localStorage.setItem("username", username);
     });
 </script>
 </body>

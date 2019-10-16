@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- 页面meta -->
@@ -144,7 +144,7 @@
                                     <a th:href="@{'/users/findUserByIdAndAllRole?id='+${users.id}}"
                                        class="btn bg-green btn-xs">角色管理</a>
                                     <a th:href="@{'/users/delete?ids='+${users.id}}"
-                                       class="btn bg-red btn-xs">删除</a>
+                                       th:classappend="${users.id==1?'disabled':''}" class="btn bg-red btn-xs">删除</a>
                                 </td>
                             </tr>
                             </tbody>
