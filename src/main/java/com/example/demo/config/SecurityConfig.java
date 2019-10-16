@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 其余页面需验证
                 .anyRequest().authenticated()
                 // 登录
-                .and().formLogin().loginPage("/").loginProcessingUrl("/login").defaultSuccessUrl("/index").failureUrl("/").permitAll()
+                .and().formLogin().loginPage("/").loginProcessingUrl("/login").defaultSuccessUrl("/jump").failureUrl("/").permitAll()
                 // 注销
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll()
                 // 记住我相关配置

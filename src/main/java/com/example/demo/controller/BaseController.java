@@ -35,15 +35,20 @@ public class BaseController {
         return new ModelAndView("base-login");
     }
 
+    @RequestMapping(value = "/jump", method = RequestMethod.GET)
+    public ModelAndView header() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) principal;
+        String username = user.getUsername();
+        return new ModelAndView("content-jump", "username", username);
+    }
+
     /**
      * 首页
      * @return
      */
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public ModelAndView index() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) principal;
-        String username = user.getUsername();
 
         List<Orders> ordersList = ordersService.findPending();
         for (int i = 0; i < ordersList.size(); i++) {
@@ -53,7 +58,6 @@ public class BaseController {
         }
 
         ModelAndView mv = new ModelAndView();
-        mv.addObject("username", username);
         mv.addObject("ordersList", ordersList);
         mv.addObject("ordersCount", ordersService.findAll(1,1).getTotal());
         mv.addObject("productCount", productService.findAll(1, 1).getTotal());
