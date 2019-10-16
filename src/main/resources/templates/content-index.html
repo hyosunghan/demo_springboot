@@ -237,10 +237,10 @@
         // 没有管理员权限不展示日志和用户数量，其余两个占全屏
         var authorities = window.localStorage.getItem("authorities");
         if (authorities.indexOf("{\"authority\":\"admin\"}") < 0) {
-            $("#users-count").remove();
-            $("#syslog-count").remove();
-            $("#product-count").setAttribute("class", "col-lg-6 col-xs-6");
-            $("#orders-count").setAttribute("class", "col-lg-6 col-xs-6");
+            document.getElementById("users-count").remove();
+            document.getElementById("syslog-count").remove();
+            document.getElementById("product-count").setAttribute("class", "col-lg-6 col-xs-6");
+            document.getElementById("orders-count").setAttribute("class", "col-lg-6 col-xs-6");
         }
     });
 </script>
