@@ -30,11 +30,19 @@ public class BaseController {
     @Autowired
     private SysLogService sysLogService;
 
+    /**
+     * 登录
+     * @return
+     */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView login() {
         return new ModelAndView("base-login");
     }
 
+    /**
+     * 跳转
+     * @return
+     */
     @RequestMapping(value = "/jump", method = RequestMethod.GET)
     public ModelAndView jump() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -64,6 +72,15 @@ public class BaseController {
         mv.addObject("syslogCount", sysLogService.findAll().size());
         mv.setViewName("content-index");
         return mv;
+    }
+
+    /**
+     * 个人中心
+     * @return
+     */
+    @RequestMapping(value = "/profile", method = RequestMethod.GET)
+    public ModelAndView profile() {
+        return new ModelAndView("content-profile");
     }
 
 }

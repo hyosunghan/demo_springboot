@@ -141,9 +141,9 @@
                                 <td th:text="${orders.payType}"></td>
                                 <td th:text="${orders.orderStatus}==1 ? '待处理' : '已处理'"></td>
                                 <td class="text-center">
-                                    <a class="btn bg-blue btn-xs"
+                                    <a class="btn bg-blue btn-xs btn-flat"
                                        th:href="@{'/orders/findById/'+${orders.id}}">详情</a>
-                                    <a class="btn bg-green btn-xs"
+                                    <a class="btn bg-green btn-xs btn-flat"
                                        th:href="@{'/orders/change?ids='+${orders.id}}"
                                        th:classappend="${orders.orderStatus}==0?'disabled':''">处理</a>
                                 </td>

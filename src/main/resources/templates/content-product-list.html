@@ -153,9 +153,9 @@
                                 <td th:text="${product.productPrice}"></td>
                                 <td th:text="${product.productStatus}==1 ? '已开启' : '已关闭'"></td>
                                 <td class="text-center">
-                                    <a class="btn bg-blue btn-xs"
+                                    <a class="btn bg-blue btn-xs btn-flat"
                                        th:href="@{'/product/query?id='+${product.id}}">修改</a>
-                                    <a class="btn bg-red btn-xs"
+                                    <a class="btn bg-red btn-xs btn-flat"
                                        th:href="@{'/product/delete?ids='+${product.id}}">删除</a>
                                 </td>
                             </tr>
