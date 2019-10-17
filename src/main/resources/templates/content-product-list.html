@@ -70,14 +70,14 @@
         <section class="content-header">
             <h1>
                 产品管理
-                <small>全部产品</small>
+                <small>产品列表</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="/index"><i
                         class="fa fa-dashboard"></i> 首页</a></li>
                 <li><a
                         href="/product/findAll">产品管理</a></li>
-                <li class="active">全部产品</li>
+                <li class="active">产品列表</li>
             </ol>
         </section>
         <!-- 内容头部 /-->
@@ -85,46 +85,45 @@
         <section class="content"> <!-- .box-body -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">产品列表</h3>
+                    <!--工具栏-->
+                    <div class="pull-left">
+                        <div class="form-group form-inline">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default" title="新建"
+                                        onclick='location.href="/product/add"'>
+                                    <i class="fa fa-file-o"></i> 新建
+                                </button>
+                                <button type="button" class="btn btn-default" title="删除"
+                                        onclick='doDelete()'>
+                                    <i class="fa fa-trash-o"></i> 删除
+                                </button>
+                                <button type="button" class="btn btn-default" title="开启"
+                                        onclick='doChange(1)'>
+                                    <i class="fa fa-check"></i> 开启
+                                </button>
+                                <button type="button" class="btn btn-default" title="关闭"
+                                        onclick='doChange(0)'>
+                                    <i class="fa fa-ban"></i> 关闭
+                                </button>
+                                <button type="button" class="btn btn-default" title="刷新"
+                                        onclick="window.location.reload();">
+                                    <i class="fa fa-refresh"></i> 刷新
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="box-tools pull-right">-->
+                        <!--<div class="has-feedback">-->
+                            <!--<input type="text" class="form-control input-sm"-->
+                                   <!--placeholder="搜索"> <span-->
+                                <!--class="glyphicon glyphicon-search form-control-feedback"></span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--工具栏/-->
                 </div>
                 <div class="box-body">
                     <!-- 数据表格 -->
                     <div class="table-box">
-                        <!--工具栏-->
-                        <div class="pull-left">
-                            <div class="form-group form-inline">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default" title="新建"
-                                            onclick='location.href="/product/add"'>
-                                        <i class="fa fa-file-o"></i> 新建
-                                    </button>
-                                    <button type="button" class="btn btn-default" title="删除"
-                                            onclick='confirm("你确认要删除吗？")'>
-                                        <i class="fa fa-trash-o"></i> 删除
-                                    </button>
-                                    <button type="button" class="btn btn-default" title="开启"
-                                            onclick='confirm("你确认要开启吗？")'>
-                                        <i class="fa fa-check"></i> 开启
-                                    </button>
-                                    <button type="button" class="btn btn-default" title="屏蔽"
-                                            onclick='confirm("你确认要屏蔽吗？")'>
-                                        <i class="fa fa-ban"></i> 屏蔽
-                                    </button>
-                                    <button type="button" class="btn btn-default" title="刷新"
-                                            onclick="window.location.reload();">
-                                        <i class="fa fa-refresh"></i> 刷新
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="box-tools pull-right">
-                            <div class="has-feedback">
-                                <input type="text" class="form-control input-sm"
-                                       placeholder="搜索"> <span
-                                    class="glyphicon glyphicon-search form-control-feedback"></span>
-                            </div>
-                        </div>
-                        <!--工具栏/-->
                         <!--数据列表-->
                         <table id="dataList"
                                class="table table-bordered table-striped table-hover dataTable">
@@ -133,13 +132,13 @@
                                 <th class="" style="padding-right: 0px"><input id="selall"
                                                                                type="checkbox"
                                                                                class="icheckbox_square-blue"></th>
-                                <th class="sorting_asc">ID</th>
-                                <th class="sorting">产品编号</th>
-                                <th class="sorting">产品名称</th>
-                                <th class="sorting">出发城市</th>
-                                <th class="sorting">出发时间</th>
-                                <th class="sorting">产品价格</th>
-                                <th class="sorting">产品状态</th>
+                                <th>ID</th><!-- class="sorting_asc"-->
+                                <th>产品编号</th><!-- class="sorting"-->
+                                <th>产品名称</th><!-- class="sorting"-->
+                                <th>出发城市</th><!-- class="sorting"-->
+                                <th>出发时间</th><!-- class="sorting"-->
+                                <th>产品价格</th><!-- class="sorting"-->
+                                <th>产品状态</th><!-- class="sorting"-->
                                 <th class="text-center">操作</th>
                             </tr>
                             </thead>
@@ -152,12 +151,12 @@
                                 <td th:text="${product.cityName}"></td>
                                 <td th:text="${product.departureTime}"></td>
                                 <td th:text="${product.productPrice}"></td>
-                                <td th:text="${product.productStatus}"></td>
+                                <td th:text="${product.productStatus}==1 ? '已开启' : '已关闭'"></td>
                                 <td class="text-center">
                                     <a class="btn bg-blue btn-xs"
-                                       th:href="@{'/product/findById/'+${product.id}}">详情</a>
+                                       th:href="@{'/product/query?id='+${product.id}}">修改</a>
                                     <a class="btn bg-red btn-xs"
-                                       th:href="@{'/product/deleteById/'+${product.id}}">删除</a>
+                                       th:href="@{'/product/delete?ids='+${product.id}}">删除</a>
                                 </td>
                             </tr>
                             </tbody>
@@ -339,6 +338,45 @@
     function getPageSize() {
         var pageSize = $("#pageSizeSelect").val();
         location.href = "/product/findAll?page=1&size=" + pageSize;
+    }
+
+    function doDelete() {
+        var checkNum = $('input:checkbox[name="ids"]:checked').length;
+        if (checkNum == 0) {
+            alert("请选择至少一条数据");
+            return;
+        }
+        var checkVal = [];
+        $.each($('input:checkbox[name="ids"]:checked'), function () {
+            checkVal.push($(this).parent().parent().next().text());//$(this).val()
+        });
+        var re = confirm("你确认要删除吗？");
+        if (re) {
+            location.href = "/product/delete?ids=" + checkVal;
+        }
+    }
+
+    function doChange(param) {
+        var checkNum = $('input:checkbox[name="ids"]:checked').length;
+        if (checkNum == 0) {
+            alert("请选择至少一条数据");
+            return;
+        }
+        var checkVal = [];
+        $.each($('input:checkbox[name="ids"]:checked'), function () {
+            checkVal.push($(this).parent().parent().next().text());//$(this).val()
+        });
+        if (param == 1) {
+            var re = confirm("你确认要开启吗？");
+            if (re) {
+                location.href = "/product/change?status=1&ids=" + checkVal;
+            }
+        } else {
+            var re = confirm("你确认要关闭吗？");
+            if (re) {
+                location.href = "/product/change?status=0&ids=" + checkVal;
+            }
+        }
     }
 </script>
 </body>

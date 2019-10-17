@@ -4,7 +4,7 @@
     <!-- 页面meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>产品详情</title>
+    <title>产品编辑</title>
     <meta name="description" content="AdminLTE2定制版">
     <meta name="keywords" content="AdminLTE2定制版">
     <!-- Tell the browser to be responsive to screen width -->
@@ -53,6 +53,8 @@
           href="/plugins/ionslider/ion.rangeSlider.skinNice.css">
     <link rel="stylesheet"
           href="/plugins/bootstrap-slider/slider.css">
+    <link rel="stylesheet"
+          href="/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -67,33 +69,33 @@
         <!-- 内容头部 -->
         <section class="content-header">
             <h1>
-                产品管理 <small>产品表单</small>
+                产品管理 <small>产品编辑</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="/index.jsp"><i
+                <li><a href="/index"><i
                         class="fa fa-dashboard"></i> 首页</a></li>
-                <li><a href="/product/findAll.do">产品管理</a></li>
-                <li class="active">产品表单</li>
+                <li><a href="/product/findAll">产品管理</a></li>
+                <li class="active">产品编辑</li>
             </ol>
         </section>
         <!-- 内容头部 /-->
-        <form action="/product/save.do"
-              method="post">
+        <form action="/product/save" method="post">
             <!-- 正文区域 -->
             <section class="content"> <!--产品信息-->
                 <div class="panel panel-default">
                     <div class="panel-heading">产品信息</div>
                     <div class="row data-type">
+                        <input name="id" style="display:none"
+                               th:value="${product != null ? product.id : 0}"> <!--隐藏显示ID-->
                         <div class="col-md-2 title">产品编号</div>
                         <div class="col-md-4 data">
-                            <input type="text" class="form-control" name="productNum"
-                                   placeholder="产品编号" value="1" readonly="readonly">
+                            <input type="text" class="form-control" name="productNum" placeholder="产品编号"
+                                   th:value="${product != null ? product.productNum : ''}" th:readonly="${product != null}">
                         </div>
                         <div class="col-md-2 title">产品名称</div>
                         <div class="col-md-4 data">
-                            <input type="text" class="form-control" name="productName"
-                                   placeholder="产品名称" value="广州五日游"
-                                   readonly="readonly">
+                            <input type="text" class="form-control" name="productName" placeholder="产品名称"
+                                   th:value="${product != null ? product.productName : ''}">
                         </div>
                         <div class="col-md-2 title">出发时间</div>
                         <div class="col-md-4 data">
@@ -101,38 +103,37 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <input type="text" class="form-control pull-right"
-                                       name="departureTime" value="2018-03-30 19:00:00"
-                                       readonly="readonly">
+                                <input type="text" class="form-control pull-right" id="datepicker-a3" name="departureTime"
+                                       th:value="${product != null ? product.departureTime : ''}">
                             </div>
                         </div>
                         <div class="col-md-2 title">出发城市</div>
                         <div class="col-md-4 data">
-                            <input type="text" class="form-control" name="cityName"
-                                   placeholder="出发城市" value="广州"
-                                   readonly="readonly">
+                            <input type="text" class="form-control" name="cityName" placeholder="出发城市"
+                                   th:value="${product != null ? product.cityName : ''}">
                         </div>
                         <div class="col-md-2 title">产品价格</div>
                         <div class="col-md-4 data">
-                            <input type="text" class="form-control" placeholder="产品价格"
-                                   name="productPrice" value="850.0"
-                                   readonly="readonly">
+                            <input type="text" class="form-control" placeholder="产品价格" name="productPrice"
+                                   th:value="${product != null ? product.productPrice : ''}">
                         </div>
                         <div class="col-md-2 title">产品状态</div>
                         <div class="col-md-4 data">
-                            <input type="text" class="form-control" placeholder="产品价格"
-                                   name="productPrice" value="关闭"
-                                   readonly="readonly">
+                            <select class="form-control select2" style="width: 100%" name="productStatus">
+                                <option th:selected="${product != null} and ${product.productStatus}==0" value="0">已关闭</option>
+                                <option th:selected="${product != null} and ${product.productStatus}==1" value="1">已开启</option>
+                            </select>
                         </div>
                         <div class="col-md-2 title rowHeight2x">其他信息</div>
                         <div class="col-md-10 data rowHeight2x">
-<textarea class="form-control" rows="3" placeholder="其他信息"
-          name="productDesc">不错不错，好多好吃的</textarea>
+                            <textarea class="form-control" rows="3" placeholder="其他信息" name="productDesc"
+                                      th:text="${product != null ? product.productDesc : ''}"></textarea>
                         </div>
                     </div>
                 </div>
                 <!--订单信息/--> <!--工具栏-->
                 <div class="box-tools text-center">
+                    <button type="submit" class="btn bg-maroon">保存</button>
                     <button type="button" class="btn bg-default"
                             onclick="history.back(-1);">返回</button>
                 </div>
@@ -228,33 +229,37 @@
         src="/plugins/ionslider/ion.rangeSlider.min.js"></script>
 <script
         src="/plugins/bootstrap-slider/bootstrap-slider.js"></script>
-<script>
-    $(document).ready(function() {
-// 选择框
+<script
+        src="/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+    <script>
+        $(document).ready(function() {
+        // 选择框
         $(".select2").select2();
-// WYSIHTML5编辑器
+        // WYSIHTML5编辑器
         $(".textarea").wysihtml5({
-            locale : 'zh-CN'
+        locale : 'zh-CN'
         });
-    });
-    // 设置激活菜单
-    function setSidebarActive(tagUri) {
+        });
+        // 设置激活菜单
+        function setSidebarActive(tagUri) {
         var liObj = $("#" + tagUri);
         if (liObj.length > 0) {
-            liObj.parent().parent().addClass("active");
-            liObj.addClass("active");
+        liObj.parent().parent().addClass("active");
+        liObj.addClass("active");
         }
-    }
-    $(document).ready(function() {
-        $('#datepicker-a3').datepicker({
-            autoclose : true,
-            format : 'yyyy-mm-dd'
+        }
+        $(document).ready(function() {
+        $('#datepicker-a3').datetimepicker({
+        format: "yyyy-mm-dd hh:ii",
+        autoclose: true,
+        todayBtn: true,
+        language: "zh-CN"
         });
-    });
-    $(document).ready(function() {
-// 激活导航位置
+        });
+        $(document).ready(function() {
+        // 激活导航位置
         setSidebarActive("order-manage");
-    });
-</script>
-</body>
-</html>
+        });
+    </script>
+    </body>
+    </html>

@@ -150,7 +150,7 @@
                                 <td th:text="${orders.product.productPrice} * ${orders.peopleCount}"></td>
                                 <td th:text="${orders.orderStatus}"></td>
                                 <td class="text-center">
-                                    <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-product-line-edit.html"'>编辑</button>
+                                    <a class="btn bg-blue btn-xs" th:href="@{'/orders/findById/'+${orders.id}}">详情</a>
                                 </td>
                             </tr>
                             </tbody>

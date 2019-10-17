@@ -17,6 +17,12 @@ public class OrdersController {
     @Autowired
     private OrdersService ordersService;
 
+    /**
+     * 订单列表
+     * @param page
+     * @param size
+     * @return
+     */
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
     public ModelAndView findAllOrders(@RequestParam(defaultValue = "1") Integer page,
                                       @RequestParam(defaultValue = "10") Integer size) {
@@ -24,10 +30,25 @@ public class OrdersController {
         return new ModelAndView("content-orders-list", "pageInfo", pageInfo);
     }
 
+    /**
+     * 订单查询
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/findById/{id}", method = RequestMethod.GET)
     public ModelAndView findOrdersById(@PathVariable Integer id) {
         Orders orders = ordersService.findById(id);
         return new ModelAndView("content-orders-detail","orders", orders);
     }
 
+    /**
+     * 修改状态
+     * @param ids
+     * @return
+     */
+    @RequestMapping(value = "/change", method = RequestMethod.GET)
+    public String change(String ids) {
+        ordersService.change(ids);
+        return "redirect:findAll";
+    }
 }

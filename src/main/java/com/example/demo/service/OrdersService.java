@@ -10,6 +10,8 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -48,6 +50,13 @@ public class OrdersService {
 
     public List<Orders> findPending() {
         return ordersMapper.findPending();
+    }
+
+    public void change(String idList) {
+        String[] strings = idList.split(",");
+        List<String> list = new ArrayList<>(Arrays.asList(strings));
+
+        ordersMapper.change(list);
     }
 
 }

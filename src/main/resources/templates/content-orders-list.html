@@ -68,14 +68,14 @@
         <section class="content-header">
             <h1>
                 订单管理
-                <small>全部订单</small>
+                <small>订单列表</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="/index"><i
                         class="fa fa-dashboard"></i> 首页</a></li>
                 <li><a
                         href="/orders/findAll">订单管理</a></li>
-                <li class="active">全部订单</li>
+                <li class="active">订单列表</li>
             </ol>
         </section>
         <!-- 内容头部 /-->
@@ -83,50 +83,36 @@
         <section class="content"> <!-- .box-body -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">订单列表</h3>
+                    <!--<h3 class="box-title">订单列表</h3>-->
+                    <!--工具栏-->
+                    <div class="pull-left">
+                        <div class="form-group form-inline">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default" title=
+                                        "处理"
+                                        onclick='doChange()'>
+                                    <i class="fa fa-check"></i> 处理
+                                </button>
+                                <button type="button" class="btn btn-default" title="刷新"
+                                        onclick="window.location.reload();">
+                                    <i class="fa fa-refresh"></i> 刷新
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="box-tools pull-right">-->
+                        <!--<div class="has-feedback">-->
+                            <!--<input type="text" class="form-control input-sm"-->
+                                   <!--placeholder="搜索"> <span-->
+                                <!--class="glyphicon glyphicon-search form-control-feedback"></span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--工具栏/-->
                 </div>
                 <div class="box-body">
                     <!-- 数据表格 -->
                     <div class="table-box">
-                        <!--工具栏-->
-                        <div class="pull-left">
-                            <div class="form-group form-inline">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default" title=
-                                            "新建"
-                                            onclick='location.href="all-order-manage-edit.html"'>
-                                        <i class="fa fa-file-o"></i> 新建
-                                    </button>
-                                    <button type="button" class="btn btn-default" title=
-                                            "删除"
-                                            onclick='confirm("你确认要删除吗？")'>
-                                        <i class="fa fa-trash-o"></i> 删除
-                                    </button>
-                                    <button type="button" class="btn btn-default" title=
-                                            "开启"
-                                            onclick='confirm("你确认要开启吗？")'>
-                                        <i class="fa fa-check"></i> 开启
-                                    </button>
-                                    <button type="button" class="btn btn-default" title=
-                                            "屏蔽"
-                                            onclick='confirm("你确认要屏蔽吗？")'>
-                                        <i class="fa fa-ban"></i> 屏蔽
-                                    </button>
-                                    <button type="button" class="btn btn-default" title="刷新"
-                                            onclick="window.location.reload();">
-                                        <i class="fa fa-refresh"></i> 刷新
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="box-tools pull-right">
-                            <div class="has-feedback">
-                                <input type="text" class="form-control input-sm"
-                                       placeholder="搜索"> <span
-                                    class="glyphicon glyphicon-search form-control-feedback"></span>
-                            </div>
-                        </div>
-                        <!--工具栏/-->
+
                         <!--数据列表-->
                         <table id="dataList"
                                class="table table-bordered table-striped table-hover dataTable">
@@ -135,12 +121,12 @@
                                 <th class="" style="padding-right: 0px"><input id="selall"
                                                                                type="checkbox"
                                                                                class="icheckbox_square-blue"></th>
-                                <th class="sorting_asc">ID</th>
-                                <th class="sorting">订单编号</th>
-                                <th class="sorting">下单时间</th>
-                                <th class="sorting">人数</th>
-                                <th class="sorting">支付类型</th>
-                                <th class="sorting">订单状态</th>
+                                <th>ID</th><!-- class="sorting_asc"-->
+                                <th>订单编号</th><!-- class="sorting"-->
+                                <th>下单时间</th><!-- class="sorting"-->
+                                <th>人数</th><!-- class="sorting"-->
+                                <th>支付类型</th><!-- class="sorting"-->
+                                <th>订单状态</th><!-- class="sorting"-->
                                 <th class="text-center">操作</th>
                             </tr>
                             </thead>
@@ -153,16 +139,16 @@
                                 <td th:text="${orders.orderTime}"></td>
                                 <td th:text="${orders.peopleCount}"></td>
                                 <td th:text="${orders.payType}"></td>
-                                <td th:text="${orders.orderStatus}"></td>
-                                <td class="text-center"><a class="btn bg-olive btn-xs"
-                                                           th:href="@{'/orders/findById/'+${orders.id}}">详情</a>
-                                    <a class="btn bg-olive btn-xs"
-                                       th:href="@{'/orders/deleteById/'+${orders.id}}">删除</a>
+                                <td th:text="${orders.orderStatus}==1 ? '待处理' : '已处理'"></td>
+                                <td class="text-center">
+                                    <a class="btn bg-blue btn-xs"
+                                       th:href="@{'/orders/findById/'+${orders.id}}">详情</a>
+                                    <a class="btn bg-green btn-xs"
+                                       th:href="@{'/orders/change?ids='+${orders.id}}"
+                                       th:classappend="${orders.orderStatus}==0?'disabled':''">处理</a>
                                 </td>
                             </tr>
-
                             </tbody>
-
                         </table>
                         <!--数据列表/-->
                     </div>
@@ -341,6 +327,19 @@
     function getPageSize() {
         var pageSize = $("#pageSizeSelect").val();
         location.href = "/orders/findAll?page=1&size=" + pageSize;
+    }
+
+    function doChange() {
+        var checkNum = $('input:checkbox[name="ids"]:checked').length;
+        if (checkNum == 0) {
+            alert("请选择至少一条数据");
+            return;
+        }
+        var checkVal = [];
+        $.each($('input:checkbox[name="ids"]:checked'), function () {
+            checkVal.push($(this).parent().parent().next().text());//$(this).val()
+        });
+        location.href = "/orders/change?ids=" + checkVal;
     }
 </script>
 </body>
