@@ -8,6 +8,12 @@ spring:
     username: root
     password: 1234
 
+# 允许捕获404异常，同时静态资源不可访问
+#  mvc:
+#    throw-exception-if-no-handler-found: true
+#  resources:
+#    add-mappings: false
+
 pagehelper:
     helperDialect: mysql
     reasonable: true
