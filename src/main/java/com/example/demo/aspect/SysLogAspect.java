@@ -101,6 +101,10 @@ public class SysLogAspect {
         sysLog.setMethod("[类名]" + executionClass.getName() + "[方法名]" + executionMethod.getName());
         sysLog.setVisitTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(startTime));
         // 调用Service，调用dao将sysLog insert数据库
-        sysLogService.save(sysLog);
+
+        // 登录记录加入
+        if (executionMethod.getName().equals("jump")) {
+            sysLogService.save(sysLog);
+        }
     }
 }
