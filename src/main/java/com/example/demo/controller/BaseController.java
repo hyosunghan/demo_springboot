@@ -125,7 +125,7 @@ public class BaseController {
             i.put("subject", message.getSubject());// 获得邮件主题
             Address from = message.getFrom()[0];
             i.put("sender", decodeText(from.toString()).split(" <")[0]); // 解析发送者,不显示地址
-            i.put("date", sdf.format(message.getSentDate())); // 发送时间
+            i.put("sentDate", sdf.format(message.getSentDate())); // 发送时间
             mail.add(i);
             /*Enumeration headers = message.getAllHeaders();
               while (headers.hasMoreElements()) {
