@@ -14,11 +14,12 @@ public class GlobalExceptionHandler {
 //    @ResponseBody
 //    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
-    public ModelAndView exceptionHandler(/*Exception e,
+    public ModelAndView exceptionHandler(Exception e/*,
                                          HttpStatus status,
                                          HttpServletRequest request,
                                          HttpServletResponse response*/){
 
+        e.printStackTrace();
         return new ModelAndView("content-error");
     }
 }

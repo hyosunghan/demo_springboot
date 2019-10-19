@@ -148,7 +148,7 @@
                                 <td th:text="${orders.product.productName}"></td>
                                 <td th:text="${orders.member.name}"></td>
                                 <td th:text="${orders.product.productPrice} * ${orders.peopleCount}"></td>
-                                <td th:text="${orders.orderStatus}"></td>
+                                <td th:text="${orders.orderStatus}==1 ? '待处理' : '已处理'"></td>
                                 <td class="text-center">
                                     <a class="btn bg-blue btn-xs btn-flat" th:href="@{'/orders/findById/'+${orders.id}}">详情</a>
                                 </td>
