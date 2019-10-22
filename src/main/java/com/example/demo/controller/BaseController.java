@@ -22,9 +22,6 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.Security;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -101,6 +98,15 @@ public class BaseController {
         mv.addObject("syslogCount", sysLogService.findAll().size());
         mv.setViewName("content-index");
         return mv;
+    }
+
+    /**
+     * 错误
+     * @return
+     */
+    @RequestMapping(value = "/wrong", method = RequestMethod.GET)
+    public ModelAndView wrong() {
+        return new ModelAndView("content-error");
     }
 
     /**

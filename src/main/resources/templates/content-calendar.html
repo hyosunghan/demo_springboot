@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>日历备忘</title>
+    <meta name="description" content="AdminLTE2定制版">
+    <meta name="keywords" content="AdminLTE2定制版">
+
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/plugins/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="/plugins/ionicons/css/ionicons.min.css">
+    <!-- fullCalendar 2.2.5-->
+    <link rel="stylesheet" href="/plugins/fullcalendar/fullcalendar.min.css">
+    <link rel="stylesheet" href="/plugins/fullcalendar/fullcalendar.print.css" media="print">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/plugins/adminLTE/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="/plugins/adminLTE/css/skins/_all-skins.min.css">
+
+    <!--<link rel="stylesheet" href="/plugins/select2/select2.css">-->
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        <!-- 页面头部 -->
+        <div th:replace="header.html"></div>
+        <!-- 页面头部 /-->
+        <!-- 导航侧栏 -->
+        <div th:replace="sidebar.html"></div>
+        <!-- 导航侧栏 /-->
+        <!-- 内容区域 -->
+        <!-- @@master = admin-layout.html-->
+        <!-- 内容区域 /-->
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    日历备忘
+                    <small>控制面板</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="/index"><i class="fa fa-dashboard"></i> 首页</a></li>
+                    <li class="active">日历备忘</li>
+                </ol>
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="box box-solid">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">可拆卸事件</h4>
+                            </div>
+                            <div class="box-body">
+                                <!-- the events -->
+                                <div id="external-events">
+                                    <div class="external-event bg-green">聚会</div>
+                                    <div class="external-event bg-yellow">生日</div>
+                                    <div class="external-event bg-aqua">休假</div>
+                                    <div class="external-event bg-light-blue">出差</div>
+                                    <div class="external-event bg-red">购物</div>
+                                    <div class="checkbox">
+                                        <label for="drop-remove">
+                                            <input type="checkbox" id="drop-remove">
+                                            移动时移除事件
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                        <!-- /. box -->
+                        <div class="box box-solid">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">创建事件</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="btn-group" style="width: 100%; margin-bottom: 10px;">
+                                    <!--<button type="button" id="color-chooser-btn" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">Color <span class="caret"></span></button>-->
+                                    <ul class="fc-color-picker" id="color-chooser">
+                                        <li><a class="text-aqua" href="#"><i class="fa fa-square"></i></a></li>
+                                        <li><a class="text-blue" href="#"><i class="fa fa-square"></i></a></li>
+                                        <li><a class="text-light-blue" href="#"><i class="fa fa-square"></i></a></li>
+                                        <li><a class="text-teal" href="#"><i class="fa fa-square"></i></a></li>
+                                        <li><a class="text-yellow" href="#"><i class="fa fa-square"></i></a></li>
+                                        <li><a class="text-orange" href="#"><i class="fa fa-square"></i></a></li>
+                                        <li><a class="text-green" href="#"><i class="fa fa-square"></i></a></li>
+                                        <li><a class="text-lime" href="#"><i class="fa fa-square"></i></a></li>
+                                        <li><a class="text-red" href="#"><i class="fa fa-square"></i></a></li>
+                                        <li><a class="text-purple" href="#"><i class="fa fa-square"></i></a></li>
+                                        <li><a class="text-fuchsia" href="#"><i class="fa fa-square"></i></a></li>
+                                        <li><a class="text-muted" href="#"><i class="fa fa-square"></i></a></li>
+                                        <li><a class="text-navy" href="#"><i class="fa fa-square"></i></a></li>
+                                    </ul>
+                                </div>
+                                <!-- /btn-group -->
+                                <div class="input-group">
+                                    <input id="new-event" type="text" class="form-control" placeholder="事件标题">
+
+                                    <div class="input-group-btn">
+                                        <button id="add-new-event" type="button" class="btn btn-primary btn-flat">创建</button>
+                                    </div>
+                                    <!-- /btn-group -->
+                                </div>
+                                <!-- /input-group -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-9">
+                        <div class="box box-primary">
+                            <div class="box-body no-padding">
+                                <!-- THE CALENDAR -->
+                                <div id="calendar"></div>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                        <!-- /. box -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        <!-- 底部导航 -->
+        <div th:replace="footer.html"></div>
+        <!-- 底部导航 /-->
+    </div>
+    <!-- jQuery 2.2.3 -->
+    <script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="/plugins/jQueryUI/jquery-ui.min.js"></script>
+    <!-- Slimscroll -->
+    <script src="/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="/plugins/fastclick/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/plugins/adminLTE/js/app.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <!--<script src="/plugins/demo.js"></script>-->
+    <!-- fullCalendar 2.2.5 -->
+    <script src="/plugins/daterangepicker/moment.min.js"></script>
+    <script src="/plugins/fullcalendar/fullcalendar.min.js"></script>
+
+    <!--<script src="/plugins/iCheck/icheck.min.js"></script>-->
+    <script language='javascript' th:inline="javascript">
+        $(document).ready(function() {
+            // 选择框
+            // $(".select2").select2();
+            //
+            // WYSIHTML5编辑器
+            // $(".textarea").wysihtml5({
+            //     locale: 'zh-CN'
+            // });
+        });
+
+        // 设置激活菜单
+        function setSidebarActive(tagUri) {
+            var liObj = $("#" + tagUri);
+            if (liObj.length > 0) {
+                liObj.parent().parent().addClass("active");
+                liObj.addClass("active");
+            }
+        }
+
+        $(document).ready(function() {
+            setSidebarActive("admin-calendar");
+
+            // $("input[type='checkbox']").iCheck({
+            //     checkboxClass: 'icheckbox_square-blue',
+            //     increaseArea: '20%'
+            // });
+        });
+
+        $(function () {
+
+            /* initialize the external events
+             -----------------------------------------------------------------*/
+            function ini_events(ele) {
+                ele.each(function () {
+
+                    // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+                    // it doesn't need to have a start or end
+                    var eventObject = {
+                        title: $.trim($(this).text()) // use the element's text as the event title
+                    };
+
+                    // store the Event Object in the DOM element so we can get to it later
+                    $(this).data('eventObject', eventObject);
+
+                    // make the event draggable using jQuery UI
+                    $(this).draggable({
+                        zIndex: 1070,
+                        revert: true, // will cause the event to go back to its
+                        revertDuration: 0  //  original position after the drag
+                    });
+
+                });
+            }
+
+            ini_events($('#external-events div.external-event'));
+
+            /* initialize the calendar
+             -----------------------------------------------------------------*/
+            //Date for the calendar events (dummy data)
+            var date = new Date();
+            var d = date.getDate(),
+                m = date.getMonth(),
+                y = date.getFullYear();
+            $('#calendar').fullCalendar({
+                // date: d,
+                // month: m,
+                // date: y,
+                /**
+                 * 显示
+                 */
+                defaultView: 'month', // 默认视图
+                locale: 'zh-cn', // 语言
+                header: {
+                    left: 'prev,today,next', // preYear,nextYear
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay' // ,basicWeek,basicDay
+                },
+                buttonText: {
+                    today: '今天',
+                    month: '月',
+                    week: '周',
+                    day: '日',
+                    prev: '上页',
+                    next: '下页'
+                },
+                aspectRatio: 1.35,//设置日历单元格宽度与高度的比例
+                theme: false,  // 是否允许使用jquery的ui主题
+                // buttonIcons: { prev: 'circle-triangle-w', next: 'circle-triangle-e' }, // 只有当theme为true时才有效
+                firstDay: 0,//0,1,2,3,4,5,6
+                isRTL: false,//设置为ture时则日历从右往左显示(阿拉伯)
+                weekends: true,//是否显示周末，设为false则不显示周六和周日。默认值为true
+                hiddenDays: [],//隐藏一周中的某一天或某几天
+                weekMode: 'fixed',//在月视图里显示周的模式，fixed：固定6周，高度不变 liquid：不固定周数，高度变化 variable：不固定周数，高度固定
+                // height: 600,//设置日历的高度，包括header日历头部，默认未设置，高度根据aspectRatio值自适应。
+                // contentHeight: 400,//设置日历主体内容的高度，不包括header部分，默认未设置，高度根据aspectRatio值自适应。
+                handleWindowResize: true,//是否随浏览器窗口大小变化而自动变化。
+                slotDuration : "01:00:00",      //一格时间槽代表多长时间，默认00:30:00（30分钟）
+                slotLabelFormat : "H(:mm)a",    //日期视图左边那一列显示的每一格日期时间格式
+                slotLabelInterval : "01:00:00", //日期视图左边那一列多长间隔显示一条日期文字(默认跟着slotDuration走的，可自定义)
+                snapDuration : "05:00:00",      //其实就是动态创建一个日程时，默认创建多长的时间块
+                slotEventOverlap : true,       //相同时间段的多个日程视觉上是否允许重叠，默认true允许
+                noEventsMessage : "无事件",   //listview视图下，无数据时显示提示
+                // defaultDate  : '2018-09-10',//默认显示那一天的日期视图getDates(true)
+                nowIndicator: true, //周/日视图中显示今天当前时间点（以红线标记），默认false不显示
+                monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"], //月份自定义命名
+                monthNamesShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"], //月份缩略命名（英语比较实用：全称January可设置缩略为Jan）
+                dayNames: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],       //同理monthNames
+                dayNamesShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],  //同理monthNamesShort
+                allDayText : "全天",            //自定义全天视图的名称
+                weekNumberTitle : "周次",//周的国际化,默认为"W"
+                weekNumbers: true,//是否在日历中显示周次，如果设置为true，则会在月视图的左侧、周视图和日视图的左上角显示周
+                // weekNumberCalculation: 'iso',//周次的显示格式。
+                render:function(view){
+                    console.log('绑定',view)
+                },
+                destroy:function(){
+                    console.log('销毁')
+                },
+                viewRender : function(view,element) {
+                    console.log("在视图被渲染时触发,切换视图也触发" + view + element);
+                },
+                // dayRender : function(date, cell){
+                //     console.log("日期格式Render钩子函数" + date + cell);
+                // },
+                windowResize : function(){
+                    console.log("浏览器窗体变化时触发");
+                },
+
+                loading : function(isLoading, view){
+                    if(isLoading == true){
+                        console.log("view:"+view+",开始加载");
+                    }else if(isLoading == false){
+                        console.log("view:"+view+",加载完成");
+                    }else{
+                        console.log("view:"+view+",除非天塌下来否则不会进这个分支");
+                    }
+                },
+                // eventMouseover: function(calEvent, jsEvent, view){//
+                //     console.log("鼠标在日程区块上时触发" + calEvent.start._i)
+                //     $('.hover-dateStr').html(calEvent.start._i)
+                //     console.log(jsEvent.pageY,jsEvent.pageX)
+                //     $('.hover-container').removeClass('none').animate({'top':jsEvent.pageY,'left':jsEvent.pageX})
+                //     if(!canRun){
+                //         // 判断是否已空闲，如果在执行中，则直接return
+                //         return;
+                //     }
+                // },
+                // eventMouseout: function(calEvent, jsEvent, view){
+                //     $('.hover-container').addClass('none');
+                //     console.log("鼠标从日程区块离开时触发");
+                // },
+
+                /**
+                 * 事件
+                 */
+                defaultTimedEventDuration : "02:00:00",     //在Event Object中如果没有end参数时使用，如start=7:00pm，则该日程对象时间范围就是7:00~9:00
+                defaultAllDayEventDuration : { days: 1 },  //默认1天是多长，（有的是采用工作时间模式，所以支持自定义）
+                eventOrder : "title",       //多个相同的日程数据排序方式，String / Array / Function, 默认值: "title"
+                lazyFetching : true,        //是否启用懒加载技术--即只取当前条件下的视图数据，其它数据在切换时触发，默认true只取当前视图的，false是取全视图的
+                allDayDefault: true, //布尔类型, 默认整天
+                ignoreTimezone: false, // 是否忽略时区
+                eventRender : function(event, element, view) {
+                    console.log("当Event对象开始渲染时触发:"+event.title + event.id);
+                },
+                eventAfterAllRender : function(view) {
+                    console.log("当所有Event对象渲染完成时触发;");
+                },
+
+                /**
+                 * 点击
+                 */
+                eventLimit: true,                   //数据条数太多时，限制各自里显示的数据条数（多余的以“+2more”格式显示），默认false不限制,支持输入数字设定固定的显示条数
+                eventLimitText : "更多",           //当一块区域内容太多以"+2 more"格式显示时，这个more的名称自定义（应该与eventLimit: true一并用）
+                dayPopoverFormat : "YYYY年M月d日",   //点开"+2 more"弹出的小窗口标题，与eventLimitClick可以结合用
+                navLinks : true,                    // “xx周”是否可以被点击，默认false，如果为true则周视图“周几”被点击之后进入日视图。本地测试：没什么效果
+                dayClick: function(date, jsEvent, view) {
+                    console.log('Clicked on: ' + date.format());
+                    console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+                    console.log('空白的日期区，单击时触发: ' + view.name);
+                    // $(this).css('background-color', 'red');
+                },
+                eventClick: function(calEvent, jsEvent, view) {
+                    console.log(jsEvent.target)
+                    console.log(jsEvent.target.innerHTML)
+                    console.log('Event: ' + calEvent.title);
+                    console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+                    console.log('日程区块，单击时触发: ' + view.name);
+                    return false;  //return false可以阻止点击后续事件发生（比如event中的url跳转事件）
+                },
+                /**
+                 * 选择
+                 */
+                selectable: false,          // 允许用户可以长按鼠标选择多个区域(比如月视图，可以选中多天；日视图可以选中多个小时)，默认false不能选择多区域的
+                selectHelper: true,         // 接selectable，周/日视图在选择时是否预先画出“日程区块”的样式出来
+                unselectAuto : true,        // 是否点击页面上的其他地方会导致当前的选择被清除，默认true
+                unselectCancel : "",        // 一种方法来指定元素，会忽略unselectauto选项，默认''
+                selectOverlap : true,       // 确定用户是否被允许选择被事件占用的时间段，默认true可占用时间段
+                selectAllow : function(selectInfo){
+                    console.log("精确的编程控制用户可以选择的地方start:"+selectInfo.start+"|end:"+selectInfo.end+"|resourceId:"+selectInfo.resourceId);
+                    return true;
+                },
+                select: function(start, end,jsEvent,view) {
+                    console.log("点击空白区域/选择区域内容触发view:"+view);
+                },
+                unselect : function(view, jsEvent){
+                    console.log("选择操作取消时触发view:"+view);
+                },
+
+                /**
+                 * 拖拽拉伸
+                 */
+                editable: true,                 // 可编辑，即拖拽和拉伸
+                longPressDelay : 1000,          // 面向可touch设备（如移动设备），长按多少毫秒即可拖动,默认1000毫秒（1S）
+                eventStartEditable : true,      // Event日程开始时间是否可以改变，默认true，如果是false其实就是指日程块不能拖动，只能拉伸
+                eventDurationEditable : true,   // Event日程时间间隔是否可以改变，默认true，如果是false则表示日程块不能拉伸，只能拖拽
+                dragOpacity: 0.5,               // 拖拽时不透明度，0.0~1.0之间，数字越小越透明
+                eventOverlap : true,            // 拖拽时是否重叠,即一天可放置多事件
+                dragScroll : true,              // 是否在拖拽时自动移动容器，默认true
+                // eventConstraint : {             //限制拖拽拖放的位置（即限制有些地方拖不进去）：an event ID, "businessHours", object
+                //     // start: '10:00',           // a start time (10am in this example)
+                //     // end: '18:00',             // an end time (6pm in this example)
+                //     // dow: [ 1, 2, 3, 4 ]       // days of week. an array of zero-based day of week integers (0=Sunday)  (Monday-Thursday in this example)
+                // },
+                eventDragStart : function(event, jsEvent, ui, view){
+                    // console.log("日程开始拖拽时触发():"+event.title);
+                },
+                eventDragStop : function(event, jsEvent, ui, view){
+                    // console.log("日程拖拽停止时触发():"+event.title);
+                },
+                eventDrop : function(event, delta, revertFunc, jsEvent, ui, view){
+                    console.log("日程拖拽停止并且已经拖拽到其它位置了():"+event.id+new Date(event.start)+new Date(event.end)+event.allDay);
+                    $.ajax({
+                        url: '/event/update',
+                        contentType: 'application/json',
+                        type: 'post',
+                        data: JSON.stringify({"id": event.id, "start": new Date(event.start), "end": new Date(event.end), "allDay": event.allDay}),
+                        success: function(result) {
+                            if (result != 1) {
+                                location.href="/wrong";
+                            }
+                        }
+                    });
+                },
+                eventResizeStart : function( event, jsEvent, ui, view ) {
+                    // console.log("日程大小调整开始时触发():"+event.title);
+                },
+                eventResizeStop : function(event, jsEvent, ui, view){
+                    // console.log("日程大小调整停止时触发():"+event.title);
+                },
+                eventResize : function(event, delta, revertFunc, jsEvent, ui, view){
+                    console.log("日程大小调整完成并已经执行更新时触发():"+event.id+new Date(event.start)+new Date(event.end)+event.allDay);
+                    $.ajax({
+                        url: '/event/update',
+                        contentType: 'application/json',
+                        type: 'post',
+                        data: JSON.stringify({"id": event.id, "start": new Date(event.start), "end": new Date(event.end), "allDay": event.allDay}),
+                        success: function(result) {
+                            if (result != 1) {
+                                location.href="/wrong";
+                            }
+                        }
+                    });
+                },
+
+                // 模型绑定获取
+                events: [[${events}]],
+
+                // 异步获取JSON数据
+                // events: function(start,end,timezone,callback) {
+                //     // var date = this.getDate().format('YYYY-MM');
+                //     $.ajax({
+                //         url: '/calendar/rest/events',
+                //         dataType: 'json',
+                //         type: 'get',
+                //         data: {},
+                //         success: function(json) { // 获取当前月的数据
+                //             var events = [];
+                //             for (var i = 0; i < json.length; i++) {
+                //                 events.push({
+                //                     title: json[i].title,
+                //                     start: json[i].start,
+                //                     end: json[i].end,
+                //                     allDay: json[i].allDay,
+                //                     borderColor: json[i].borderColor,
+                //                     backgroundColor: json[i].backgroundColor
+                //                 });
+                //             }
+                //             callback(events);
+                //         }
+                //     });
+                // },
+
+
+                droppable: true, // this allows things to be dropped onto the calendar !!!
+                drop: function (date, allDay) { // this function is called when something is dropped
+
+                    // retrieve the dropped element's stored Event Object
+                    var originalEventObject = $(this).data('eventObject');
+
+                    // we need to copy it, so that multiple events don't have a reference to the same object
+                    var copiedEventObject = $.extend({}, originalEventObject);
+
+                    // assign it the date that was reported
+                    copiedEventObject.start = date;
+                    copiedEventObject.allDay = allDay;
+                    copiedEventObject.backgroundColor = $(this).css("background-color");
+                    copiedEventObject.borderColor = $(this).css("border-color");
+
+                    // render the event on the calendar
+                    // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+                    $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+
+                    // is the "remove after drop" checkbox checked?
+                    if ($('#drop-remove').is(':checked')) {
+                        // if so, remove the element from the "Draggable Events" list
+                        $(this).remove();
+                    }
+
+                }
+            });
+
+            /* ADDING EVENTS */
+            var currColor = "#3c8dbc"; //Red by default
+            //Color chooser button
+            var colorChooser = $("#color-chooser-btn");
+            $("#color-chooser > li > a").click(function (e) {
+                e.preventDefault();
+                //Save color
+                currColor = $(this).css("color");
+                //Add color effect to button
+                $('#add-new-event').css({"background-color": currColor, "border-color": currColor});
+            });
+            $("#add-new-event").click(function (e) {
+                e.preventDefault();
+                //Get value and make sure it is not null
+                var val = $("#new-event").val();
+                if (val.length == 0) {
+                    return;
+                }
+
+                //Create events
+                var event = $("<div />");
+                event.css({"background-color": currColor, "border-color": currColor, "color": "#fff"}).addClass("external-event");
+                event.html(val);
+                $('#external-events').prepend(event);
+
+                //Add draggable funtionality
+                ini_events(event);
+
+                //Remove event from text input
+                $("#new-event").val("");
+            });
+        });
+    </script>
+</body>
+
+</html>
