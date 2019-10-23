@@ -21,4 +21,12 @@ public class EventService {
         return eventMapper.update(event);
     }
 
+    public Integer create(Event event) {
+        return eventMapper.create(event);
+    }
+
+    public Integer delete(int id) {
+        return eventMapper.delete(id);
+    }
+
 }

@@ -19,14 +19,19 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public ModelAndView index() {
+        return new ModelAndView("content-calendar");
+    }
+
     /**
      * 事件列表
      * @return
      */
+    @ResponseBody
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
-    public ModelAndView findAll() {
-        List<Event> events = eventService.findAll();
-        return new ModelAndView("content-calendar", "events", events);
+    public List<Event> findAll() {
+        return eventService.findAll();
     }
 
     /**
@@ -37,5 +42,26 @@ public class EventController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public Integer update(@RequestBody Event event) {
         return eventService.update(event);
+    }
+
+    /**
+     * 事件创建
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public Integer create(@RequestBody Event event) {
+        eventService.create(event);
+        return event.getId();
+    }
+
+    /**
+     * 事件删除
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public Integer delete(@RequestBody Event event) {
+        return eventService.delete(event.getId());
     }
 }

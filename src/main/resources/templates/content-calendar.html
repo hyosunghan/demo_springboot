@@ -61,7 +61,7 @@
                     <div class="col-md-3">
                         <div class="box box-solid">
                             <div class="box-header with-border">
-                                <h4 class="box-title">可拆卸事件</h4>
+                                <h4 class="box-title">自定义事件</h4>
                             </div>
                             <div class="box-body">
                                 <!-- the events -->
@@ -74,7 +74,7 @@
                                     <div class="checkbox">
                                         <label for="drop-remove">
                                             <input type="checkbox" id="drop-remove">
-                                            移动时移除事件
+                                            使用时移除事件
                                         </label>
                                     </div>
                                 </div>
@@ -320,25 +320,50 @@
                 eventOrder : "title",       //多个相同的日程数据排序方式，String / Array / Function, 默认值: "title"
                 lazyFetching : true,        //是否启用懒加载技术--即只取当前条件下的视图数据，其它数据在切换时触发，默认true只取当前视图的，false是取全视图的
                 allDayDefault: true, //布尔类型, 默认整天
-                ignoreTimezone: false, // 是否忽略时区
+                ignoreTimezone: true, // 是否忽略时区
                 eventRender : function(event, element, view) {
-                    console.log("当Event对象开始渲染时触发:"+event.title + event.id);
+                    // console.log("当Event对象开始渲染时触发:"+ event.id + event.title + event.start + event.end + event.allDay + event.borderColor);
+                    if (event.id == undefined && event.title != null) {
+                        console.log("当Event对象创建时触发:"+event.title);
+                        $.ajax({
+                            url: '/event/create',
+                            contentType: 'application/json',
+                            type: 'post',
+                            data: JSON.stringify({
+                                title: event.title,
+                                start: new Date(event.start),
+                                end: new Date(event.end),
+                                allDay: true,
+                                borderColor: event.backgroundColor,
+                                backgroundColor: event.backgroundColor}),
+                            success: function(result) {
+                                if (null == result || 0 == result) {
+                                    location.href="/wrong";
+                                } else {
+                                    event.id=result;
+                                    event.allDay=true;
+                                    event.borderColor=event.backgroundColor;
+                                    $('#calendar').fullCalendar('renderEvent', event);
+                                }
+                            }
+                        });
+                    }
                 },
                 eventAfterAllRender : function(view) {
-                    console.log("当所有Event对象渲染完成时触发;");
+                    // console.log("当所有Event对象渲染完成时触发;");
                 },
 
                 /**
                  * 点击
                  */
-                eventLimit: true,                   //数据条数太多时，限制各自里显示的数据条数（多余的以“+2more”格式显示），默认false不限制,支持输入数字设定固定的显示条数
+                eventLimit: false,                   //数据条数太多时，限制各自里显示的数据条数（多余的以“+2more”格式显示），默认false不限制,支持输入数字设定固定的显示条数
                 eventLimitText : "更多",           //当一块区域内容太多以"+2 more"格式显示时，这个more的名称自定义（应该与eventLimit: true一并用）
                 dayPopoverFormat : "YYYY年M月d日",   //点开"+2 more"弹出的小窗口标题，与eventLimitClick可以结合用
-                navLinks : true,                    // “xx周”是否可以被点击，默认false，如果为true则周视图“周几”被点击之后进入日视图。本地测试：没什么效果
+                navLinks : false,                    // “xx周”是否可以被点击，默认false，如果为true则周视图“周几”被点击之后进入日视图。本地测试：没什么效果
                 dayClick: function(date, jsEvent, view) {
-                    console.log('Clicked on: ' + date.format());
-                    console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-                    console.log('空白的日期区，单击时触发: ' + view.name);
+                    // console.log('Clicked on: ' + date.format());
+                    // console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+                    // console.log('空白的日期区，单击时触发: ' + view.name);
                     // $(this).css('background-color', 'red');
                 },
                 eventClick: function(calEvent, jsEvent, view) {
@@ -346,7 +371,23 @@
                     console.log(jsEvent.target.innerHTML)
                     console.log('Event: ' + calEvent.title);
                     console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-                    console.log('日程区块，单击时触发: ' + view.name);
+                    var re = confirm("你确认要删除该事件吗？");
+                    if (re) {
+                        $.ajax({
+                            url: '/event/delete',
+                            contentType: 'application/json',
+                            type: 'post',
+                            data: JSON.stringify({id: calEvent.id}),
+                            success: function(result) {
+                                if (result != 1) {
+                                    location.href="/wrong";
+                                } else {
+                                    $('#calendar').fullCalendar('removeEvents' ,[ calEvent.id ]);
+                                    // $('#calendar').fullCalendar('rerenderEvents');//重新渲染所有
+                                }
+                            }
+                        });
+                    }
                     return false;  //return false可以阻止点击后续事件发生（比如event中的url跳转事件）
                 },
                 /**
@@ -358,14 +399,14 @@
                 unselectCancel : "",        // 一种方法来指定元素，会忽略unselectauto选项，默认''
                 selectOverlap : true,       // 确定用户是否被允许选择被事件占用的时间段，默认true可占用时间段
                 selectAllow : function(selectInfo){
-                    console.log("精确的编程控制用户可以选择的地方start:"+selectInfo.start+"|end:"+selectInfo.end+"|resourceId:"+selectInfo.resourceId);
+                    // console.log("精确的编程控制用户可以选择的地方start:"+selectInfo.start+"|end:"+selectInfo.end+"|resourceId:"+selectInfo.resourceId);
                     return true;
                 },
                 select: function(start, end,jsEvent,view) {
-                    console.log("点击空白区域/选择区域内容触发view:"+view);
+                    // console.log("点击空白区域/选择区域内容触发view:"+view);
                 },
                 unselect : function(view, jsEvent){
-                    console.log("选择操作取消时触发view:"+view);
+                    // console.log("选择操作取消时触发view:"+view);
                 },
 
                 /**
@@ -395,7 +436,11 @@
                         url: '/event/update',
                         contentType: 'application/json',
                         type: 'post',
-                        data: JSON.stringify({"id": event.id, "start": new Date(event.start), "end": new Date(event.end), "allDay": event.allDay}),
+                        data: JSON.stringify({
+                            id: event.id,
+                            start: new Date(event.start),
+                            end: new Date(event.end),
+                            allDay: event.allDay}),
                         success: function(result) {
                             if (result != 1) {
                                 location.href="/wrong";
@@ -415,7 +460,11 @@
                         url: '/event/update',
                         contentType: 'application/json',
                         type: 'post',
-                        data: JSON.stringify({"id": event.id, "start": new Date(event.start), "end": new Date(event.end), "allDay": event.allDay}),
+                        data: JSON.stringify({
+                            id: event.id,
+                            start: new Date(event.start),
+                            end: new Date(event.end),
+                            allDay: event.allDay}),
                         success: function(result) {
                             if (result != 1) {
                                 location.href="/wrong";
@@ -424,34 +473,32 @@
                     });
                 },
 
-                // 模型绑定获取
-                events: [[${events}]],
-
                 // 异步获取JSON数据
-                // events: function(start,end,timezone,callback) {
-                //     // var date = this.getDate().format('YYYY-MM');
-                //     $.ajax({
-                //         url: '/calendar/rest/events',
-                //         dataType: 'json',
-                //         type: 'get',
-                //         data: {},
-                //         success: function(json) { // 获取当前月的数据
-                //             var events = [];
-                //             for (var i = 0; i < json.length; i++) {
-                //                 events.push({
-                //                     title: json[i].title,
-                //                     start: json[i].start,
-                //                     end: json[i].end,
-                //                     allDay: json[i].allDay,
-                //                     borderColor: json[i].borderColor,
-                //                     backgroundColor: json[i].backgroundColor
-                //                 });
-                //             }
-                //             callback(events);
-                //         }
-                //     });
-                // },
-
+                events: function(start,end,timezone,callback) {
+                    console.log("日程事件列表拉取时触发");
+                    // var date = this.getDate().format('YYYY-MM');
+                    $.ajax({
+                        url: '/event/findAll',
+                        dataType: 'json',
+                        type: 'get',
+                        data: {},
+                        success: function(json) { // 获取当前月的数据
+                            var events = [];
+                            for (var i = 0; i < json.length; i++) {
+                                events.push({
+                                    id: json[i].id,
+                                    title: json[i].title,
+                                    start: json[i].start,
+                                    end: json[i].end,
+                                    allDay: json[i].allDay,
+                                    borderColor: json[i].borderColor,
+                                    backgroundColor: json[i].backgroundColor
+                                });
+                            }
+                            callback(events);
+                        }
+                    });
+                },
 
                 droppable: true, // this allows things to be dropped onto the calendar !!!
                 drop: function (date, allDay) { // this function is called when something is dropped
