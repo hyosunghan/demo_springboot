@@ -273,29 +273,29 @@
                 weekNumbers: true,//是否在日历中显示周次，如果设置为true，则会在月视图的左侧、周视图和日视图的左上角显示周
                 // weekNumberCalculation: 'iso',//周次的显示格式。
                 render:function(view){
-                    console.log('绑定',view)
+                    // console.log('绑定',view)
                 },
                 destroy:function(){
-                    console.log('销毁')
+                    // console.log('销毁')
                 },
                 viewRender : function(view,element) {
-                    console.log("在视图被渲染时触发,切换视图也触发" + view + element);
+                    // console.log("在视图被渲染时触发,切换视图也触发" + view + element);
                 },
                 // dayRender : function(date, cell){
                 //     console.log("日期格式Render钩子函数" + date + cell);
                 // },
                 windowResize : function(){
-                    console.log("浏览器窗体变化时触发");
+                    // console.log("浏览器窗体变化时触发");
                 },
 
                 loading : function(isLoading, view){
-                    if(isLoading == true){
-                        console.log("view:"+view+",开始加载");
-                    }else if(isLoading == false){
-                        console.log("view:"+view+",加载完成");
-                    }else{
-                        console.log("view:"+view+",除非天塌下来否则不会进这个分支");
-                    }
+                    // if(isLoading == true){
+                    //     console.log("view:"+view+",开始加载");
+                    // }else if(isLoading == false){
+                    //     console.log("view:"+view+",加载完成");
+                    // }else{
+                    //     console.log("view:"+view+",除非天塌下来否则不会进这个分支");
+                    // }
                 },
                 // eventMouseover: function(calEvent, jsEvent, view){//
                 //     console.log("鼠标在日程区块上时触发" + calEvent.start._i)
@@ -348,6 +348,7 @@
                             }
                         });
                     }
+
                 },
                 eventAfterAllRender : function(view) {
                     // console.log("当所有Event对象渲染完成时触发;");
@@ -367,10 +368,11 @@
                     // $(this).css('background-color', 'red');
                 },
                 eventClick: function(calEvent, jsEvent, view) {
-                    console.log(jsEvent.target)
-                    console.log(jsEvent.target.innerHTML)
-                    console.log('Event: ' + calEvent.title);
-                    console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+                    // console.log(jsEvent.target)
+                    // console.log(jsEvent.target.innerHTML)
+                    // console.log('Event: ' + calEvent.title);
+                    // console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+                    var start = $('#calendar').fullCalendar('clientEvents');
                     var re = confirm("你确认要删除该事件吗？");
                     if (re) {
                         $.ajax({
@@ -382,8 +384,10 @@
                                 if (result != 1) {
                                     location.href="/wrong";
                                 } else {
-                                    $('#calendar').fullCalendar('removeEvents' ,[ calEvent.id ]);
-                                    // $('#calendar').fullCalendar('rerenderEvents');//重新渲染所有
+                                    // $('#calendar').fullCalendar('removeEvents' ,[ calEvent.id ]);
+
+                                    $('#calendar').fullCalendar('removeEvents');//移除所有
+                                    $('#calendar').fullCalendar('refetchEvents');//重新加载
                                 }
                             }
                         });
