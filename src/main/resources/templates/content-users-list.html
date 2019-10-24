@@ -209,6 +209,27 @@
     <!-- 底部导航 -->
     <div th:replace="footer.html"></div>
     <!-- 底部导航 /-->
+    <!-- 模态提示窗口 -->
+    <div class="modal fade" id="sys-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h5 class="modal-title"><i class="fa fa-exclamation-circle"></i> [Title]</h5>
+                </div>
+                <div class="modal-body">
+                    <p>[Message]</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary ok" data-dismiss="modal">[BtnOk]</button>
+                    <button type="button" class="btn btn-default cancel" data-dismiss="modal">[BtnCancel]</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script src="/plugins/jQueryUI/jquery-ui.min.js"></script>
@@ -311,18 +332,158 @@
     function doDelete() {
         var checkNum = $('input:checkbox[name="ids"]:checked').length;
         if (checkNum == 0) {
-            alert("请选择至少一条数据");
+            showMsg("请选择至少一条数据", function() {});
             return;
         }
         var checkVal = [];
         $.each($('input:checkbox[name="ids"]:checked'), function () {
             checkVal.push($(this).parent().parent().next().text());//$(this).val()
         });
-        var re = confirm("你确认要删除吗？");
-        if (re) {
+        showConfirm("你确认要删除所选用户吗？", function () {
             location.href = "/users/delete?ids=" + checkVal;
-        }
+        });
     }
+
+    /**
+     * 显示提示消息（自动关闭）
+     * @param msg
+     * @param sec 显示时间（毫秒）
+     * @param callback 回调函数
+     */
+    function showTip(msg, sec, callback){
+        if(!sec) {
+            sec = 1000;
+        }
+        Modal.tip({
+            title:'提示',
+            msg: msg
+        }, sec);
+        setTimeout(callback, sec);
+    }
+
+    /**
+     * 显示消息
+     * @param msg
+     */
+    function showMsg(msg, callback){
+        Modal.alert({
+            title:'提示',
+            msg: msg,
+            btnok: '确定'
+        }).on(function (e) {
+            if(callback){
+                callback();
+            }
+        });
+    }
+
+    /**
+     * 模态对话框
+     * @param msg
+     * @returns
+     */
+    function showConfirm(msg, callback) {
+        // var res = false;
+        Modal.confirm({
+            title: '提示',
+            msg: msg,
+        }).on(function (e) {
+            callback();
+            // res = true;
+        });
+        // return res;
+    }
+    /***
+     * 模态框封装
+     */
+    $(function () {
+        window.Modal = function () {
+            var reg = new RegExp("\\[([^\\[\\]]*?)\\]", 'igm');
+            var alr = $("#sys-modal");
+            var ahtml = alr.html();
+
+            var _tip = function (options, sec) {
+                alr.html(ahtml);    // 复原
+                alr.find('.ok').hide();
+                alr.find('.cancel').hide();
+                alr.find('.modal-content').width(500);
+                _dialog(options, sec);
+
+                return {
+                    on: function (callback) {
+                    }
+                };
+            };
+
+            var _alert = function (options) {
+                alr.html(ahtml);  // 复原
+                alr.find('.ok').removeClass('btn-success').addClass('btn-primary');
+                alr.find('.cancel').hide();
+                _dialog(options);
+
+                return {
+                    on: function (callback) {
+                        if (callback && callback instanceof Function) {
+                            alr.find('.ok').click(function () { callback(true) });
+                        }
+                    }
+                };
+            };
+
+            var _confirm = function (options) {
+                alr.html(ahtml); // 复原
+                alr.find('.ok').show();
+                alr.find('.cancel').show();
+                _dialog(options);
+
+                return {
+                    on: function (callback) {
+                        if (callback && callback instanceof Function) {
+                            alr.find('.ok').click(function () {
+                                callback(true)
+                            });
+                            alr.find('.cancel').click(function () {
+                                return;
+                            });
+                        }
+                    }
+                };
+            };
+
+            var _dialog = function (options) {
+                var ops = {
+                    msg: "提示内容",
+                    title: "操作提示",
+                    btnok: "确定",
+                    btncl: "取消"
+                };
+
+                $.extend(ops, options);
+
+                var html = alr.html().replace(reg, function (node, key) {
+                    return {
+                        Title: ops.title,
+                        Message: ops.msg,
+                        BtnOk: ops.btnok,
+                        BtnCancel: ops.btncl
+                    }[key];
+                });
+
+                alr.html(html);
+                alr.modal({
+                    width: 250,
+                    backdrop: 'static'
+                });
+            }
+
+            return {
+                tip: _tip,
+                alert: _alert,
+                confirm: _confirm
+            }
+
+        }();
+    });
 </script>
 </body>
 </html>
