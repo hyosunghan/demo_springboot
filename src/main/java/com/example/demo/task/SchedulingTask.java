@@ -1,10 +1,11 @@
 package com.example.demo.task;
 
-import com.example.demo.controller.BaseController;
+import com.example.demo.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+import java.util.logging.Logger;
 
 /**
  * =========================================================
@@ -29,18 +30,18 @@ import org.springframework.scheduling.annotation.Scheduled;
  * @author hyosunghan
  * @since 2019-10-18
  */
-@EnableScheduling
+@Component
 public class SchedulingTask {
-
+    private Logger log = Logger.getLogger("SchedulingTask");
     @Autowired
-    BaseController baseController;
+    EmailService emailService;
 
     /**
-     * 每天6点拉取邮件
+     * 每隔5分钟拉取一次邮件
      */
-    @Async
-    @Scheduled(cron = "0 0 6 * * *")
-    public void clearpullMail() throws Exception{
-        baseController.jump();
+    @Scheduled(cron = "0 0/5 * * * *")
+    public void pullMail() throws Exception{
+        log.info("定时任务拉取邮件");
+        emailService.pullMail();
     }
 }
