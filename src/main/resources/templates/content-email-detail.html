@@ -81,7 +81,6 @@
     <!-- Bootstrap slider -->
     <!-- bootstrap-datetimepicker -->
     <!-- 页面meta /-->
-
     <link rel="stylesheet" href="/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/plugins/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/plugins/ionicons/css/ionicons.min.css">
@@ -105,21 +104,21 @@
     <link rel="stylesheet" href="/plugins/bootstrap-slider/slider.css">
     <link rel="stylesheet" href="/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
     <!-- Bootstrap 3.3.6 -->
-    <!--<link rel="stylesheet" href="/plugins/bootstrap/css/bootstrap.min.css">-->
-    <!--&lt;!&ndash; Font Awesome &ndash;&gt;-->
-    <!--<link rel="stylesheet" href="/plugins/font-awesome/css/font-awesome.min.css">-->
-    <!--&lt;!&ndash; Ionicons &ndash;&gt;-->
-    <!--<link rel="stylesheet" href="/plugins/ionicons/css/ionicons.min.css">-->
-    <!--&lt;!&ndash; fullCalendar 2.2.5&ndash;&gt;-->
-    <!--<link rel="stylesheet" href="/plugins/fullcalendar/fullcalendar.min.css">-->
-    <!--<link rel="stylesheet" href="/plugins/fullcalendar/fullcalendar.print.css" media="print">-->
-    <!--&lt;!&ndash; Theme style &ndash;&gt;-->
-    <!--<link rel="stylesheet" href="/plugins/adminLTE/css/AdminLTE.min.css">-->
-    <!--&lt;!&ndash; AdminLTE Skins. Choose a skin from the css/skins-->
-         <!--folder instead of downloading all of them to reduce the load. &ndash;&gt;-->
-    <!--<link rel="stylesheet" href="/plugins/adminLTE/css/skins/_all-skins.min.css">-->
-    <!--&lt;!&ndash; iCheck &ndash;&gt;-->
-    <!--<link rel="stylesheet" href="/plugins/iCheck/flat/blue.css">-->
+    <link rel="stylesheet" href="/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/plugins/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="/plugins/ionicons/css/ionicons.min.css">
+    <!-- fullCalendar 2.2.5-->
+    <link rel="stylesheet" href="/plugins/fullcalendar/fullcalendar.min.css">
+    <link rel="stylesheet" href="/plugins/fullcalendar/fullcalendar.print.css" media="print">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/plugins/adminLTE/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="/plugins/adminLTE/css/skins/_all-skins.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="/plugins/iCheck/flat/blue.css">
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -205,84 +204,132 @@
                 <div class="col-md-9">
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">收件箱</h3>
+                            <h3 class="box-title">邮件详情</h3>
 
-                            <!--<div class="box-tools pull-right">-->
-                            <!--<div class="has-feedback">-->
-                            <!--<input type="text" class="form-control input-sm" placeholder="Search Mail">-->
-                            <!--<span class="glyphicon glyphicon-search form-control-feedback"></span>-->
-                            <!--</div>-->
-                            <!--</div>-->
-                            <!-- /.box-tools -->
+                            <div class="box-tools pull-right">
+                                <span th:if="${mail.id} < ${mail.count}"><a th:href="@{'/email/detail/'+${mail.id + 1}}" class="btn btn-box-tool" data-toggle="tooltip" title="Previous"><i class="fa fa-chevron-left"></i></a></span>
+                                <span th:if="${mail.id} > 1"><a th:href="@{'/email/detail/'+${mail.id - 1}}" class="btn btn-box-tool" data-toggle="tooltip" title="Next"><i class="fa fa-chevron-right"></i></a></span>
+                            </div>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body no-padding">
-                            <span th:if="${mail.size()==0}">
-                                <div style="height: 400px;line-height: 400px;text-align: center">
-                                    数据拉取中，请稍等大约15~30秒...
-                                </div>
-                                <div class="overlay">
-                                    <i class="fa fa-refresh fa-spin"></i>
-                                </div>
-                            </span>
-
-                            <div class="table-responsive mailbox-messages">
-                                <table class="table table-hover table-striped">
-                                    <tbody>
-                                    <tr th:each="i : ${mail}">
-                                        <td><input type="checkbox"></td>
-                                        <td class="mailbox-star">
-                                            <i th:class="${i.status=='unread'?'fa fa-envelope text-yellow':'fa fa-envelope-o'}"></i>
-                                        </td>
-                                        <td class="mailbox-name">
-                                            <span th:if="${i.status=='unread'}"><b th:text="${i.sender}"></b></span>
-                                            <span th:if="${i.status=='read'}" th:text="${i.sender}"></span>
-                                        </td>
-                                        <td class="mailbox-subject">
-                                            <a th:href="@{'/email/detail/'+${i.id}}" th:if="${i.status=='unread'}"><b th:text="${i.subject}"></b></a>
-                                            <a th:href="@{'/email/detail/'+${i.id}}" th:if="${i.status=='read'}" th:text="${i.subject}"></a>
-                                        </td>
-                                        <td class="mailbox-attachment"></td>
-                                        <td class="mailbox-date" style="width: 160px;" th:text="${i.sentDate}"></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <!-- /.table -->
+                            <div class="mailbox-read-info">
+                                <h3 th:text="${mail.subject}"></h3>
+                                <h5>From: <span th:text="${mail.sender}"></span>
+                                    <span class="mailbox-read-time pull-right" th:text="${mail.sentDate}"></span></h5>
                             </div>
-                        </div>
+                            <!-- /.mailbox-read-info -->
+                            <div class="mailbox-controls with-border text-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-container="body" title="Delete">
+                                        <i class="fa fa-trash-o"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-container="body" title="Reply">
+                                        <i class="fa fa-reply"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-container="body" title="Forward">
+                                        <i class="fa fa-share"></i></button>
+                                </div>
+                                <!-- /.btn-group -->
+                                <button type="button" class="btn btn-default btn-sm" data-toggle="tooltip" title="Print">
+                                    <i class="fa fa-print"></i></button>
+                            </div>
+                            <!-- /.mailbox-controls -->
+                            <div class="mailbox-read-message">
+                                <p>Hello John,</p>
 
-                            <!-- /.mail-box-messages -->
-                        <!-- /.box-body -->
-                        <div class="box-footer no-padding">
-                            <!--<div class="mailbox-controls">-->
-                                <!-- Check all button -->
-                                <!--<button type="button" class="btn btn-default btn-sm checkbox-toggle"><i-->
-                                        <!--class="fa fa-square-o"></i>-->
-                                <!--</button>-->
-                                <!--<div class="btn-group">-->
-                                    <!--<button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i>-->
-                                    <!--</button>-->
-                                    <!--<button type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i>-->
-                                    <!--</button>-->
-                                    <!--<button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i>-->
-                                    <!--</button>-->
-                                <!--</div>-->
-                                <!--&lt;!&ndash; /.btn-group &ndash;&gt;-->
-                                <!--<button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i>-->
-                                <!--</button>-->
-                                <!--<div class="pull-right">-->
-                                    <!--1-50/200-->
-                                    <!--<div class="btn-group">-->
-                                        <!--<button type="button" class="btn btn-default btn-sm"><i-->
-                                                <!--class="fa fa-chevron-left"></i></button>-->
-                                        <!--<button type="button" class="btn btn-default btn-sm"><i-->
-                                                <!--class="fa fa-chevron-right"></i></button>-->
-                                    <!--</div>-->
-                                    <!--&lt;!&ndash; /.btn-group &ndash;&gt;-->
-                                <!--</div>-->
-                                <!-- /.pull-right -->
-                            <!--</div>-->
+                                <p>Keffiyeh blog actually fashion axe vegan, irony biodiesel. Cold-pressed hoodie chillwave put a bird
+                                    on it aesthetic, bitters brunch meggings vegan iPhone. Dreamcatcher vegan scenester mlkshk. Ethical
+                                    master cleanse Bushwick, occupy Thundercats banjo cliche ennui farm-to-table mlkshk fanny pack
+                                    gluten-free. Marfa butcher vegan quinoa, bicycle rights disrupt tofu scenester chillwave 3 wolf moon
+                                    asymmetrical taxidermy pour-over. Quinoa tote bag fashion axe, Godard disrupt migas church-key tofu
+                                    blog locavore. Thundercats cronut polaroid Neutra tousled, meh food truck selfies narwhal American
+                                    Apparel.</p>
+
+                                <p>Raw denim McSweeney's bicycle rights, iPhone trust fund quinoa Neutra VHS kale chips vegan PBR&amp;B
+                                    literally Thundercats +1. Forage tilde four dollar toast, banjo health goth paleo butcher. Four dollar
+                                    toast Brooklyn pour-over American Apparel sustainable, lumbersexual listicle gluten-free health goth
+                                    umami hoodie. Synth Echo Park bicycle rights DIY farm-to-table, retro kogi sriracha dreamcatcher PBR&amp;B
+                                    flannel hashtag irony Wes Anderson. Lumbersexual Williamsburg Helvetica next level. Cold-pressed
+                                    slow-carb pop-up normcore Thundercats Portland, cardigan literally meditation lumbersexual crucifix.
+                                    Wayfarers raw denim paleo Bushwick, keytar Helvetica scenester keffiyeh 8-bit irony mumblecore
+                                    whatever viral Truffaut.</p>
+
+                                <p>Post-ironic shabby chic VHS, Marfa keytar flannel lomo try-hard keffiyeh cray. Actually fap fanny
+                                    pack yr artisan trust fund. High Life dreamcatcher church-key gentrify. Tumblr stumptown four dollar
+                                    toast vinyl, cold-pressed try-hard blog authentic keffiyeh Helvetica lo-fi tilde Intelligentsia. Lomo
+                                    locavore salvia bespoke, twee fixie paleo cliche brunch Schlitz blog McSweeney's messenger bag swag
+                                    slow-carb. Odd Future photo booth pork belly, you probably haven't heard of them actually tofu ennui
+                                    keffiyeh lo-fi Truffaut health goth. Narwhal sustainable retro disrupt.</p>
+
+                                <p>Skateboard artisan letterpress before they sold out High Life messenger bag. Bitters chambray
+                                    leggings listicle, drinking vinegar chillwave synth. Fanny pack hoodie American Apparel twee. American
+                                    Apparel PBR listicle, salvia aesthetic occupy sustainable Neutra kogi. Organic synth Tumblr viral
+                                    plaid, shabby chic single-origin coffee Etsy 3 wolf moon slow-carb Schlitz roof party tousled squid
+                                    vinyl. Readymade next level literally trust fund. Distillery master cleanse migas, Vice sriracha
+                                    flannel chambray chia cronut.</p>
+
+                                <p>Thanks,<br>Jane</p>
+                            </div>
+                            <!-- /.mailbox-read-message -->
                         </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <ul class="mailbox-attachments clearfix">
+                                <li>
+                                    <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
+
+                                    <div class="mailbox-attachment-info">
+                                        <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> Sep2014-report.pdf</a>
+                                        <span class="mailbox-attachment-size">
+                          1,245 KB
+                          <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+                        </span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="mailbox-attachment-icon"><i class="fa fa-file-word-o"></i></span>
+
+                                    <div class="mailbox-attachment-info">
+                                        <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> App Description.docx</a>
+                                        <span class="mailbox-attachment-size">
+                          1,245 KB
+                          <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+                        </span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="mailbox-attachment-icon has-img"><img src="../../dist/img/photo1.png" alt="Attachment"></span>
+
+                                    <div class="mailbox-attachment-info">
+                                        <a href="#" class="mailbox-attachment-name"><i class="fa fa-camera"></i> photo1.png</a>
+                                        <span class="mailbox-attachment-size">
+                          2.67 MB
+                          <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+                        </span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="mailbox-attachment-icon has-img"><img src="../../dist/img/photo2.png" alt="Attachment"></span>
+
+                                    <div class="mailbox-attachment-info">
+                                        <a href="#" class="mailbox-attachment-name"><i class="fa fa-camera"></i> photo2.png</a>
+                                        <span class="mailbox-attachment-size">
+                          1.9 MB
+                          <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+                        </span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /.box-footer -->
+                        <div class="box-footer">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-default"><i class="fa fa-reply"></i> Reply</button>
+                                <button type="button" class="btn btn-default"><i class="fa fa-share"></i> Forward</button>
+                            </div>
+                            <button type="button" class="btn btn-default"><i class="fa fa-trash-o"></i> Delete</button>
+                            <button type="button" class="btn btn-default"><i class="fa fa-print"></i> Print</button>
+                        </div>
+                        <!-- /.box-footer -->
                     </div>
                     <!-- /. box -->
                 </div>
@@ -300,7 +347,6 @@
     <div th:replace="footer.html"></div>
     <!-- 底部导航 /-->
 </div>
-
 <script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script src="/plugins/jQueryUI/jquery-ui.min.js"></script>
 <script>
@@ -346,18 +392,18 @@
 <script src="/plugins/bootstrap-slider/bootstrap-slider.js"></script>
 <script src="/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
 <script src="/plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
-<!--&lt;!&ndash; jQuery 2.2.3 &ndash;&gt;-->
-<!--<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>-->
-<!--&lt;!&ndash; Bootstrap 3.3.6 &ndash;&gt;-->
-<!--<script src="/bootstrap/js/bootstrap.min.js"></script>-->
-<!--&lt;!&ndash; Slimscroll &ndash;&gt;-->
-<!--<script src="/plugins/slimScroll/jquery.slimscroll.min.js"></script>-->
-<!--&lt;!&ndash; FastClick &ndash;&gt;-->
-<!--<script src="/plugins/fastclick/fastclick.js"></script>-->
-<!--&lt;!&ndash; AdminLTE App &ndash;&gt;-->
-<!--<script src="/plugins/adminLTE/js/app.min.js"></script>-->
-<!--&lt;!&ndash; iCheck &ndash;&gt;-->
-<!--<script src="/plugins/iCheck/icheck.min.js"></script>-->
+<!-- jQuery 2.2.3 -->
+<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<!-- Slimscroll -->
+<script src="/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="/plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="/plugins/adminLTE/js/app.min.js"></script>
+<!-- iCheck -->
+<script src="/plugins/iCheck/icheck.min.js"></script>
 <script language='javascript' th:inline="javascript">
     // $(function () {
     //     //Enable iCheck plugin for checkboxes
@@ -423,11 +469,8 @@
     }
 
     $(document).ready(function () {
-        setSidebarActive("admin-email-list");
+        setSidebarActive("admin-email-detail");
 
-        if ([[${mail.size()==0}]]) {
-            setTimeout('window.location.reload();',1000 * 5);//数据初始化加载时5秒一刷新
-        }
     });
 </script>
 </body>

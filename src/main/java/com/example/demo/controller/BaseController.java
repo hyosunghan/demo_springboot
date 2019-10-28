@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -62,12 +60,11 @@ public class BaseController {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) principal;
 
-        ArrayList<HashMap> mail = emailServer.pullMail("unread");
         emailService.pullMail();
 
         ModelAndView mv = new ModelAndView();
         mv.addObject("user", user);
-        mv.addObject("mail", mail);
+        mv.addObject("mail", emailServer.pullMail("unread"));
         mv.addObject("loginTime", sdf.format(new Date()));
         mv.setViewName("base-jump");
         return mv;

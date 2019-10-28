@@ -76,6 +76,32 @@ public class EmailServer {
         return mail;
     }
 
+    public static HashMap getMail(int id) throws MessagingException, UnsupportedEncodingException {
+        // 连接邮箱服务器
+        Store store = connectMailServer();
+        // 通过imap协议获得Store对象调用这个方法时，邮件夹名称只能指定为"INBOX"
+        Folder folder = store.getFolder("INBOX");
+        // 设置对邮件帐户的访问权限
+        folder.open(Folder.READ_WRITE);
+
+        Message message = folder.getMessage(id);
+
+        HashMap<String, Object> mail = new HashMap<>();
+        mail.put("id", message.getMessageNumber());
+        mail.put("subject", message.getSubject());// 获得邮件主题
+        Address from = message.getFrom()[0];
+        mail.put("sender", decodeText(from.toString()).split(" <")[0]); // 解析发送者,不显示地址
+        mail.put("sentDate", sdf.format(message.getSentDate())); // 发送时间
+        message.setFlag(Flags.Flag.SEEN, true);//imap读取后邮件状态设置为已读
+
+        mail.put("count", folder.getMessageCount());
+
+        folder.close(false);// 关闭邮件夹对象
+        // 断开连接
+        store.close();
+        return mail;
+    }
+
     public static Store connectMailServer() throws MessagingException {
         Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
 
@@ -114,21 +140,20 @@ public class EmailServer {
 
     public static void parseMultipart(Multipart multipart) throws MessagingException, IOException {
         int count = multipart.getCount();
-        System.out.println("couont =  "+count);
+//        System.out.println("couont =  "+count);
         for (int idx=0;idx<count;idx++) {
             BodyPart bodyPart = multipart.getBodyPart(idx);
-            System.out.println(bodyPart.getContentType());
+//            System.out.println(bodyPart.getContentType());
             if (bodyPart.isMimeType("text/plain")) {
-                System.out.println("plain................."+bodyPart.getContent());
+//                System.out.println("plain................."+bodyPart.getContent());
             } else if(bodyPart.isMimeType("text/html")) {
-                System.out.println("html..................."+bodyPart.getContent());
+//                System.out.println("html..................."+bodyPart.getContent());
             } else if(bodyPart.isMimeType("multipart/*")) {
                 Multipart mpart = (Multipart)bodyPart.getContent();
                 parseMultipart(mpart);
-
             } else if (bodyPart.isMimeType("application/octet-stream")) {
                 String disposition = bodyPart.getDisposition();
-                System.out.println(disposition);
+//                System.out.println(disposition);
                 if (disposition.equalsIgnoreCase(BodyPart.ATTACHMENT)) {
                     String fileName = bodyPart.getFileName();
                     InputStream is = bodyPart.getInputStream();

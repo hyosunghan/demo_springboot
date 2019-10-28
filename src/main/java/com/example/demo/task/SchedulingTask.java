@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.logging.Logger;
-
 /**
  * =========================================================
  *  * cron表达式包括6部分：
@@ -32,16 +30,14 @@ import java.util.logging.Logger;
  */
 @Component
 public class SchedulingTask {
-    private Logger log = Logger.getLogger("SchedulingTask");
     @Autowired
     EmailService emailService;
 
     /**
-     * 每隔5分钟拉取一次邮件
+     * 每一小时拉取一次邮件
      */
-    @Scheduled(cron = "0 0/5 * * * *")
+    @Scheduled(cron = "0 0 0/1 * * *")
     public void pullMail() throws Exception{
-        log.info("定时任务拉取邮件");
         emailService.pullMail();
     }
 }
