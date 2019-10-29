@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashMap;
-
 @Controller
 @RequestMapping("/email")
 public class EmailController {
@@ -24,8 +22,7 @@ public class EmailController {
 
     @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
     public ModelAndView detail(@PathVariable("id") Integer id) throws Exception {
-        HashMap mail = emailService.getMail(id);
-        return new ModelAndView("content-email-detail", "mail", mail);
+        return new ModelAndView("content-email-detail", "mail", emailService.getMail(id));
     }
 
 }

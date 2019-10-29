@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
+import java.util.UUID;
 
 /**
  * @author hyosunghan
@@ -76,7 +77,7 @@ public class EmailServer {
         return mail;
     }
 
-    public static HashMap getMail(int id) throws MessagingException, UnsupportedEncodingException {
+    public static HashMap getMail(int id) throws MessagingException, IOException {
         // 连接邮箱服务器
         Store store = connectMailServer();
         // 通过imap协议获得Store对象调用这个方法时，邮件夹名称只能指定为"INBOX"
@@ -94,7 +95,21 @@ public class EmailServer {
         mail.put("sentDate", sdf.format(message.getSentDate())); // 发送时间
         message.setFlag(Flags.Flag.SEEN, true);//imap读取后邮件状态设置为已读
 
+        if (message.getContent() instanceof String && ((String) message.getContent()).startsWith("<")) {
+            mail.put("content", message.getContent());
+        } else if (message.getContent() instanceof String && !((String) message.getContent()).startsWith("<")){
+            mail.put("text", message.getContent());
+        } else {
+            parseMultipart((Multipart) message.getContent(), mail); // 解析邮件内容
+        }
+
         mail.put("count", folder.getMessageCount());
+        if (!mail.containsKey("text")) {
+            mail.put("text", "");
+        }
+        if (!mail.containsKey("content")) {
+            mail.put("content", "");
+        }
 
         folder.close(false);// 关闭邮件夹对象
         // 断开连接
@@ -138,29 +153,32 @@ public class EmailServer {
         return text;
     }
 
-    public static void parseMultipart(Multipart multipart) throws MessagingException, IOException {
-        int count = multipart.getCount();
-//        System.out.println("couont =  "+count);
-        for (int idx=0;idx<count;idx++) {
-            BodyPart bodyPart = multipart.getBodyPart(idx);
+    public static void parseMultipart(Multipart multipart, HashMap<String, Object> mail) throws MessagingException, IOException {
+        ArrayList<HashMap> list = new ArrayList<>();
+
+        for (int i=0;i<multipart.getCount();i++) {
+            HashMap<String, Object> map = new HashMap<>();
+            BodyPart bodyPart = multipart.getBodyPart(i);
 //            System.out.println(bodyPart.getContentType());
             if (bodyPart.isMimeType("text/plain")) {
+                    mail.put("text",bodyPart.getContent());
 //                System.out.println("plain................."+bodyPart.getContent());
             } else if(bodyPart.isMimeType("text/html")) {
+                    mail.put("content",bodyPart.getContent());
 //                System.out.println("html..................."+bodyPart.getContent());
             } else if(bodyPart.isMimeType("multipart/*")) {
                 Multipart mpart = (Multipart)bodyPart.getContent();
-                parseMultipart(mpart);
+                parseMultipart(mpart, mail);
             } else if (bodyPart.isMimeType("application/octet-stream")) {
                 String disposition = bodyPart.getDisposition();
 //                System.out.println(disposition);
-                if (disposition.equalsIgnoreCase(BodyPart.ATTACHMENT)) {
-                    String fileName = bodyPart.getFileName();
-                    InputStream is = bodyPart.getInputStream();
-                    copy(is, new FileOutputStream("D:\\"+fileName));
-                }
+//                if (disposition.equalsIgnoreCase(BodyPart.ATTACHMENT)) {
+//                    copy(bodyPart.getInputStream(), new FileOutputStream("D:\\"+UUID.randomUUID().toString()/*bodyPart.getFileName()*/));
+//                }
             }
+            list.add(map);
         }
+        mail.put("multipart", list);
     }
 
     public static void copy(InputStream is, OutputStream os) throws IOException {
