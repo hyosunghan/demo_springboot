@@ -1,7 +1,6 @@
 package com.example.demo.service;
 
 import com.example.demo.config.EmailServer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +17,6 @@ import java.util.logging.Logger;
 public class EmailService {
 
     private Logger log = Logger.getLogger("EmailService");
-    @Autowired
     private static EmailServer emailServer;
 
     public static ArrayList<HashMap> staticMail = new ArrayList<>();
