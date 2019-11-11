@@ -7,6 +7,7 @@ import com.example.demo.service.OrdersService;
 import com.example.demo.service.ProductService;
 import com.example.demo.service.SysLogService;
 import com.example.demo.service.UsersService;
+import com.example.demo.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -42,6 +43,9 @@ public class BaseController {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private WeatherService weatherService;
+
     /**
      * 登录
      * @return
@@ -61,6 +65,7 @@ public class BaseController {
         org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) principal;
 
         emailService.pullMail();
+//        weatherService.pullCityList();
 
         ModelAndView mv = new ModelAndView();
         mv.addObject("user", user);
