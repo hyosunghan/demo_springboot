@@ -13,7 +13,6 @@ import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.internet.MimeUtility;
 import javax.mail.search.FlagTerm;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -23,7 +22,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
-import java.util.UUID;
 
 /**
  * @author hyosunghan
@@ -56,11 +54,11 @@ public class EmailServer {
             i.put("subject", message.getSubject());// 获得邮件主题
             Address from = message.getFrom()[0];
             i.put("sender", decodeText(from.toString()).split(" <")[0]); // 解析发送者,不显示地址
-            i.put("sentDate", sdf.format(message.getSentDate())); // 发送时间
+            i.put("sentDate", sdf.format(message.getReceivedDate())); // 发送时间
             Flags flags = message.getFlags();
-            if (flags.contains(Flags.Flag.SEEN))
+            if (flags.contains(Flags.Flag.SEEN)) {
                 i.put("status", "read");
-            else {
+            } else {
                 i.put("status", "unread");
                 message.setFlag(Flags.Flag.SEEN, false);//imap读取后邮件状态会变为已读,还原为未读
             }
@@ -144,12 +142,14 @@ public class EmailServer {
     }
 
     public static String decodeText(String text) throws UnsupportedEncodingException {
-        if (text == null)
+        if (text == null) {
             return null;
-        if (text.startsWith("=?GB") || text.startsWith("=?gb"))
+        }
+        if (text.startsWith("=?GB") || text.startsWith("=?gb")) {
             text = MimeUtility.decodeText(text);
-        else
+        } else {
             text = new String(text.getBytes("ISO8859_1"));
+        }
         return text;
     }
 
@@ -187,9 +187,11 @@ public class EmailServer {
         while ((len=is.read(bytes)) != -1 ) {
             os.write(bytes, 0, len);
         }
-        if (os != null)
+        if (os != null) {
             os.close();
-        if (is != null)
+        }
+        if (is != null) {
             is.close();
+        }
     }
 }

@@ -17,7 +17,6 @@ import java.util.logging.Logger;
 public class EmailService {
 
     private Logger log = Logger.getLogger("EmailService");
-    private static EmailServer emailServer;
 
     public static ArrayList<HashMap> staticMail = new ArrayList<>();
 //    public static ArrayList<HashMap> staticUnreadMail = new ArrayList<>();
@@ -25,7 +24,7 @@ public class EmailService {
     @Async("taskExecutor")
     public void pullMail() throws Exception{
         log.info("开始拉取邮件");
-        ArrayList<HashMap> mail = emailServer.pullMail("all");
+        ArrayList<HashMap> mail = EmailServer.pullMail("all");
         Collections.reverse(mail);
         staticMail = mail;
 //        staticUnreadMail = (ArrayList<HashMap>)mail.parallelStream().filter(i -> i.get("status").equals("unread")).collect(Collectors.toList());
@@ -33,6 +32,6 @@ public class EmailService {
     }
 
     public HashMap getMail(Integer id) throws Exception{
-        return emailServer.getMail(id);
+        return EmailServer.getMail(id);
     }
 }

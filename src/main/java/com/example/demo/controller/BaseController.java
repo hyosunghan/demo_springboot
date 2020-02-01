@@ -38,9 +38,6 @@ public class BaseController {
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Autowired
-    private EmailServer emailServer;
-
-    @Autowired
     private EmailService emailService;
 
     @Autowired
@@ -69,7 +66,7 @@ public class BaseController {
 
         ModelAndView mv = new ModelAndView();
         mv.addObject("user", user);
-        mv.addObject("mail", emailServer.pullMail("unread"));
+        mv.addObject("mail", EmailServer.pullMail("unread"));
         mv.addObject("loginTime", sdf.format(new Date()));
         mv.setViewName("base-jump");
         return mv;
