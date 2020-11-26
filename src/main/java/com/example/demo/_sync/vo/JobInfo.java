@@ -56,18 +56,18 @@ public class JobInfo<R> {
     public List<TaskResult<R>> getTaskDetail() {
         LinkedList<TaskResult<R>> taskList = new LinkedList<>();
 
-        // 结果只可查询一次
-        taskDetailDeque.drainTo(taskList);
+//        // 结果只可查询一次
+//        taskDetailDeque.drainTo(taskList);
 //        // 结果只可查询一次
 //        TaskResult<R> taskResult;
 //        while ((taskResult = taskDetailDeque.pollFirst()) != null) {
 //            taskList.add(taskResult);
 //        }
-//        // 结果一直保留至过期
-//        Iterator<TaskResult<R>> iterator = taskDetailDeque.iterator();
-//        while (iterator.hasNext()) {
-//            taskList.add(iterator.next());
-//        }
+        // 结果一直保留至过期
+        Iterator<TaskResult<R>> iterator = taskDetailDeque.iterator();
+        while (iterator.hasNext()) {
+            taskList.add(iterator.next());
+        }
 
         return taskList;
     }
@@ -88,6 +88,7 @@ public class JobInfo<R> {
 
         // 当前任务执行完毕，置入延时过期
         if (taskProcesserCount.get() == jobLength) {
+            System.out.println("system: Job [" + jobName + "] is done");
             checkJobProcesser.putJob(jobName, expireTime);
         }
     }

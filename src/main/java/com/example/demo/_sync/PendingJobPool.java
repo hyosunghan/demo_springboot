@@ -83,7 +83,6 @@ public class PendingJobPool {
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
                 result = new TaskResult<R>(TaskResultType.Exception, r, e.getLocalizedMessage());
             } finally {
                 jobInfo.addTaskResult(result, checkJobProcesser);
@@ -116,9 +115,9 @@ public class PendingJobPool {
      */
     public <R> JobInfo<R> getJob(String jobName) {
         JobInfo<R> jobInfo = (JobInfo<R>) jobInfoMap.get(jobName);
-        if (jobInfo == null) {
-            throw new RuntimeException("Job [" + jobName + "] is invalid");
-        }
+//        if (jobInfo == null) {
+//            throw new RuntimeException("Job [" + jobName + "] is invalid");
+//        }
         return jobInfo;
     }
 
@@ -146,6 +145,9 @@ public class PendingJobPool {
      */
     public <R> List<TaskResult<R>> getTaskDetail(String jobName) {
         JobInfo<R> jobInfo = getJob(jobName);
+        if (jobInfo == null) {
+            return null;
+        }
         return jobInfo.getTaskDetail();
     }
 

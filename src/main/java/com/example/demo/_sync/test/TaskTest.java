@@ -24,15 +24,16 @@ public class TaskTest {
 
         @Override
         public void run() {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 15; i++) {
+                System.out.print((i + 1) + "-st：");
                 List<TaskResult<String>> taskDetail = pendingJobPool.getTaskDetail(JOB_NAME);
-                System.out.print((i + 1) + "st：");
-                if (!taskDetail.isEmpty()) {
-                    System.out.print(pendingJobPool.getTaskPercent(JOB_NAME));
-                    System.out.print("：");
-                    System.out.print(taskDetail.toString());
+                if (taskDetail == null) {
+                    System.out.println("Job [" + JOB_NAME + "] is invalid");
+                } else if (!taskDetail.isEmpty()) {
+                    System.out.println(pendingJobPool.getTaskPercent(JOB_NAME) + ": " + taskDetail.toString());
+                } else {
+                    System.out.println();
                 }
-                System.out.println();
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
@@ -47,8 +48,8 @@ public class TaskTest {
         TaskProcesserImpl taskProcesser = new TaskProcesserImpl();
         // 执行器
         PendingJobPool instance = PendingJobPool.getInstance();
-        // 注册任务，完成后结果保留一秒
-        instance.registerJob(JOB_NAME, JOB_LENGTH, taskProcesser, 3000);
+        // 注册任务，完成后结果保留200毫秒
+        instance.registerJob(JOB_NAME, JOB_LENGTH, taskProcesser, 200);
         for (int i = 0; i < JOB_LENGTH; i++) {
             instance.putJob(JOB_NAME, 100);
         }

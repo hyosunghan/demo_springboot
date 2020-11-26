@@ -43,7 +43,7 @@ public class CheckJobProcesser {
                     ItemVo<String> item = queue.take();
                     String jobName = item.getDate();
                     PendingJobPool.getMap().remove(jobName);
-                    System.out.println("Job [" + jobName + "] is out of date, remove from map");
+                    System.out.println("system: Job [" + jobName + "] is expire");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
