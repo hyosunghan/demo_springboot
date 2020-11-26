@@ -158,17 +158,11 @@ public class PendingJobPool {
      * @param <R>
      * @return
      */
-    public <R> String getTaskPercent(String jobName) {
+    public <R> int[] getTaskPercent(String jobName) {
         JobInfo<R> jobInfo = getJob(jobName);
         if (jobInfo == null) {
             return null;
         }
-        return new StringBuilder("total/done/success:")
-                .append(jobInfo.getJobLength())
-                .append("/")
-                .append(jobInfo.getTaskProcesserCount())
-                .append("/")
-                .append(jobInfo.getSuccessCount())
-                .toString();
+        return new int[]{jobInfo.getJobLength(), jobInfo.getTaskProcesserCount(), jobInfo.getSuccessCount()};
     }
 }

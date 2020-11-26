@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class TaskTest {
 
-    private static final String JOB_NAME = "random";
+    private static final String JOB_NAME = "RANDOM";
 
     private static final int JOB_LENGTH = 100;
 
@@ -26,14 +26,14 @@ public class TaskTest {
         @Override
         public void run() {
             for (int i = 0; i < 15; i++) {
-                String taskPercent = pendingJobPool.getTaskPercent(JOB_NAME);
+                int[] taskPercent = pendingJobPool.getTaskPercent(JOB_NAME);
                 List<TaskResult<String>> taskDetail = pendingJobPool.getTaskDetail(JOB_NAME);
                 if (taskPercent == null || taskDetail == null) {
-                    System.out.println(i + "-st：" + "Job [" + JOB_NAME + "] is invalid");
+                    System.out.println("第" + (i + 1) + "次查询：任务[" + JOB_NAME + "]已过期");
                 } else if (!taskDetail.isEmpty()) {
-                    System.out.println(i + "-st：" + taskPercent + ": " + JSON.toJSONString(taskDetail));
+                    System.out.println("第" + (i + 1) + "次查询：任务[" + JOB_NAME + "]进度[总数" + taskPercent[0] + "完成" + taskPercent[1] + "成功" + taskPercent[2] + "]详情: " + JSON.toJSONString(taskDetail));
                 } else {
-                    System.out.println(i + "-st：none");
+                    System.out.println("第" + (i + 1) + "次查询：任务[" + JOB_NAME + "]暂无数据");
                 }
                 try {
                     Thread.sleep(100);
