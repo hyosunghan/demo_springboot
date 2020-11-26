@@ -160,7 +160,10 @@ public class PendingJobPool {
      */
     public <R> String getTaskPercent(String jobName) {
         JobInfo<R> jobInfo = getJob(jobName);
-        return new StringBuilder("total/current/success:")
+        if (jobInfo == null) {
+            return null;
+        }
+        return new StringBuilder("total/done/success:")
                 .append(jobInfo.getJobLength())
                 .append("/")
                 .append(jobInfo.getTaskProcesserCount())

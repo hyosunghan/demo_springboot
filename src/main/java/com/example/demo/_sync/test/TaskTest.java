@@ -1,5 +1,6 @@
 package com.example.demo._sync.test;
 
+import com.alibaba.fastjson.JSON;
 import com.example.demo._sync.PendingJobPool;
 import com.example.demo._sync.vo.TaskResult;
 
@@ -25,13 +26,14 @@ public class TaskTest {
         @Override
         public void run() {
             for (int i = 0; i < 15; i++) {
+                String taskPercent = pendingJobPool.getTaskPercent(JOB_NAME);
                 List<TaskResult<String>> taskDetail = pendingJobPool.getTaskDetail(JOB_NAME);
-                if (taskDetail == null) {
+                if (taskPercent == null || taskDetail == null) {
                     System.out.println(i + "-st：" + "Job [" + JOB_NAME + "] is invalid");
                 } else if (!taskDetail.isEmpty()) {
-                    System.out.println(i + "-st：" + pendingJobPool.getTaskPercent(JOB_NAME) + ": " + taskDetail.toString());
+                    System.out.println(i + "-st：" + taskPercent + ": " + JSON.toJSONString(taskDetail));
                 } else {
-                    System.out.println(i + "-st：");
+                    System.out.println(i + "-st：none");
                 }
                 try {
                     Thread.sleep(100);
