@@ -25,14 +25,13 @@ public class TaskTest {
         @Override
         public void run() {
             for (int i = 0; i < 15; i++) {
-                System.out.print((i + 1) + "-st：");
                 List<TaskResult<String>> taskDetail = pendingJobPool.getTaskDetail(JOB_NAME);
                 if (taskDetail == null) {
-                    System.out.println("Job [" + JOB_NAME + "] is invalid");
+                    System.out.println(i + "-st：" + "Job [" + JOB_NAME + "] is invalid");
                 } else if (!taskDetail.isEmpty()) {
-                    System.out.println(pendingJobPool.getTaskPercent(JOB_NAME) + ": " + taskDetail.toString());
+                    System.out.println(i + "-st：" + pendingJobPool.getTaskPercent(JOB_NAME) + ": " + taskDetail.toString());
                 } else {
-                    System.out.println();
+                    System.out.println(i + "-st：");
                 }
                 try {
                     Thread.sleep(100);
