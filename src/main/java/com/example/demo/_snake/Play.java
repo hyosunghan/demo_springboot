@@ -35,9 +35,9 @@ public class Play extends Frame {
     }
     static {
 
-        length = 200;
-        width = 200;
-        pace = 40;
+        length = 500;
+        width = 500;
+        pace = 10;
         looop = 0;
     }
     private Snake snake;
@@ -280,8 +280,8 @@ public class Play extends Frame {
                                        @Override
                                        public void run() {
 
-                                           pl.setSize(length + 80, width + 50);
-                                           pl.setLocation(300, 100);
+                                           pl.setSize(length + 20, width + 50);
+                                           pl.setLocation(100, 100);
                                            pl.setVisible(true);
                                        }
                                    }
