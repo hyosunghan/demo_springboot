@@ -35,8 +35,8 @@ public class Play extends Frame {
     }
     static {
 
-        length = 500;
-        width = 500;
+        length = 100;
+        width = 100;
         pace = 10;
         looop = 0;
     }
