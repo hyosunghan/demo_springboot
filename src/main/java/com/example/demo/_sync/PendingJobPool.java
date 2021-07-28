@@ -1,6 +1,6 @@
 package com.example.demo._sync;
 
-import com.example.demo._sync.vo.ITaskProcesser;
+import com.example.demo._sync.vo.ITaskProcessor;
 import com.example.demo._sync.vo.JobInfo;
 import com.example.demo._sync.vo.TaskResult;
 import com.example.demo._sync.vo.TaskResultType;
@@ -30,7 +30,7 @@ public class PendingJobPool {
     // 任务存放容器
     private static final ConcurrentHashMap<String, JobInfo<?>> jobInfoMap = new ConcurrentHashMap<>();
     // 检查完成
-    private static CheckJobProcesser checkJobProcesser = CheckJobProcesser.getInstance();
+    private static CheckJobProcessor checkJobProcessor = CheckJobProcessor.getInstance();
 
     private PendingJobPool() {
     }
@@ -71,10 +71,10 @@ public class PendingJobPool {
         @Override
         public void run() {
             R r = null;
-            ITaskProcesser<T, R> taskProcesser = (ITaskProcesser<T, R>) jobInfo.getTaskProcesser();
+            ITaskProcessor<T, R> taskProcessor = (ITaskProcessor<T, R>) jobInfo.getTaskProcessor();
             TaskResult<R> result = null;
             try {
-                result = taskProcesser.taskExecute(processData);
+                result = taskProcessor.taskExecute(processData);
                 if (result == null) {
                     result = new TaskResult<R>(TaskResultType.Exception, r, "Job result is null");
                 } else {
@@ -85,7 +85,7 @@ public class PendingJobPool {
             } catch (Exception e) {
                 result = new TaskResult<R>(TaskResultType.Exception, r, e.getLocalizedMessage());
             } finally {
-                jobInfo.addTaskResult(result, checkJobProcesser);
+                jobInfo.addTaskResult(result, checkJobProcessor);
             }
         }
     }
@@ -95,12 +95,12 @@ public class PendingJobPool {
      *
      * @param jobName
      * @param jobLength
-     * @param taskProcesser
+     * @param taskProcessor
      * @param expireTime
      * @param <R>
      */
-    public <R> void registerJob(String jobName, int jobLength, ITaskProcesser<?, ?> taskProcesser, long expireTime) {
-        JobInfo<R> jobInfo = new JobInfo<>(jobName, jobLength, taskProcesser, expireTime);
+    public <R> void registerJob(String jobName, int jobLength, ITaskProcessor<?, ?> taskProcessor, long expireTime) {
+        JobInfo<R> jobInfo = new JobInfo<>(jobName, jobLength, taskProcessor, expireTime);
         if (jobInfoMap.putIfAbsent(jobName, jobInfo) != null) {
             throw new RuntimeException("Job [" + jobName + "] has been registered");
         }
@@ -163,6 +163,6 @@ public class PendingJobPool {
         if (jobInfo == null) {
             return null;
         }
-        return new int[]{jobInfo.getJobLength(), jobInfo.getTaskProcesserCount(), jobInfo.getSuccessCount()};
+        return new int[]{jobInfo.getJobLength(), jobInfo.getTaskProcessorCount(), jobInfo.getSuccessCount()};
     }
 }

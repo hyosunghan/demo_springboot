@@ -46,11 +46,11 @@ public class TaskTest {
 
     public static void main(String[] args) {
         // 业务逻辑
-        TaskProcesserImpl taskProcesser = new TaskProcesserImpl();
+        TaskProcessorImpl taskProcessor = new TaskProcessorImpl();
         // 执行器
         PendingJobPool instance = PendingJobPool.getInstance();
         // 注册任务，完成后结果保留200毫秒
-        instance.registerJob(JOB_NAME, JOB_LENGTH, taskProcesser, 200);
+        instance.registerJob(JOB_NAME, JOB_LENGTH, taskProcessor, 200);
         for (int i = 0; i < JOB_LENGTH; i++) {
             instance.putJob(JOB_NAME, 100);
         }

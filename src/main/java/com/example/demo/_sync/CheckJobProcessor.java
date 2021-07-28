@@ -8,7 +8,7 @@ import java.util.concurrent.DelayQueue;
  * @author hyosunghan
  * @since 2020-02-06
  */
-public class CheckJobProcesser {
+public class CheckJobProcessor {
 
     // 已完成的任务结果等待过期
     private static DelayQueue<ItemVo<String>> queue = new DelayQueue<ItemVo<String>>();
@@ -19,11 +19,11 @@ public class CheckJobProcesser {
         thread.start();
     }
 
-    private CheckJobProcesser() {
+    private CheckJobProcessor() {
     }
 
-    private static class JobProcesserHolder {
-        public static CheckJobProcesser processer = new CheckJobProcesser();
+    private static class JobProcessorHolder {
+        public static CheckJobProcessor processor = new CheckJobProcessor();
     }
 
     /**
@@ -31,8 +31,8 @@ public class CheckJobProcesser {
      *
      * @return
      */
-    public static CheckJobProcesser getInstance() {
-        return JobProcesserHolder.processer;
+    public static CheckJobProcessor getInstance() {
+        return JobProcessorHolder.processor;
     }
 
     private static class FetchJob implements Runnable {

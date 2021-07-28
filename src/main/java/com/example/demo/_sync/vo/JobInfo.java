@@ -1,6 +1,6 @@
 package com.example.demo._sync.vo;
 
-import com.example.demo._sync.CheckJobProcesser;
+import com.example.demo._sync.CheckJobProcessor;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -16,18 +16,18 @@ public class JobInfo<R> {
 
     private final String jobName;
     private final int jobLength;
-    private final ITaskProcesser<?, ?> taskProcesser;
+    private final ITaskProcessor<?, ?> taskProcessor;
     private final AtomicInteger successCount;
-    private final AtomicInteger taskProcesserCount;
+    private final AtomicInteger taskProcessorCount;
     private final LinkedBlockingDeque<TaskResult<R>> taskDetailDeque;
     private final long expireTime;
 
-    public JobInfo(String jobName, int jobLength, ITaskProcesser<?, ?> taskProcesser, long expireTime) {
+    public JobInfo(String jobName, int jobLength, ITaskProcessor<?, ?> taskProcessor, long expireTime) {
         this.jobName = jobName;
         this.jobLength = jobLength;
-        this.taskProcesser = taskProcesser;
+        this.taskProcessor = taskProcessor;
         this.successCount = new AtomicInteger(0);
-        this.taskProcesserCount = new AtomicInteger(0);
+        this.taskProcessorCount = new AtomicInteger(0);
         this.taskDetailDeque = new LinkedBlockingDeque<TaskResult<R>>(jobLength);
         this.expireTime = expireTime;
     }
@@ -40,12 +40,12 @@ public class JobInfo<R> {
         return successCount.get();
     }
 
-    public int getTaskProcesserCount() {
-        return taskProcesserCount.get();
+    public int getTaskProcessorCount() {
+        return taskProcessorCount.get();
     }
 
-    public ITaskProcesser<?, ?> getTaskProcesser() {
-        return taskProcesser;
+    public ITaskProcessor<?, ?> getTaskProcessor() {
+        return taskProcessor;
     }
 
     /**
@@ -78,18 +78,18 @@ public class JobInfo<R> {
      *
      * @param taskResult
      */
-    public void addTaskResult(TaskResult<R> taskResult, CheckJobProcesser checkJobProcesser) {
+    public void addTaskResult(TaskResult<R> taskResult, CheckJobProcessor checkJobProcessor) {
         taskDetailDeque.addLast(taskResult);
-        taskProcesserCount.incrementAndGet();
+        taskProcessorCount.incrementAndGet();
 
         if (TaskResultType.Success.equals(taskResult.getTaskResultType())) {
             successCount.incrementAndGet();
         }
 
         // 当前任务执行完毕，置入延时过期
-        if (taskProcesserCount.get() == jobLength) {
+        if (taskProcessorCount.get() == jobLength) {
             System.out.println("system: Job [" + jobName + "] is done");
-            checkJobProcesser.putJob(jobName, expireTime);
+            checkJobProcessor.putJob(jobName, expireTime);
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.example.demo._sync.test;
 
-import com.example.demo._sync.vo.ITaskProcesser;
+import com.example.demo._sync.vo.ITaskProcessor;
 import com.example.demo._sync.vo.TaskResult;
 import com.example.demo._sync.vo.TaskResultType;
 
@@ -10,7 +10,7 @@ import java.util.Random;
  * @author hyosunghan
  * @since 2020-02-07
  */
-public class TaskProcesserImpl implements ITaskProcesser<Integer, Integer> {
+public class TaskProcessorImpl implements ITaskProcessor<Integer, Integer> {
 
     @Override
     public TaskResult<Integer> taskExecute(Integer data) {
