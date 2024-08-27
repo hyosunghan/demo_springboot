@@ -116,7 +116,7 @@ public class EmailServer {
     }
 
     public static Store connectMailServer() throws MessagingException {
-        Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+//        Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
 
         String protocol = "imap";
         String port = "993";

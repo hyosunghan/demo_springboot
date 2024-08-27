@@ -1,8 +1,8 @@
 package com.example.demo._sync.test;
 
-import com.alibaba.fastjson.JSON;
 import com.example.demo._sync.PendingJobPool;
 import com.example.demo._sync.vo.TaskResult;
+import org.json.JSONWriter;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ public class TaskTest {
             if (taskPercent == null || taskDetail == null) {
                 System.out.println("第" + (i + 1) + "次查询：任务[" + JOB_NAME + "]已过期");
             } else if (!taskDetail.isEmpty()) {
-                System.out.println("第" + (i + 1) + "次查询：任务[" + JOB_NAME + "]进度[总数" + taskPercent[0] + "完成" + taskPercent[1] + "成功" + taskPercent[2] + "]详情: " + JSON.toJSONString(taskDetail));
+                System.out.println("第" + (i + 1) + "次查询：任务[" + JOB_NAME + "]进度[总数" + taskPercent[0] + "完成" + taskPercent[1] + "成功" + taskPercent[2] + "]详情: " + JSONWriter.valueToString(taskDetail));
             } else {
                 System.out.println("第" + (i + 1) + "次查询：任务[" + JOB_NAME + "]暂无数据");
             }
