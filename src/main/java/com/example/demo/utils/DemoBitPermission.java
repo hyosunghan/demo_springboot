@@ -1,11 +1,6 @@
-package com.example.demo._demo;
+package com.example.demo.utils;
 
-/**
- * @author hyosunghan
- * @since 2020-02-01
- */
-public class Permission {
-
+public class DemoBitPermission {
     private static final int PERMISSION_INSERT = 1 << 0; // 1
     private static final int PERMISSION_DELETE = 1 << 1; // 2
     private static final int PERMISSION_UPDATE = 1 << 2; // 4
@@ -38,14 +33,14 @@ public class Permission {
     }
 
     public static void main(String[] args) {
-        Permission permission = new Permission();
-        permission.setPermissions(PERMISSION_INSERT | PERMISSION_DELETE | PERMISSION_UPDATE | PERMISSION_SELECT);
-        System.out.println(Integer.toBinaryString(permission.getPermissions()));
-        permission.disablePermissions(PERMISSION_INSERT | PERMISSION_DELETE);
-        System.out.println(Integer.toBinaryString(permission.getPermissions()));
-        permission.enablePermissions(PERMISSION_INSERT);
-        System.out.println(Integer.toBinaryString(permission.getPermissions()));
-        System.out.println(permission.isAllow(PERMISSION_INSERT));
-        System.out.println(permission.isNotAllow(PERMISSION_INSERT));
+        DemoBitPermission demoBitPermission = new DemoBitPermission();
+        demoBitPermission.setPermissions(PERMISSION_INSERT | PERMISSION_DELETE | PERMISSION_UPDATE | PERMISSION_SELECT);
+        System.out.println(Integer.toBinaryString(demoBitPermission.getPermissions()));
+        demoBitPermission.disablePermissions(PERMISSION_INSERT | PERMISSION_DELETE);
+        System.out.println(Integer.toBinaryString(demoBitPermission.getPermissions()));
+        demoBitPermission.enablePermissions(PERMISSION_INSERT);
+        System.out.println(Integer.toBinaryString(demoBitPermission.getPermissions()));
+        System.out.println(demoBitPermission.isAllow(PERMISSION_INSERT));
+        System.out.println(demoBitPermission.isNotAllow(PERMISSION_INSERT));
     }
 }
